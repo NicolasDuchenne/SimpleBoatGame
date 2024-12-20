@@ -9,9 +9,12 @@ public class SceneMenu : Scene
 
     public SceneMenu()
     {
-        playButton = new Button {Rect = new Rectangle(10, 40, 200, 40), Text = "Play", Color = Color.White};
-        optionsButton = new Button {Rect = new Rectangle(10, 85, 200, 40), Text = "Options", Color = Color.White};
-        quitButton = new Button {Rect = new Rectangle(10, 130, 200, 40), Text = "Quit", Color = Color.White};
+        int buttonWidth = 100;
+        int buttonHeight = 20;
+        int buttonSpace = 5;
+        playButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40, buttonWidth, buttonHeight), Text = "Play", Color = Color.White};
+        optionsButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+buttonHeight + buttonSpace, buttonWidth, buttonHeight), Text = "Options", Color = Color.White};
+        quitButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Quit", Color = Color.White};
 
         buttonsList.AddButton(playButton);
         buttonsList.AddButton(optionsButton);

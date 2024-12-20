@@ -10,14 +10,15 @@ public static class RaylibGame
 
     public static int Main()
     {
-        int gameScreenWidth = 640;
-        int gameScreenHeight = 360;
+        int gameScreenWidth = 960;
+        int gameScreenHeight = 540;
         InitWindow(gameScreenWidth, gameScreenHeight, "Premier programme Raylib");
         Raylib.SetWindowState(ConfigFlags.ResizableWindow);
         //Raylib.SetWindowState(ConfigFlags.UndecoratedWindow);
         Raylib.SetTargetFPS(60);
         Raylib.InitAudioDevice();
-        //Raylib.SetExitKey(KeyboardKey.Escape);
+        Raylib.SetExitKey(KeyboardKey.Null);
+        Raylib.SetExitKey(KeyboardKey.P);
 
         RenderTexture2D target = Raylib.LoadRenderTexture(gameScreenWidth, gameScreenHeight);
         Raylib.SetTextureFilter(target.Texture, TextureFilter.Point); // pour ne pas avoir d'anti aliasing
@@ -28,7 +29,7 @@ public static class RaylibGame
         gameState.RegisterScene("menu", sceneMenu);
         gameState.RegisterScene("gameplay", sceneGameplay);
         gameState.RegisterScene("options", sceneOptions);
-        gameState.changeScene("menu");
+        gameState.changeScene("gameplay");
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {

@@ -2,8 +2,8 @@ using System.Numerics;
 using Raylib_cs;
 public class SceneOptions : Scene
 {
-    Button backButton = new Button {Rect = new Rectangle(10, 90, 200, 40), Text = "Retour", Color = Color.White};
-    Button okButton = new Button {Rect = new Rectangle(215, 90, 200, 40), Text = "Save options", Color = Color.White};
+    Button backButton = new Button {Rect = new Rectangle(10, 65, 100, 20), Text = "Retour", Color = Color.White};
+    Button okButton = new Button {Rect = new Rectangle(115, 65, 100, 20), Text = "Save options", Color = Color.White};
     private ButtonsList buttonsList = new ButtonsList();
 
     private bool isFullScreen;
@@ -18,17 +18,17 @@ public class SceneOptions : Scene
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText("Options", 5, 5, 25, Color.Black);
+        Raylib.DrawText("Options", 5, 5, 15, Color.Black);
         int screenWidth = GameState.Instance.GameScreenWidth;
-        Raylib.DrawLine(0,30, screenWidth, 30, Color.Black);
+        Raylib.DrawLine(0,25, screenWidth, 25, Color.Black);
         int percent = (int)(GameState.Instance.masterVolume * 100);
-        Raylib.DrawText($"Volume: {percent}%", 10, 35, 20, Color.Black);
+        Raylib.DrawText($"Volume: {percent}%", 10, 35, 10, Color.Black);
         string bFull = "Non";
         if (isFullScreen)
         {
             bFull = "Vrai";
         }
-        Raylib.DrawText($"Plein ecran: {bFull}", 10, 60, 20, Color.Black);
+        Raylib.DrawText($"Plein ecran (press F to toggle): {bFull}", 10, 50, 10, Color.Black);
         buttonsList.Draw();
 
     }

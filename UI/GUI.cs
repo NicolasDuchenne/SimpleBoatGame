@@ -5,6 +5,7 @@ public class Button
 {
     public Rectangle Rect { get; set; }
     public string Text { get; set;} = "";
+    public int textSize = 10;
     public Color Color { get; set;}
     public Color OriginalColor { get; set;}
     public bool IsClicked { get; set;} = false;
@@ -50,7 +51,7 @@ public class ButtonsList
         {
            Raylib.DrawRectangleRec(button.Rect, button.Color);
            Raylib.DrawRectangleLinesEx(button.Rect, 2, Color.Black); 
-           Raylib.DrawText(button.Text, (int)button.Rect.X +10, (int)button.Rect.Y+10, 20, Color.Black);
+           Raylib.DrawText(button.Text, (int)button.Rect.X +10, (int)(button.Rect.Y+(button.Rect.Size.Y - button.textSize)/2), button.textSize, Color.Black);
         }
     }
 }

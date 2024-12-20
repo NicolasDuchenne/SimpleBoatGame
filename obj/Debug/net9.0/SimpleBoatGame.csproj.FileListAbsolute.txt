@@ -21,3 +21,7 @@ c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\obj\Debug\net9.0\re
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\obj\Debug\net9.0\SimpleBoatGame.pdb
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\obj\Debug\net9.0\SimpleBoatGame.genruntimeconfig.cache
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\obj\Debug\net9.0\ref\SimpleBoatGame.dll
+c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\piskel\SimpleBoat.piskel
+c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\png\boat.png
+c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\png\Baril.png
+c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\piskel\Baril.piskel

@@ -36,6 +36,8 @@ public class GameState
 
     public bool finishGame = false;
 
+    public GridMap GridMap {get; private set;}
+
     int ecran = 0;
     int monitorWidth = 0;
     int monitorHeight = 0;
@@ -58,6 +60,11 @@ public class GameState
         debugMagic.AddOption("xOffset", XOffset);
         debugMagic.AddOption("yOffset", YOffset);
         debugMagic.AddOption("Taille ecran", Raylib.GetScreenWidth().ToString() + "x" + Raylib.GetScreenHeight().ToString());
+    }
+
+    public void SetGridMap(GridMap gridMap)
+    {
+        GridMap = gridMap;
     }
 
     public void SetVolume(float volume)

@@ -32,15 +32,31 @@ public class Entity
     }
     
 
-    public void Update()
+    public virtual void Update()
     {
         if (Destroyed)
             return;
         Position += Velocity*Raylib.GetFrameTime();
         Box.Position = Position;
         DebugLabel = Velocity.ToString();
-        if (Position.X > GameState.Instance.GameScreenHeight)
+        if (Position.X > GameState.Instance.GameScreenWidth)
+        {
             Destroy();
+        }
+            
+    }
+
+    public static void DrawCentre(Texture2D texture, Vector2 position, float angle, Color Color)
+    {
+        Rectangle img_rect_source = new Rectangle(0,0, texture.Width, texture.Height);
+        Rectangle img_rect_dest = new Rectangle(position.X,position.Y, texture.Width, texture.Height);
+        Raylib.DrawTexturePro(
+            texture,
+            img_rect_source,
+            img_rect_dest,
+            new Vector2((float)texture.Width/2, (float)texture.Height/2),
+            (float)angle,
+            Color);
     }
 
     public void Draw()
@@ -49,7 +65,8 @@ public class Entity
             return;
         if (!Visible)
             return;
-        Raylib.DrawTextureEx(Texture, Position, Rotation, Scale, BaseColor);
+
+        DrawCentre(Texture, Position, Rotation, BaseColor);
 #if DEBUG
         if(Debug)
         {

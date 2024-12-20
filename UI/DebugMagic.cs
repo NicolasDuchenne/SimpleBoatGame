@@ -32,7 +32,7 @@ public class DebugMagic: OptionsFile
             int y = 20;
             foreach(var option in options)
             {
-                Raylib.DrawText(option.Key + ": " + option.Value, 20, y, 12, Color.White);
+                Raylib.DrawText(option.Key + ": " +option.Value, 20, y, 12, Color.White);
                 y += 14;
             }
         }
