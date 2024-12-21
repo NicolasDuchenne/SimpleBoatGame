@@ -3,7 +3,7 @@ using Raylib_cs;
 
 public class MovableGridEntity: GridEntity
 {
-    public MovableGridEntity(Texture2D texture, int column, int row): base(texture, column,  row)
+    public MovableGridEntity(Sprite sprite, int column, int row): base(sprite, column,  row)
     {
         CanMove = true;
         CanMoveEntities = true;

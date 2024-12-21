@@ -6,8 +6,10 @@ public class SceneGameplay : Scene
 
     private float timer;
 
-    private Texture2D texBoat = Raylib.LoadTexture("images/png/boat.png");
-    private Texture2D texBaril = Raylib.LoadTexture("images/png/Baril.png");
+    private Sprite spriteBoat = new Sprite(Raylib.LoadTexture("images/png/boat.png"));
+    private Sprite spriteBaril = new Sprite(Raylib.LoadTexture("images/png/Baril.png"));
+    private Sprite spriteObstacle = new Sprite(Raylib.LoadTexture("images/png/Obstacle.png"));
+    private Sprite spriteFregate = new Sprite(Raylib.LoadTexture("images/png/Fregate.png"), 1, 6, 6, 32, 32);
     private GridMap gridMap;
     int columnNumber = 10;
     int rowNumber = 10;
@@ -43,10 +45,12 @@ public class SceneGameplay : Scene
         Entity.ALL.Clear();   
         gridMap = new GridMap(columnNumber, rowNumber, size);
         GameState.Instance.SetGridMap(gridMap);
-        new GridEntity(texBaril, 4, 4);
-        new MovableGridEntity(texBaril, 5, 2);
-        new MovableGridEntity(texBaril, 6, 2);
-        new Player(texBoat, 2, 2);
+        new GridEntity(spriteObstacle, 4, 4);
+        new MovableGridEntity(spriteBaril, 5, 2);
+        new MovableGridEntity(spriteBaril, 6, 4);
+
+        new EnemyGridEntity(spriteFregate, 0, 0);
+        new Player(spriteBoat, 2, 2);
         
     }
 }

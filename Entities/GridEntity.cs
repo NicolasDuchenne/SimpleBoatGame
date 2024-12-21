@@ -7,9 +7,9 @@ public class GridEntity: Entity
     public int Column {get; protected set;}
     public int Row {get; protected set;}
     public bool CanMove {get; protected set;} = false;
-    public bool CanMoveEntities {get; protected set;} = true;
+    public bool CanMoveEntities {get; protected set;} = false;
     
-    public GridEntity(Texture2D texture, int column, int row): base(texture, GetCenterPositionFromTile(column, row))
+    public GridEntity(Sprite sprite, int column, int row): base(sprite, GetCenterPositionFromTile(column, row))
     {
         (column, row) = ClampPosition(column, row);
         Column = column;

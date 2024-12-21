@@ -4,7 +4,7 @@ using Raylib_cs;
 public class Entity
 {
     public static List<Entity> ALL = new List<Entity>();
-    public Texture2D Texture {get; private set;}
+    public Sprite Sprite {get; private set;}
     public Vector2 Position;
     public Vector2 Velocity;
     private Rectangle Box;
@@ -17,12 +17,12 @@ public class Entity
     public bool Destroyed {get; private set;} = false;
     public bool Debug = false;
     public string DebugLabel = "";
-    public Entity(Texture2D texture, Vector2 position)
+    public Entity(Sprite sprite, Vector2 position)
     {
-        Texture = texture;
+        Sprite = sprite;
         Position = position;
         Velocity = Vector2.Zero;
-        Box = new Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height);
+        Box = new Rectangle(Position.X, Position.Y, Sprite.Width, Sprite.Height);
         ALL.Add(this);
     }
 
@@ -36,6 +36,8 @@ public class Entity
     {
         if (Destroyed)
             return;
+
+        Sprite.Update();
         Position += Velocity*Raylib.GetFrameTime();
         Box.Position = Position;
         DebugLabel = Velocity.ToString();
@@ -43,20 +45,8 @@ public class Entity
         {
             Destroy();
         }
+        
             
-    }
-
-    public static void DrawCentre(Texture2D texture, Vector2 position, float angle, Color Color)
-    {
-        Rectangle img_rect_source = new Rectangle(0,0, texture.Width, texture.Height);
-        Rectangle img_rect_dest = new Rectangle(position.X,position.Y, texture.Width, texture.Height);
-        Raylib.DrawTexturePro(
-            texture,
-            img_rect_source,
-            img_rect_dest,
-            new Vector2((float)texture.Width/2, (float)texture.Height/2),
-            (float)angle,
-            Color);
     }
 
     public void Draw()
@@ -65,12 +55,11 @@ public class Entity
             return;
         if (!Visible)
             return;
-
-        DrawCentre(Texture, Position, Rotation, BaseColor);
+        Sprite.Draw(Position, Rotation, BaseColor);
 #if DEBUG
         if(Debug)
         {
-            Raylib.DrawText(DebugLabel, (int)(Position.X+Texture.Width + 2), (int)Position.Y, 12, Color.Red);
+            Raylib.DrawText(DebugLabel, (int)(Position.X+Sprite.Width + 2), (int)Position.Y, 12, Color.Red);
         }
 #endif
     }

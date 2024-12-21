@@ -9,7 +9,7 @@ public abstract class Scene
     }
     public virtual void Show()
     {
-        Console.WriteLine($"load scene {name}");
+
     }
 
     public virtual void Hide()
@@ -28,6 +28,6 @@ public abstract class Scene
 
     public virtual void Close()
     {
-        Console.WriteLine($"destruction de la scene {name}");
+        
     }
 }

@@ -38,6 +38,17 @@ public class GameState
 
     public GridMap GridMap {get; private set;}
 
+    public float PlayerTimer {get; private set;} = 0;
+    private float playerTurnDuration = 1f;
+    public bool PlayerPlayTurn {get; private set;}
+
+    public bool EnemyPlayTurn{get; private set;}
+    private bool enemyHasPlayed;
+
+    private int timerWidth = 400;
+    private int timerHeight = 20;
+    private int timerYOffset = 30;
+
     int ecran = 0;
     int monitorWidth = 0;
     int monitorHeight = 0;
@@ -145,11 +156,46 @@ public class GameState
             Debug.WriteLine(error);
             throw new Exception(error);
         }
-        Console.WriteLine("Change scene vers " + name);
+        
+    }
+
+    private void updateTimers()
+    {
+        PlayerPlayTurn = false;
+        EnemyPlayTurn = false;
+        PlayerTimer+=Raylib.GetFrameTime();
+        debugMagic.AddOption("playerTimer", Math.Round(PlayerTimer,1));
+        if (PlayerTimer > playerTurnDuration)
+        {
+            PlayerTimer = 0;
+            PlayerPlayTurn = true;
+        } 
+        if (PlayerTimer > playerTurnDuration*0.5)
+        {
+            if (enemyHasPlayed == false)
+            {
+                enemyHasPlayed = true;
+                EnemyPlayTurn = true;
+            }
+        }
+        else
+        {
+            enemyHasPlayed = false;
+        }
+            
+    }
+
+    private void DrawTimer()
+    {
+        Raylib.DrawRectangleRec(new Rectangle((GameScreenWidth-timerWidth)/2, GameScreenHeight-timerHeight - timerYOffset, (int)Math.Round(timerWidth*(PlayerTimer/playerTurnDuration)), timerHeight), Color.White);
+        Raylib.DrawRectangleLinesEx(new Rectangle((GameScreenWidth-timerWidth)/2, GameScreenHeight-timerHeight- timerYOffset, timerWidth, timerHeight),2, Color.Black);
+        Raylib.DrawLineEx(new Vector2(GameScreenWidth/2, GameScreenHeight-timerHeight - timerYOffset),  new Vector2(GameScreenWidth/2, GameScreenHeight-timerYOffset),2, Color.Black);
+        
     }
 
     public void Update()
     {
+        updateTimers();
         ChangeAspectRatio();
         currentScene?.Update(); // put the ? to signify that we know that it could be null
         debugMagic.Update();
@@ -157,6 +203,7 @@ public class GameState
     public void Draw()
     {
         currentScene.Draw();
+        DrawTimer();
 #if DEBUG
         debugMagic.Draw();
 #endif
