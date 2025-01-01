@@ -34,7 +34,7 @@ public class SceneMenu : Scene
         buttonsList.Update();
         if (playButton.IsClicked)
         {
-            GameState.Instance.changeScene("gameplay");
+            GameState.Instance.changeScene("level 1");
         }
         else if  (optionsButton.IsClicked)
         {

@@ -14,7 +14,7 @@ public class Entity
     public string State = "";
     public string Type = "";
     public bool Visible = true;
-    public bool Destroyed {get; private set;} = false;
+    public bool Destroyed {get; protected set;} = false;
     public bool Debug = false;
     public string DebugLabel = "";
     public Entity(Sprite sprite, Vector2 position)
@@ -26,7 +26,7 @@ public class Entity
         ALL.Add(this);
     }
 
-    public void Destroy()
+    public virtual void Destroy()
     {
         Destroyed = true;
     }
@@ -38,18 +38,9 @@ public class Entity
             return;
 
         Sprite.Update();
-        Position += Velocity*Raylib.GetFrameTime();
-        Box.Position = Position;
-        DebugLabel = Velocity.ToString();
-        if (Position.X > GameState.Instance.GameScreenWidth)
-        {
-            Destroy();
-        }
-        
-            
     }
 
-    public void Draw()
+    public virtual void Draw()
     {
         if (Destroyed)
             return;

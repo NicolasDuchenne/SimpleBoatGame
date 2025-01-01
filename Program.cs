@@ -5,8 +5,10 @@ using System.Numerics;
 public static class RaylibGame
 {
     static SceneMenu sceneMenu = new SceneMenu();
-    static SceneGameplay sceneGameplay = new SceneGameplay();
     static SceneOptions sceneOptions = new SceneOptions();
+    static SceneLevel1 sceneLevel1 = new SceneLevel1();
+    static SceneLevel2 sceneLevel2 = new SceneLevel2();
+    
 
     public static int Main()
     {
@@ -27,9 +29,10 @@ public static class RaylibGame
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
         gameState.RegisterScene("menu", sceneMenu);
-        gameState.RegisterScene("gameplay", sceneGameplay);
         gameState.RegisterScene("options", sceneOptions);
-        gameState.changeScene("gameplay");
+        gameState.RegisterScene("level 1", sceneLevel1, "level 2");
+        gameState.RegisterScene("level 2", sceneLevel2, "menu");
+        gameState.changeScene("menu");
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {

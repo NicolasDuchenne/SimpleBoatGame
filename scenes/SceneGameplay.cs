@@ -1,4 +1,5 @@
 using Raylib_cs;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 public class SceneGameplay : Scene
@@ -6,22 +7,27 @@ public class SceneGameplay : Scene
 
     private float timer;
 
-    private Sprite spriteBoat = new Sprite(Raylib.LoadTexture("images/png/boat.png"));
-    private Sprite spriteBaril = new Sprite(Raylib.LoadTexture("images/png/Baril.png"));
-    private Sprite spriteObstacle = new Sprite(Raylib.LoadTexture("images/png/Obstacle.png"));
-    private Sprite spriteFregate = new Sprite(Raylib.LoadTexture("images/png/Fregate.png"), 1, 6, 6, 32, 32);
-    private GridMap gridMap;
-    int columnNumber = 10;
-    int rowNumber = 10;
-    int size = 40;
+    private DeathScreen deathScreen;
+
+    private WinScreen winScreen;
+    
+    protected GridMap gridMap;
+    protected int columnNumber;
+    protected int rowNumber;
+    protected int size = 40;
 
     public override void Draw()
     {
         base.Draw();
         Raylib.DrawRectangleRec(new Rectangle(0, 0, GameState.Instance.GameScreenWidth, GameState.Instance.GameScreenHeight), Color.DarkBlue);
-        gridMap.Draw();
+
         Entity.DrawAll();
+        gridMap.Draw();
+        deathScreen.Draw();
+        winScreen.Draw();
+        Raylib.DrawText(name, (int)(GameState.Instance.GameScreenWidth*0.5), 5, 25, Color.Black);
     }
+
     public override void Update()
     {
         base.Update();
@@ -34,23 +40,27 @@ public class SceneGameplay : Scene
         {
             GameState.Instance.changeScene("menu");
         }
+        gridMap.Update();
         Entity.UpdateAll();
         GameState.Instance.debugMagic.AddOption("size", size);
+        GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
+        if (GameState.Instance.enemyNumber == 0)
+        {
+            GameState.Instance.levelFinished = true;
+        }
+
+        deathScreen.Update();
+        winScreen.Update();
     }
 
     public override void Show()
     {
-        Random rnd = new Random();
+        GameState.Instance.elemInPast = 0;
+        GameState.Instance.levelFinished = false;
+        GameState.Instance.enemyNumber = 0;
         base.Show();
         Entity.ALL.Clear();   
-        gridMap = new GridMap(columnNumber, rowNumber, size);
-        GameState.Instance.SetGridMap(gridMap);
-        new GridEntity(spriteObstacle, 4, 4);
-        new MovableGridEntity(spriteBaril, 5, 2);
-        new MovableGridEntity(spriteBaril, 6, 4);
-
-        new EnemyGridEntity(spriteFregate, 0, 0);
-        new Player(spriteBoat, 2, 2);
-        
+        deathScreen = new DeathScreen(name);
+        winScreen = new WinScreen(next_scene);
     }
 }

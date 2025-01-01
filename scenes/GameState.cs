@@ -27,6 +27,8 @@ public class GameState
     public float XOffset {get; private set;} = 0;
     public float YOffset {get; private set;} = 0;
 
+    public Mouse Mouse = new Mouse();
+
     private Dictionary<string, Scene> scenes;
 
     public DebugMagic debugMagic = new DebugMagic();
@@ -45,6 +47,9 @@ public class GameState
     public bool EnemyPlayTurn{get; private set;}
     private bool enemyHasPlayed;
 
+    public int elemInPast = 0;
+    public int MaxElemInPast {get; private set;} = 1;
+
     private int timerWidth = 400;
     private int timerHeight = 20;
     private int timerYOffset = 30;
@@ -52,6 +57,11 @@ public class GameState
     int ecran = 0;
     int monitorWidth = 0;
     int monitorHeight = 0;
+
+    public bool playerDead = false;
+    public bool levelFinished = false;
+
+    public int enemyNumber = 0;
     public void SetVirtualGameResolution(int width, int height)
     {
         GameScreenWidth = width;
@@ -126,10 +136,12 @@ public class GameState
             Raylib.SetWindowState(ConfigFlags.ResizableWindow);
         } 
     }
-    public void RegisterScene(string name, Scene scene)
+    public void RegisterScene(string name, Scene scene, string next_scene="")
     {
         scene.name = name;
         scenes[name] = scene;
+        if (next_scene!="")
+            scene.next_scene = next_scene;
     }
 
     public void RemoveScene(string name)
@@ -195,6 +207,7 @@ public class GameState
 
     public void Update()
     {
+        Mouse.Update();
         updateTimers();
         ChangeAspectRatio();
         currentScene?.Update(); // put the ? to signify that we know that it could be null

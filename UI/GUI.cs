@@ -21,11 +21,7 @@ public class ButtonsList
     }
     public void Update()
     {
-        Vector2 mousePos = Raylib.GetMousePosition();
-        mousePos.X -= GameState.Instance.XOffset;
-        mousePos.X /= GameState.Instance.Scale;
-        mousePos.Y -= GameState.Instance.YOffset;
-        mousePos.Y /= GameState.Instance.Scale;
+        Vector2 mousePos = GameState.Instance.Mouse.MousePos;
         foreach(Button button in buttons)
         {
             button.IsClicked = false;

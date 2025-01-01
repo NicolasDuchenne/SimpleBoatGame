@@ -38,6 +38,27 @@ public class Sprite
         
     }
 
+    public static Sprite SpriteFromConfig(Dictionary<string, object> config)
+    {
+        Sprite sprite;
+        if (config.ContainsKey("width"))
+        {
+            sprite = new Sprite(
+                (Texture2D)config["texture"],
+                (int)config["nCol"],
+                (int)config["nRow"], 
+                (int)config["fps"], 
+                (int)config["width"], 
+                (int)config["height"]
+            );
+        }
+        else
+        {
+            sprite = new Sprite((Texture2D)config["texture"]);
+        }
+        return sprite;
+    }
+
     public void DrawCentre(Texture2D texture, Vector2 position, float angle, Color Color)
     {
         Rectangle img_rect_source = framePos[currentFrame];

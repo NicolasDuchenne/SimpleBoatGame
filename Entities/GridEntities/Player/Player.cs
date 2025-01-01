@@ -1,12 +1,27 @@
 using System.Numerics;
 using Raylib_cs;
 
-public class Player: GridEntity
+public class Player
+{
+    public static Dictionary<string, object> Boat = new Dictionary<string, object>
+    {
+        { "texture", Raylib.LoadTexture("images/png/Boat.png")},
+    };
+
+    public static void Create(int col , int row)
+    {
+        Sprite sprite = Sprite.SpriteFromConfig(Boat);
+        new PlayerBoat(sprite, col, row);
+    }
+}
+
+public class PlayerBoat: GridEntity
 {
     Vector2 direction = new Vector2();
-    public Player(Sprite sprite, int column, int row): base(sprite, column,  row)
+    public PlayerBoat(Sprite sprite, int column, int row): base(sprite, column,  row)
     {
         CanMoveEntities = true;
+        CanBeHurt = true;
     }
     public override void Update()
     {
@@ -34,5 +49,14 @@ public class Player: GridEntity
         }
             
         base.Update();
+    }
+
+    public override void Hit()
+    {
+        if (InThePast == false)
+        {
+            GameState.Instance.playerDead = true;
+            Destroy();
+        }
     }
 }

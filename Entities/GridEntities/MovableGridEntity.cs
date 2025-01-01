@@ -7,5 +7,7 @@ public class MovableGridEntity: GridEntity
     {
         CanMove = true;
         CanMoveEntities = true;
+        // l'ennemie qui apparait ne peut pas être detruit touché lorsqu'il est créé car canBeHurt passe a true après son instantiation
+        CanBeHurt = true;
     }
 }

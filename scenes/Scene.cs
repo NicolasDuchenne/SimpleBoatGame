@@ -2,6 +2,7 @@ public abstract class Scene
 {
     public static int nombreDeScene;
     public string name;
+    public string next_scene;
 
     public Scene()
     {
