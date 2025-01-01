@@ -13,13 +13,17 @@ public class GridEntity: Entity
     public bool CanBeHurt {get; protected set;} = false;
 
     public bool InThePast = false;
+
+    public bool CanBeSentInThepast  {get; protected set;}
     
-    public GridEntity(Sprite sprite, int column, int row): base(sprite, GetCenterPositionFromTile(column, row))
+    public GridEntity(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
     {
         (column, row) = ClampPosition(column, row);
         Column = column;
         Row = row; 
         GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
+        CanBeSentInThepast = canBeSentInThePast;
+
     }
 
     public bool Move(Vector2 direction)
@@ -67,12 +71,19 @@ public class GridEntity: Entity
         }
     }
 
-    public override void Draw()
+    public override void Draw(Color? color = null)
     {
-        if (InThePast == false)
+        Color? drawColor = color;
+        if (InThePast)
         {
-            base.Draw();
+            drawColor = new Color(255, 255, 255, 60);
         }
+        else if (CanBeSentInThepast == false)
+        {
+            drawColor = Color.SkyBlue;
+        }
+
+        base.Draw(drawColor);
     }
 
     private static Vector2 GetCenterPositionFromTile(int column, int row)
@@ -85,7 +96,6 @@ public class GridEntity: Entity
     {
         if (InThePast == false)
         {
-            Console.WriteLine("I'm Hit");
             Destroy();
         }
     }

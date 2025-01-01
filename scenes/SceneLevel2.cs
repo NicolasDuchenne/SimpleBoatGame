@@ -1,14 +1,11 @@
 using Raylib_cs;
 public class SceneLevel2:SceneGameplay
 {
-    public SceneLevel2():base()
-    {
-        columnNumber = 8;
-        rowNumber = 8;
-    }
     public override void Show()
     {
         base.Show();
+        columnNumber = 8;
+        rowNumber = 8;
         gridMap = new GridMap(columnNumber, rowNumber, size);
         GameState.Instance.SetGridMap(gridMap);
         Obstacles.Create(Obstacles.Obstacle, 4, 5);

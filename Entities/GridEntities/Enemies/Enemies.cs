@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 public class Enemies
 {
@@ -11,10 +12,10 @@ public class Enemies
         { "height", 32 },
     };
 
-    public static void Create(Dictionary<string, object> config, int col , int row)
+    public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true)
     {
         Sprite sprite = Sprite.SpriteFromConfig(config);
-        new EnemyGridEntity(sprite, col, row);
+        new EnemyGridEntity(sprite, col, row, direction, canBeSentInThePast);
     }
 
 }

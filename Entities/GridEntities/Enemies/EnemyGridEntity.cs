@@ -9,7 +9,7 @@ public class EnemyGridEntity: GridEntity
     public int TargetRow {get; protected set;} = GameState.Instance.GridMap.Tiles[0].Count - 1;
     public Vector2 Direction = new Vector2(0,1);
 
-    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2()): base(sprite, column,  row)
+    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, canBeSentInThePast)
     {
         CanMove = false;
         CanMoveEntities = false;
@@ -25,7 +25,7 @@ public class EnemyGridEntity: GridEntity
     {
         GameState.Instance.debugMagic.AddOption("target column", TargetColumn);
         
-        if (GameState.Instance.EnemyPlayTurn)
+        if (Timers.Instance.EnemyPlayTurn)
         {
             bool hasMoved = Move(Direction);
             if ((hasMoved == false) & (InThePast == false))

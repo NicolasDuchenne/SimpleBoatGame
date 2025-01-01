@@ -18,7 +18,7 @@ public class Player
 public class PlayerBoat: GridEntity
 {
     Vector2 direction = new Vector2();
-    public PlayerBoat(Sprite sprite, int column, int row): base(sprite, column,  row)
+    public PlayerBoat(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, column,  row, canBeSentInThePast)
     {
         CanMoveEntities = true;
         CanBeHurt = true;
@@ -42,7 +42,7 @@ public class PlayerBoat: GridEntity
         {
             direction = new Vector2(0, 1);
         }
-        if ((GameState.Instance.PlayerPlayTurn) & (direction != new Vector2()))
+        if ((Timers.Instance.PlayerPlayTurn) & (direction != new Vector2()))
         {
             Move(direction);
             direction = new Vector2();

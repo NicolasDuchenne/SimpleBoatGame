@@ -6,10 +6,10 @@ public class Obstacles
         { "texture", Raylib.LoadTexture("images/png/Obstacle.png")},
     };
 
-    public static void Create(Dictionary<string, object> config, int col , int row)
+    public static void Create(Dictionary<string, object> config, int col , int row, bool canBeSentInThePast=true)
     {
         Sprite sprite = Sprite.SpriteFromConfig(config);
-        new GridEntity(sprite, col, row);
+        new GridEntity(sprite, col, row, canBeSentInThePast);
     }
 
 }

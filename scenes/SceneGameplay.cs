@@ -25,12 +25,14 @@ public class SceneGameplay : Scene
         gridMap.Draw();
         deathScreen.Draw();
         winScreen.Draw();
+        Timers.Instance.Draw();
         Raylib.DrawText(name, (int)(GameState.Instance.GameScreenWidth*0.5), 5, 25, Color.Black);
     }
 
     public override void Update()
     {
         base.Update();
+        Timers.Instance.Update();
         timer+=Raylib.GetFrameTime();
 #if DEBUG
         GameState.Instance.debugMagic.AddOption("timer", timer);

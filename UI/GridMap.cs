@@ -78,8 +78,8 @@ public class Tile
 
     private Rectangle rect ;
 
-    private int turnInPast = 0;
-    private int maxTurnInPast = 3;
+    private float turnInPast = 0;
+    private float maxTurnInPast = 3;
 
     public Tile(Vector2 position, int size, Color color)
     {
@@ -100,10 +100,8 @@ public class Tile
             }
             else
             {
-                Console.WriteLine(GridEntity.CanBeHurt);
                 if (GridEntity.CanBeHurt)
                     GridEntity.Hit();
-                Console.WriteLine(gridEntity.CanBeHurt);
                 if (gridEntity.CanBeHurt)
                     gridEntity.Hit();
             }
@@ -117,9 +115,10 @@ public class Tile
     {
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
-        if ((GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)))
+        if ((GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)) )
         {
-            isMousedOver = true;
+            if (GridEntity.CanBeSentInThepast)
+                isMousedOver = true;
         }
         if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
         {
@@ -128,10 +127,7 @@ public class Tile
             removeEntity();
             GameState.Instance.elemInPast ++;
         }
-        if ((PastGridEntity is not null)&GameState.Instance.PlayerPlayTurn)
-        {
-            turnInPast ++;
-        }
+        // We test this before incrementing so that the set entity is made after either Player or all enemy have played there turn
         if (turnInPast == maxTurnInPast)
         {
             PastGridEntity.InThePast = false;
@@ -140,6 +136,11 @@ public class Tile
             turnInPast = 0;
             GameState.Instance.elemInPast = 0;
         }
+        if ((PastGridEntity is not null)&((Timers.Instance.PlayerPlayTurn)|(Timers.Instance.EnemyPlayTurn)))
+        {      
+            turnInPast = turnInPast + 0.5f;
+        }
+        
     }
 
     public void removeEntity()
@@ -156,7 +157,7 @@ public class Tile
         if (PastGridEntity is not null)
         {
             Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
-            Raylib.DrawText($"{(maxTurnInPast-turnInPast).ToString()}", (int)Position.X+Size/2, (int)Position.Y+Size/2, 12, Color);
+            Raylib.DrawText($"{Math.Ceiling(maxTurnInPast-turnInPast).ToString()}", (int)Position.X+Size/2, (int)Position.Y+Size/2, 12, Color);
         }
         Raylib.DrawRectangleLinesEx(new Rectangle(Position, Size, Size), 1, Color);
     }

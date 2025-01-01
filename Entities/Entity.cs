@@ -40,13 +40,20 @@ public class Entity
         Sprite.Update();
     }
 
-    public virtual void Draw()
+    public virtual void Draw(Color? color=null)
     {
         if (Destroyed)
             return;
         if (!Visible)
             return;
-        Sprite.Draw(Position, Rotation, BaseColor);
+        if (color is not null)
+        {
+            Sprite.Draw(Position, Rotation, (Color)color);
+        }
+        else
+        {
+            Sprite.Draw(Position, Rotation, BaseColor);
+        }
 #if DEBUG
         if(Debug)
         {

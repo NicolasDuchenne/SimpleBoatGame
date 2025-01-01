@@ -32,7 +32,7 @@ public static class RaylibGame
         gameState.RegisterScene("options", sceneOptions);
         gameState.RegisterScene("level 1", sceneLevel1, "level 2");
         gameState.RegisterScene("level 2", sceneLevel2, "menu");
-        gameState.changeScene("menu");
+        gameState.changeScene("level 1");
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {
