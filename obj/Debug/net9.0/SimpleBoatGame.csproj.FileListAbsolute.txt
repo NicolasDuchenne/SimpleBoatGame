@@ -30,3 +30,4 @@ c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\im
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\piskel\Fregate.piskel
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\png\Fregate.png
 c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\images\png\Fregate.piskel
+c:\Users\nicol\Documents\GamingCampus\Module2\SimpleBoatGame\bin\Debug\net9.0\Shaders\water.fs
