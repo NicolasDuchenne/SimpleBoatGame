@@ -17,7 +17,7 @@ public class SceneOptions : Scene
     {
         backButton = new Button {Rect = new Rectangle(10, 65, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
         okButton = new Button {Rect = new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Save options", Color = Color.White};
-        deleteSaveButton = new Button {Rect = new Rectangle(10 + 2*(buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
+        deleteSaveButton = new Button {Rect = new Rectangle(10, 65 + 5*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
             
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
@@ -66,6 +66,11 @@ public class SceneOptions : Scene
         {
             isFullScreen = !isFullScreen;
             
+        }
+
+        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+        {
+            GameState.Instance.changeScene("menu");
         }
 
         if  (backButton.IsClicked)
