@@ -37,9 +37,9 @@ public class GameState
 
     public bool finishGame = false;
 
+    public string currentLevel;
+
     public GridMap GridMap {get; private set;}
-
-
 
     public int elemInPast = 0;
     public int MaxElemInPast {get; private set;} = 1;
@@ -164,9 +164,6 @@ public class GameState
     }
 
     
-
-
-
     public void Update()
     {
         Mouse.Update();

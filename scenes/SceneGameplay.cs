@@ -57,6 +57,7 @@ public class SceneGameplay : Scene
 
     public override void Show()
     {
+        GameState.Instance.currentLevel = name;
         GameState.Instance.elemInPast = 0;
         GameState.Instance.levelFinished = false;
         GameState.Instance.enemyNumber = 0;

@@ -4,17 +4,15 @@ public class SceneLevel2:SceneGameplay
     public override void Show()
     {
         base.Show();
-        columnNumber = 8;
-        rowNumber = 8;
-        gridMap = new GridMap(columnNumber, rowNumber, size);
-        GameState.Instance.SetGridMap(gridMap);
-        Obstacles.Create(Obstacles.Obstacle, 4, 5);
-        Obstacles.Create(Obstacles.Obstacle, 0, 5);
-        MovableObstacles.Create(MovableObstacles.Baril, 1, 2);
-        MovableObstacles.Create(MovableObstacles.Baril, 4, 4);
-        MovableObstacles.Create(MovableObstacles.Baril, 6, 4);
-
-        Player.Create(4,2);
-        Enemies.Create(Enemies.Fregate, 0, 0);
+        string jsonMatrix = @"
+        [
+            [0 , 0 , 41],
+            [32, 22, 32],
+            [32, 1 , 32],
+            [32, 32, 32]
+        ]";
+        LevelCreator levelCreator = new LevelCreator(jsonMatrix);
+        gridMap = levelCreator.Create();
+        
     }
 }
