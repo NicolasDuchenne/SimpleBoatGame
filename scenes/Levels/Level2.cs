@@ -1,5 +1,5 @@
 using Raylib_cs;
-public class SceneLevel2:SceneGameplay
+public class Level2:SceneGameplay
 {
     public override void Show()
     {

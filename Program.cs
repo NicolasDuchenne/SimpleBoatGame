@@ -7,9 +7,9 @@ public static class RaylibGame
     static SceneMenu sceneMenu = new SceneMenu();
     static SceneMenuLevel sceneMenuLevel = new SceneMenuLevel();
     static SceneOptions sceneOptions = new SceneOptions();
-    static SceneLevel1 sceneLevel1 = new SceneLevel1();
-    static SceneLevel2 sceneLevel2 = new SceneLevel2();
-    static SceneLevel3 sceneLevel3 = new SceneLevel3();
+    static Level1 Level1 = new Level1();
+    static Level2 Level2 = new Level2();
+    static Level3 Level3 = new Level3();
     
 
     public static int Main()
@@ -33,9 +33,9 @@ public static class RaylibGame
         gameState.RegisterScene("menu", sceneMenu);
         gameState.RegisterScene("menuLevel", sceneMenuLevel);
         gameState.RegisterScene("options", sceneOptions);
-        gameState.RegisterScene("1", sceneLevel1, "2");
-        gameState.RegisterScene("2", sceneLevel2, "3");
-        gameState.RegisterScene("3", sceneLevel3, "meneu");
+        gameState.RegisterScene("1", Level1, "2");
+        gameState.RegisterScene("2", Level2, "3");
+        gameState.RegisterScene("3", Level3, "menu");
         gameState.changeScene("menu");
 
         while (!WindowShouldClose() & gameState.finishGame == false)
