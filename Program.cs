@@ -37,15 +37,19 @@ public static class RaylibGame
         gameState.RegisterScene("2", Level2, "3");
         gameState.RegisterScene("3", Level3, "menu");
         gameState.changeScene("menu");
+        Water water = new Water();
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {
             gameState.Update();
+            water.Update();
             
             BeginDrawing();
             ClearBackground(Color.White);
             Raylib.BeginTextureMode(target); // dessine dans la target
             ClearBackground(Color.LightGray);
+            
+            water.Draw();
             gameState.Draw();
             Raylib.EndTextureMode();
             Rectangle sourceRect = new Rectangle(0, 0, target.Texture.Width, -target.Texture.Height); // Dans OpenGl, les axe des texturesy sont inversé, donc on mets le -

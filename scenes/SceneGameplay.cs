@@ -16,18 +16,16 @@ public class SceneGameplay : Scene
     protected int columnNumber;
     protected int rowNumber;
     protected int size = 40;
-    Water water;
 
     public SceneGameplay():base()
     {
-        water = new Water();
+        
     }
 
     public override void Draw()
     {
         base.Draw();
         //Raylib.DrawRectangleRec(new Rectangle(0, 0, GameState.Instance.GameScreenWidth, GameState.Instance.GameScreenHeight), Color.DarkBlue);
-        water.Draw();
         Entity.DrawAll();
         gridMap.Draw();
         deathScreen.Draw();
@@ -64,7 +62,6 @@ public class SceneGameplay : Scene
 
         deathScreen.Update();
         winScreen.Update();
-        water.Update();
     }
 
     public override void Show()

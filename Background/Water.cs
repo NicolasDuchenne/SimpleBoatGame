@@ -5,10 +5,9 @@ public class Water
     Texture2D waterTexture;
     Shader waterShader;
     int timeLoc;
+    int windowWidthLoc;
+    int windowHeightLoc;
     float time;
-    int textureLoc;
-    Rectangle sourceRect;
-    Rectangle destRect;
     public Water()
     {
         time = 0;
@@ -21,13 +20,13 @@ public class Water
         waterShader = Raylib.LoadShader(null, "Shaders/water.fs");
 
         timeLoc = Raylib.GetShaderLocation(waterShader, "time");
-        textureLoc = Raylib.GetShaderLocation(waterShader, "texture0");
+        windowWidthLoc = Raylib.GetShaderLocation(waterShader, "windowWidth");
+        windowHeightLoc = Raylib.GetShaderLocation(waterShader, "windowHeight");
 
         // Set the texture uniform to texture unit 0
-        Raylib.SetShaderValueTexture(waterShader, textureLoc, waterTexture);
-
-        sourceRect = new Rectangle(0, 0, waterTexture.Width, -waterTexture.Height); // Flip vertically
-        destRect = new Rectangle(0, 0, GameState.Instance.GameScreenWidth, GameState.Instance.GameScreenHeight);
+        Raylib.SetShaderValue(waterShader, windowWidthLoc, new float[] { GameState.Instance.GameScreenWidth }, ShaderUniformDataType.Float);
+        Raylib.SetShaderValue(waterShader, windowHeightLoc, new float[] { GameState.Instance.GameScreenHeight }, ShaderUniformDataType.Float);
+    
     }
     public void Draw()
     {
