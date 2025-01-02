@@ -1,25 +1,25 @@
 using Raylib_cs;
 public class SceneMenu : Scene
 {
-    private Button playButton;
     private Button optionsButton;
     private Button quitButton;
-    private Button loadButton;
+    private Button resumeButton;
+    private Button choseButton;
 
     private ButtonsList buttonsList = new ButtonsList();
 
     public SceneMenu()
     {
-        int buttonWidth = 100;
+        int buttonWidth = 120;
         int buttonHeight = 20;
         int buttonSpace = 5;
-        playButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40, buttonWidth, buttonHeight), Text = "Start new Game", Color = Color.White};
-        loadButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Load", Color = Color.White};
-        optionsButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Options", Color = Color.White};
-        quitButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Quit", Color = Color.White};
+        resumeButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Start", Color = Color.White};
+        choseButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Chose Level", Color = Color.White};
+        optionsButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Options", Color = Color.White};
+        quitButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+4*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Quit", Color = Color.White};
         
-        buttonsList.AddButton(playButton);
-        buttonsList.AddButton(loadButton);
+        buttonsList.AddButton(resumeButton);
+        buttonsList.AddButton(choseButton);
         buttonsList.AddButton(optionsButton);
         buttonsList.AddButton(quitButton);
     }
@@ -36,22 +36,28 @@ public class SceneMenu : Scene
         base.Update();
         buttonsList.Update();
         GameState.Instance.debugMagic.AddOption("current level", GameState.Instance.currentLevel);
-        if (playButton.IsClicked)
+        if (resumeButton.IsClicked)
         {
-            GameState.Instance.changeScene("level 1");
+            GameState.Instance.changeScene(GameState.Instance.maxCurrentLevel.ToString());
         }
-        if ((loadButton.IsClicked) & (GameState.Instance.currentLevel is not null))
+        else if (choseButton.IsClicked)
         {
-            GameState.Instance.changeScene(GameState.Instance.currentLevel);
+            GameState.Instance.changeScene("menuLevel");
         }
         else if  (optionsButton.IsClicked)
         {
             GameState.Instance.changeScene("options");
         }
+
         else if  (quitButton.IsClicked)
         {
             GameState.Instance.finishGame = true;
         }
         
+    }
+
+    public override void Show()
+    { 
+        resumeButton.Text = $"Start Level {GameState.Instance.maxCurrentLevel}";
     }
 }

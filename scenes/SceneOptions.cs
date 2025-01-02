@@ -2,16 +2,26 @@ using System.Numerics;
 using Raylib_cs;
 public class SceneOptions : Scene
 {
-    Button backButton = new Button {Rect = new Rectangle(10, 65, 100, 20), Text = "Retour", Color = Color.White};
-    Button okButton = new Button {Rect = new Rectangle(115, 65, 100, 20), Text = "Save options", Color = Color.White};
+    int buttonWidth = 120;
+    int buttonHeight = 20;
+    int buttonSpace = 5;
+    Button backButton ;
+    Button okButton;
+    Button deleteSaveButton;
+    
     private ButtonsList buttonsList = new ButtonsList();
 
     private bool isFullScreen;
 
     public SceneOptions()
     {
+        backButton = new Button {Rect = new Rectangle(10, 65, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
+        okButton = new Button {Rect = new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Save options", Color = Color.White};
+        deleteSaveButton = new Button {Rect = new Rectangle(10 + 2*(buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
+            
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
+        buttonsList.AddButton(deleteSaveButton);
         isFullScreen = GameState.Instance.fullScreen;
     }
 
@@ -70,12 +80,19 @@ public class SceneOptions : Scene
                 GameState.Instance.fullScreen = isFullScreen;
                 GameState.Instance.ToggleFullScreen();         
             }
-            OptionsFile optionsFile = new OptionsFile();
+            OptionsFile optionsFile = new OptionsFile(OptionsFile.OPTIONSFILENAME);
             optionsFile.AddOption("volume", GameState.Instance.masterVolume);
             optionsFile.AddOption("fullScreen", isFullScreen);
             var testObject = new {mana = 100, arrows = 10, life = 200};
             optionsFile.AddOption("inventory", testObject);
             optionsFile.Save();
+        }
+        else if (deleteSaveButton.IsClicked)
+        {
+            GameState.Instance.maxCurrentLevel = 1;
+            GameState.Instance.currentLevel = "1";
+            OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
+            saveFile.Save();
         }
         GameState.Instance.debugMagic.AddOption("full screen", isFullScreen);
         GameState.Instance.debugMagic.AddOption("game state full screen", GameState.Instance.fullScreen);

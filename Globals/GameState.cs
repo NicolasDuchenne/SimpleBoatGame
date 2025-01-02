@@ -38,6 +38,7 @@ public class GameState
     public bool finishGame = false;
 
     public string currentLevel;
+    public int maxCurrentLevel;
 
     public GridMap GridMap {get; private set;}
 
@@ -91,7 +92,23 @@ public class GameState
         monitorWidth = Raylib.GetMonitorWidth(ecran);
         monitorHeight = Raylib.GetMonitorHeight(ecran);
         scenes = new Dictionary<string, Scene>();
-        OptionsFile optionsFile = new OptionsFile();
+        LoadOptions();
+        LoadSave();
+    }
+    private void LoadSave()
+    {
+        OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
+        saveFile.Load();
+        maxCurrentLevel = 1;
+        if (saveFile.IsOptionExists("maxCurrentLevel"))
+        {
+            maxCurrentLevel = saveFile.GetOptionInt("maxCurrentLevel");
+        }
+    }
+
+    private void LoadOptions()
+    {
+        OptionsFile optionsFile = new OptionsFile(OptionsFile.OPTIONSFILENAME);
         optionsFile.Load();
         if (optionsFile.IsOptionExists("volume"))
         {
@@ -170,6 +187,7 @@ public class GameState
         ChangeAspectRatio();
         currentScene?.Update(); // put the ? to signify that we know that it could be null
         debugMagic.Update();
+        GameState.Instance.debugMagic.AddOption("max current level", GameState.Instance.maxCurrentLevel);
     }
     public void Draw()
     {

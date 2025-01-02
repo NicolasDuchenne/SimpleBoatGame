@@ -1,6 +1,7 @@
 using Raylib_cs;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Numerics;
 public class SceneGameplay : Scene
 {
@@ -26,7 +27,7 @@ public class SceneGameplay : Scene
         deathScreen.Draw();
         winScreen.Draw();
         Timers.Instance.Draw();
-        Raylib.DrawText(name, (int)(GameState.Instance.GameScreenWidth*0.5), 5, 25, Color.Black);
+        Raylib.DrawText($"Level {name}", (int)(GameState.Instance.GameScreenWidth*0.5), 5, 25, Color.Black);
     }
 
     public override void Update()
@@ -41,6 +42,10 @@ public class SceneGameplay : Scene
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
             GameState.Instance.changeScene("menu");
+        }
+        if (Raylib.IsKeyPressed(KeyboardKey.R))
+        {
+            GameState.Instance.changeScene(name);
         }
         gridMap.Update();
         Entity.UpdateAll();
@@ -58,6 +63,12 @@ public class SceneGameplay : Scene
     public override void Show()
     {
         GameState.Instance.currentLevel = name;
+        int currentLevelInt = int.Parse(name);
+        if (GameState.Instance.maxCurrentLevel < currentLevelInt)
+        {
+            GameState.Instance.maxCurrentLevel = currentLevelInt;
+        }
+        
         GameState.Instance.elemInPast = 0;
         GameState.Instance.levelFinished = false;
         GameState.Instance.enemyNumber = 0;

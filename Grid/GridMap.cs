@@ -104,11 +104,20 @@ public class Tile
                     GridEntity.Hit();
                 if (gridEntity.CanBeHurt)
                     gridEntity.Hit();
+                Console.WriteLine((GridEntity.Destroyed));
+                Console.WriteLine((gridEntity.Destroyed));
+                if ((GridEntity.Destroyed) & (gridEntity.Destroyed))
+                {
+                    Console.WriteLine("remove entity");
+                    removeEntity();
+                }
             }
         } 
+        if (gridEntity.Destroyed==false)
+        {
+            GridEntity = gridEntity; 
+        }
             
-
-        GridEntity = gridEntity; 
     }
 
     public void Update()

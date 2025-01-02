@@ -80,14 +80,6 @@ class LevelCreator
                     
             }
         }
-        for (int i = 0; i < Matrix.Count; i++)
-        {
-            for (int j = 0; j < Matrix[i].Count; j++)
-            {
-                Console.Write(Matrix[i][j] + " ");
-            }
-            Console.WriteLine();
-        }
         return gridMap;
     }
 }

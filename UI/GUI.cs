@@ -13,7 +13,7 @@ public class Button
 
 public class ButtonsList
 {
-    private List<Button> buttons = new List<Button>();
+    public List<Button> buttons {get; private set;}= new List<Button>();
     public void AddButton(Button button)
     {
         button.OriginalColor = button.Color;

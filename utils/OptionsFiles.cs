@@ -5,14 +5,15 @@ using System.Text.Json;
 
 public class OptionsFile
 {
-    const string FILENAME = "options.json";
+    public static string OPTIONSFILENAME = "options.json";
+    public static string SAVEFILLNAME = "save.json";
     private string AppName = Path.GetFileNameWithoutExtension(AppDomain.CurrentDomain.FriendlyName);
     private string fullPath;
     protected Dictionary<string, string> options;
-    public OptionsFile()
+    public OptionsFile(string name)
     {
         options = new Dictionary<string, string>();
-        fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppName, FILENAME);
+        fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppName, name);
         Debug.WriteLine($"Nom du fichier d'options: {fullPath}");
     }
 

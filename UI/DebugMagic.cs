@@ -5,7 +5,7 @@ public class DebugMagic: OptionsFile
     private Rectangle debugFrame;
     private bool showDebug = false;
 
-    public DebugMagic(): base()
+    public DebugMagic(): base("")
     {
         debugFrame = new Rectangle(0, 0, 300, Raylib.GetScreenHeight());
     }

@@ -5,9 +5,11 @@ using System.Numerics;
 public static class RaylibGame
 {
     static SceneMenu sceneMenu = new SceneMenu();
+    static SceneMenuLevel sceneMenuLevel = new SceneMenuLevel();
     static SceneOptions sceneOptions = new SceneOptions();
     static SceneLevel1 sceneLevel1 = new SceneLevel1();
     static SceneLevel2 sceneLevel2 = new SceneLevel2();
+    static SceneLevel3 sceneLevel3 = new SceneLevel3();
     
 
     public static int Main()
@@ -29,9 +31,11 @@ public static class RaylibGame
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
         gameState.RegisterScene("menu", sceneMenu);
+        gameState.RegisterScene("menuLevel", sceneMenuLevel);
         gameState.RegisterScene("options", sceneOptions);
-        gameState.RegisterScene("level 1", sceneLevel1, "level 2");
-        gameState.RegisterScene("level 2", sceneLevel2, "menu");
+        gameState.RegisterScene("1", sceneLevel1, "2");
+        gameState.RegisterScene("2", sceneLevel2, "3");
+        gameState.RegisterScene("3", sceneLevel3, "meneu");
         gameState.changeScene("menu");
 
         while (!WindowShouldClose() & gameState.finishGame == false)
@@ -50,6 +54,9 @@ public static class RaylibGame
             EndDrawing();
         }
 
+        OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
+        saveFile.AddOption("maxCurrentLevel", gameState.maxCurrentLevel);
+        saveFile.Save();
         gameState.Close();
         
 
