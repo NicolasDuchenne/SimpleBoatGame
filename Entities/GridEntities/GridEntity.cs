@@ -15,12 +15,22 @@ public class GridEntity: Entity
     public bool InThePast = false;
 
     public bool CanBeSentInThepast  {get; protected set;}
+
+    public bool Moving=false;
+
+    public float speed = 10;
+
+    public Vector2 TargetPosition = new Vector2();
+
+
     
     public GridEntity(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
     {
         (column, row) = ClampPosition(column, row);
         Column = column;
         Row = row; 
+        Position = GetCenterPositionFromTile(Column, Row);
+        TargetPosition = Position;
         GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
         CanBeSentInThepast = canBeSentInThePast;
 
@@ -56,6 +66,7 @@ public class GridEntity: Entity
             }
             GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity();
             GameState.Instance.GridMap.Tiles[Column][Row].setEntity(this);
+            TargetPosition = GetCenterPositionFromTile(Column, Row);
             return true;
         }
         return false;
@@ -67,7 +78,18 @@ public class GridEntity: Entity
         if (InThePast == false)
         {
             base.Update();
-            Position = GetCenterPositionFromTile(Column, Row);
+            float dist = (TargetPosition-Position).Length();
+            if (dist < 1)
+            {
+                Moving = false;
+                Position = TargetPosition;
+            }
+            else
+            {
+                Position = Position + (TargetPosition-Position) * speed *Raylib.GetFrameTime();
+                Moving = true;
+            }
+            //Position = GetCenterPositionFromTile(Column, Row);
         }
     }
 

@@ -55,6 +55,7 @@ public class GameState
     public bool levelFinished = false;
 
     public int enemyNumber = 0;
+
     public void SetVirtualGameResolution(int width, int height)
     {
         GameScreenWidth = width;

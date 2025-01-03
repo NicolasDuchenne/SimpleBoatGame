@@ -5,7 +5,7 @@ class LevelCreator
 {
     protected int columnNumber;
     protected int rowNumber;
-    protected int size = 40;
+    protected int size = 60;
     public Dictionary<int, Dictionary<int, int>> Matrix {get; private set;}
     public LevelCreator (String json)
     {

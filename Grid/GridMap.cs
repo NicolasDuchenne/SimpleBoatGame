@@ -7,7 +7,7 @@ public class GridMap
     public int ColumnNumber {get; private set;}
     public int RowNumber {get; private set;}
     public int Size {get ; private set;}
-    public Color Color {get; private set;} = Color.White;
+    public Color Color {get; private set;} = Color.Black;
 
     public Dictionary<int, Dictionary<int, Tile>> Tiles {get; private set;}
 
@@ -52,6 +52,7 @@ public class GridMap
                 tile.Value.Draw();
             }
         }
+        Raylib.DrawRectangleLinesEx(new Rectangle(Tiles[0][0].Position, ColumnNumber*Size, RowNumber*Size), 1, Color);
    
     }
 
@@ -126,7 +127,7 @@ public class Tile
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
         if ((GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)) )
         {
-            if (GridEntity.CanBeSentInThepast)
+            if ((GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
                 isMousedOver = true;
         }
         if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
@@ -168,6 +169,6 @@ public class Tile
             Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
             Raylib.DrawText($"{Math.Ceiling(maxTurnInPast-turnInPast).ToString()}", (int)Position.X+Size/2, (int)Position.Y+Size/2, 12, Color);
         }
-        Raylib.DrawRectangleLinesEx(new Rectangle(Position, Size, Size), 1, Color);
+        //Raylib.DrawRectangleLinesEx(new Rectangle(Position, Size, Size), 1, Color);
     }
 }

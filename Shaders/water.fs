@@ -38,30 +38,35 @@ void main()
     // Normalize screen coordinates to range 0 to 1
     vec2 uv = gl_FragCoord.xy / vec2(800.0, 600.0);
 
-    // Generate Perlin noise
-    float noiseUp = perlinNoise(uv * 5.0 + vec2(time * 0.2, 0)); // Larger patches with smaller frequency
-    float noiseLeft = perlinNoise(uv * 3.0 + vec2(0, time * 0.1)); // Larger patches with smaller frequency
+    // First Perlin noise for large-scale patches
+    float noise1 = perlinNoise(uv * 3.0 + vec2(time * 0.03, time * 0.05));
 
-    // Generate sinusoidal waves for stripes
-    float wave = sin(uv.x * 20.0 + time * 3.0) * 0.3; // Higher frequency for thinner stripes
+    // Second Perlin noise for smaller details
+    float noise2 = perlinNoise(uv * 2.0 + vec2(time * 0.02, time * 0.01));
 
-    // Combine Perlin noise and waves
-    float combined = noiseLeft *noiseUp*100;
+    // Combine the two Perlin noise patterns by multiplying them
+    float combinedNoise = noise1 * noise2*100;
+
+    // Add sine and cosine waves to enhance stripes
+    float wave1 = sin(uv.x * 20.0 + time * 1.0) * 0.1;
+    float wave2 = cos(uv.y * 30.0 - time * 0.5) * 0.05;
+
+    // Final combination of noise and waves
+    float finalValue = combinedNoise + wave1 + wave2;
+    //finalValue = finalValue + wave1 + wave2;
     // Enhance visibility
-    combined = pow(abs(combined), 2.0) * 2.5;
+    float combined = finalValue;
+    combined = pow(abs(combined), 2) * 2.5; 
 
 
     // Apply thresholds to create large blue patches with small white stripes
-    float threshold = smoothstep(0.1, 0.2, combined); // Adjust to control stripe width
+    float threshold = smoothstep(0, 0.04, combined); // Adjust to control stripe width
 
-    // Base gradient for large blue areas
-    vec3 bluePatch = vec3(0.0, 0.3, 0.8);
-
-    // White stripes
-    vec3 whiteStripe = vec3(1.0, 1.0, 1.0);
+    vec3 lightBlue = vec3(0.8, 0.847, 0.902);
+    vec3 darkBlue = vec3(0, 138, 230)/255;
 
     // Interpolate between blue patches and white stripes
-    vec3 finalColor = mix(whiteStripe, bluePatch, threshold);
+    vec3 finalColor = mix(lightBlue, darkBlue, threshold);
 
     // Output final color
     fragColor = vec4(finalColor, 1.0);

@@ -13,9 +13,6 @@ public class SceneGameplay : Scene
     private WinScreen winScreen;
     
     protected GridMap gridMap;
-    protected int columnNumber;
-    protected int rowNumber;
-    protected int size = 40;
 
     public SceneGameplay():base()
     {
@@ -53,7 +50,6 @@ public class SceneGameplay : Scene
         }
         gridMap.Update();
         Entity.UpdateAll();
-        GameState.Instance.debugMagic.AddOption("size", size);
         GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
         if (GameState.Instance.enemyNumber == 0)
         {
