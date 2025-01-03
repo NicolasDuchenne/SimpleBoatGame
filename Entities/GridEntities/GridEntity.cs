@@ -1,5 +1,6 @@
 using Raylib_cs;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Numerics;
 
 public class GridEntity: Entity
@@ -7,6 +8,8 @@ public class GridEntity: Entity
     static int[,] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
     public int Column {get; protected set;}
     public int Row {get; protected set;}
+    private int LastTriedColumn;
+    private int LastTriedRow;
     public bool CanMove {get; protected set;} = false;
     public bool CanMoveEntities {get; protected set;} = false;
 
@@ -18,7 +21,7 @@ public class GridEntity: Entity
 
     public bool Moving=false;
 
-    public float speed = 10;
+    public float speed = 5;
 
     public Vector2 TargetPosition = new Vector2();
 
@@ -45,12 +48,15 @@ public class GridEntity: Entity
             Column += (int)direction.X;
             Row += (int)direction.Y;
             (Column, Row) = ClampPosition(Column, Row);
+            (LastTriedColumn, LastTriedRow) = (Column, Row);
             if ((Column==baseColumn)&(Row==baseRow))
             {
                 return false;
             }
             if (GameState.Instance.GridMap.Tiles[Column][Row].GridEntity is not null)
             {
+                Moving = true;
+                TargetPosition = GetBordureSpritePositionFromTile(Column, Row, direction);
                 GridEntity collidedEntity = GameState.Instance.GridMap.Tiles[Column][Row].GridEntity;
                 bool hasMoved = false;
                 if ((collidedEntity.CanMove) & (CanMoveEntities))
@@ -67,17 +73,18 @@ public class GridEntity: Entity
             GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity();
             GameState.Instance.GridMap.Tiles[Column][Row].setEntity(this);
             TargetPosition = GetCenterPositionFromTile(Column, Row);
+            Moving = true;
             return true;
         }
         return false;
         
     }
 
-    public override void Update()
+    private void ProcessMovement()
     {
-        if (InThePast == false)
+        
+        if (Moving)
         {
-            base.Update();
             float dist = (TargetPosition-Position).Length();
             if (dist < 1)
             {
@@ -86,10 +93,37 @@ public class GridEntity: Entity
             }
             else
             {
-                Position = Position + (TargetPosition-Position) * speed *Raylib.GetFrameTime();
-                Moving = true;
+                Position = Position + Vector2.Normalize(TargetPosition-Position) * 150 *Raylib.GetFrameTime();
             }
-            //Position = GetCenterPositionFromTile(Column, Row);
+        }
+        else
+        {
+            //If we tried to move a inmovable object, we go back to start up position
+            Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
+            if (TargetPosition!=expectedPosition)
+            {
+                if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is null)
+                {
+                    Vector2 direction = Vector2.Normalize(GetCenterPositionFromTile(LastTriedColumn, LastTriedRow) - GetCenterPositionFromTile(Column, Row));
+                    Move(direction);
+                }
+                else
+                {
+                    Moving = true;
+                    TargetPosition = expectedPosition;
+                }
+                
+                
+            }
+        }
+    }
+
+    public override void Update()
+    {
+        if (InThePast == false)
+        {
+            base.Update();
+            ProcessMovement();
         }
     }
 
@@ -112,6 +146,13 @@ public class GridEntity: Entity
     {
         (column, row) = ClampPosition(column, row);
         return GameState.Instance.GridMap.Tiles[column][row].CenterPosition;
+    }
+
+    private static Vector2 GetBordureSpritePositionFromTile(int column, int row, Vector2 direction)
+    {
+        (column, row) = ClampPosition(column, row);
+        Vector2 centerPos = GameState.Instance.GridMap.Tiles[column][row].CenterPosition;
+        return centerPos-direction*GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width;
     }
 
     public virtual void Hit()

@@ -120,8 +120,7 @@ public class Tile
         }
             
     }
-
-    public void Update()
+    public void SendToPast()
     {
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
@@ -137,19 +136,39 @@ public class Tile
             removeEntity();
             GameState.Instance.elemInPast ++;
         }
+    }
+
+    public void processPastEntities()
+    {
         // We test this before incrementing so that the set entity is made after either Player or all enemy have played there turn
-        if (turnInPast == maxTurnInPast)
+        if (turnInPast >= maxTurnInPast)
         {
-            PastGridEntity.InThePast = false;
-            setEntity(PastGridEntity);
-            PastGridEntity = null;
-            turnInPast = 0;
-            GameState.Instance.elemInPast = 0;
+            bool resetPastEntity = false;
+            if (GridEntity is null) 
+                resetPastEntity = true;
+            // wait for current entity to arrive before resetting past for a better visual
+            else if ((GridEntity is not null) & (GridEntity.Moving==false))
+                resetPastEntity = true;
+            if (resetPastEntity) 
+            {
+                PastGridEntity.InThePast = false;
+                setEntity(PastGridEntity);
+                PastGridEntity = null;
+                turnInPast = 0;
+                GameState.Instance.elemInPast = 0;
+            }
+
         }
         if ((PastGridEntity is not null)&((Timers.Instance.PlayerPlayTurn)|(Timers.Instance.EnemyPlayTurn)))
         {      
             turnInPast = turnInPast + 0.5f;
         }
+    }
+
+    public void Update()
+    {
+        SendToPast();
+        processPastEntities();
         
     }
 

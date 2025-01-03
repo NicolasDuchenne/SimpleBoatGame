@@ -8,7 +8,7 @@ public class Level3: SceneGameplay
         string jsonMatrix = @"
         [
             [42, 0 , 0 , 41],
-            [32, 22, 21, 32],
+            [32, 22, 0 , 32],
             [32, 1 , 0 , 32],
             [32, 32, 32, 32]
         ]";
