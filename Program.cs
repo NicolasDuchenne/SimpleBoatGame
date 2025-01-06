@@ -36,7 +36,7 @@ public static class RaylibGame
         gameState.RegisterScene(Level1, "2");
         gameState.RegisterScene(Level2, "3");
         gameState.RegisterScene(Level3, "menu");
-        gameState.changeScene("3");
+        gameState.changeScene("1");
         Water water = new Water();
 
         while (!WindowShouldClose() & gameState.finishGame == false)

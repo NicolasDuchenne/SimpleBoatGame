@@ -29,18 +29,12 @@ public class GridEntity: Entity
 
     public bool Moving=false;
 
-    public float speed = 5;
+    public float speed = 127;
 
     public Vector2 TargetPosition = new Vector2();
     public new Vector2 Direction {get; private set;}
     public bool positionWasClamped = false;
     public bool touchedPlayer = false;
-
-    private Destruction DestructionAnim ;
-
-    
-
-
     
     public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
     {
@@ -133,8 +127,11 @@ public class GridEntity: Entity
 
     public override void Destroy()
     {
-        base.Destroy();
-        DestructionAnim = Destructions.Create(Position);
+        if (Destroyed == false)
+        {
+            base.Destroy();
+            Destructions.Create(Position);
+        } 
     }
 
     private void Hurt()
@@ -166,7 +163,7 @@ public class GridEntity: Entity
             }
             else
             {
-                Position = Position + Vector2.Normalize(TargetPosition-Position) * 150 *Raylib.GetFrameTime();
+                Position = Position + Vector2.Normalize(TargetPosition-Position) * speed *Raylib.GetFrameTime();
             }
         }
         else

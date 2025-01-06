@@ -16,7 +16,11 @@ public class ProjectileGridEntity: GridEntity
         {
             Move(Direction);
             if (positionWasClamped)
+            {
                 Destroy();
+                GameState.Instance.GridMap.Tiles[Column][Row].removeEntity();    
+            }
+                
         }
     }
     protected override float GetAngleFromDirection(Vector2 direction)

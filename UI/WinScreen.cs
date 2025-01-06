@@ -4,6 +4,7 @@ public class WinScreen
     public string NextLevel {get; private set;}
     private Button changeLevel;
     private ButtonsList buttonsList = new ButtonsList();
+    private float winTimer = 0;
     public WinScreen(string nextLevel)
     {
         int buttonWidth = 200;
@@ -18,6 +19,10 @@ public class WinScreen
     {
         if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
         {
+            winTimer +=Raylib.GetFrameTime();
+        }
+        if(winTimer >0.5)
+        {
             buttonsList.Update();
             if (changeLevel.IsClicked)
             {
@@ -29,7 +34,7 @@ public class WinScreen
     }
     public void Draw()
     {
-        if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
+        if(winTimer >0.5)
             buttonsList.Draw();
     }
 }

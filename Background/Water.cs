@@ -45,7 +45,6 @@ public class Water
     {
         // Update time
         time += Raylib.GetFrameTime();
-        //Console.WriteLine(Environment.CurrentDirectory);
         Raylib.SetShaderValue(waterShader, timeLoc, new float[] { time }, ShaderUniformDataType.Float);
     }
 }
