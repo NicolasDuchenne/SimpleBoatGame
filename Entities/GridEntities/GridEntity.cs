@@ -15,11 +15,13 @@ public class GridEntity: Entity
     private int LastTriedColumn;
     private int LastTriedRow;
     public bool CanBeMoved {get; protected set;} = false;
-    public bool CanBeMovedEntities {get; protected set;} = false;
+    public bool CanMoveEntities {get; protected set;} = false;
 
-    public bool CanBeHurt {get; protected set;} = false;
+    public bool CanBeHurt {get; protected set;} = true;
 
     public bool CanHurt {get; protected set;} = false;
+    public bool CanHurtPlayer {get; protected set;} = false;
+    public bool IsPlayer {get; protected set;} = false;
 
     public bool InThePast = false;
 
@@ -31,6 +33,29 @@ public class GridEntity: Entity
 
     public Vector2 TargetPosition = new Vector2();
     public new Vector2 Direction {get; private set;}
+    public bool positionWasClamped = false;
+    public bool touchedPlayer = false;
+
+    private Destruction DestructionAnim ;
+
+    
+
+
+    
+    public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
+    {
+        if (direction==new Vector2())
+            direction = new Vector2(1, 0);
+        UpdateDirection((Vector2)direction);
+        (column, row) = ClampPosition(column, row);
+        Column = column;
+        Row = row; 
+        Position = GetCenterPositionFromTile(Column, Row);
+        TargetPosition = Position;
+        GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
+        CanBeSentInThepast = canBeSentInThePast;
+
+    }
 
     public void UpdateDirection(Vector2 inputDirection)
     {
@@ -44,50 +69,27 @@ public class GridEntity: Entity
             throw new Exception($"Direction {inputDirection} not in {directions}!");
         }
     }
-    private float GetAngleFromDirection(Vector2 direction)
+    protected virtual float GetAngleFromDirection(Vector2 direction)
     {
         
-        if (direction == new Vector2(0, 1)) 
-        {
-            Flip = true;
-            return 90f;  
-        }
         if (direction == new Vector2(1, 0)) 
         {
-            Flip = true;
-            return 0; 
-        }
-        if (direction == new Vector2(0, -1))
-        {
             Flip = false;
-            return 90f; 
-        } 
+        }
         if (direction == new Vector2(-1, 0))
         {
-            Flip = false;
-            return 0f;  
+            Flip = true;
         } 
         return 0f; // Default
     }
-
-
     
-    public GridEntity(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
-    {
-        (column, row) = ClampPosition(column, row);
-        Column = column;
-        Row = row; 
-        Position = GetCenterPositionFromTile(Column, Row);
-        TargetPosition = Position;
-        GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
-        CanBeSentInThepast = canBeSentInThePast;
-
-    }
 
     public bool Move(Vector2 direction)
     {
         if (InThePast == false)
         {
+            touchedPlayer = false;
+            positionWasClamped = false;
             UpdateDirection(direction);
             int baseColumn = Column;
             int baseRow = Row;
@@ -97,6 +99,7 @@ public class GridEntity: Entity
             (LastTriedColumn, LastTriedRow) = (Column, Row);
             if ((Column==baseColumn)&(Row==baseRow))
             {
+                positionWasClamped = true;
                 return false;
             }
             if (GameState.Instance.GridMap.Tiles[Column][Row].GridEntity is not null)
@@ -105,7 +108,9 @@ public class GridEntity: Entity
                 TargetPosition = GetBordureSpritePositionFromTile(Column, Row, Direction);
                 GridEntity collidedEntity = GameState.Instance.GridMap.Tiles[Column][Row].GridEntity;
                 bool hasMoved = false;
-                if ((collidedEntity.CanBeMoved) & (CanBeMovedEntities))
+                if (collidedEntity.IsPlayer)
+                    touchedPlayer = true;
+                if ((collidedEntity.CanBeMoved) & (CanMoveEntities))
                 {
                     hasMoved = collidedEntity.Move(Direction);
                 }
@@ -126,6 +131,28 @@ public class GridEntity: Entity
         
     }
 
+    public override void Destroy()
+    {
+        base.Destroy();
+        DestructionAnim = Destructions.Create(Position);
+    }
+
+    private void Hurt()
+    {
+        if (CanBeHurt)
+            Hit();
+        if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanBeHurt)
+            GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.Hit();
+        if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.Destroyed) 
+        {
+            GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].removeEntity();
+        }
+        if (Destroyed)
+        {
+            GameState.Instance.GridMap.Tiles[Column][Row].removeEntity();
+        }
+    }
+
     private void ProcessMovement()
     {
         
@@ -144,19 +171,35 @@ public class GridEntity: Entity
         }
         else
         {
-            //If we tried to move a inmovable object, we go back to start up position
+            //If we tried to move a inmovable object, we go to the object position
             Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
             if (TargetPosition!=expectedPosition)
             {
+                // If the object left, we go to the last tried pos
                 if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is null)
                 {
                     Vector2 direction = Vector2.Normalize(GetCenterPositionFromTile(LastTriedColumn, LastTriedRow) - GetCenterPositionFromTile(Column, Row));
                     Move(direction);
                 }
+                // If the object is still here, we go either kill it, or go back to the last tried position
                 else
                 {
-                    Moving = true;
-                    TargetPosition = expectedPosition;
+                    // Hurt if a canHurt object encouters any object
+                    if (CanHurt || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt)
+                    {
+                        Hurt();
+                    }
+                    // Hurt if an enemie encouter the player
+                    else if ((GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.IsPlayer&CanHurtPlayer)||(IsPlayer&GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurtPlayer))
+                    {
+                        Hurt();
+                    }
+                    else
+                    {
+                        Moving = true;
+                        TargetPosition = expectedPosition;
+                    }
+                    
                 }
                 
                 

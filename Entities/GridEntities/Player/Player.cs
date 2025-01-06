@@ -18,27 +18,29 @@ public class Player
 public class PlayerBoat: GridEntity
 {
     Vector2 direction = new Vector2();
-    public PlayerBoat(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, column,  row, canBeSentInThePast)
+    public PlayerBoat(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
-        CanBeMovedEntities = true;
+        CanMoveEntities = true;
         CanBeHurt = true;
+        CanBeMoved = false;
+        IsPlayer = true;
     }
     public override void Update()
     {
         
-        if ((Raylib.IsKeyPressed(KeyboardKey.Right)) ||(Raylib.IsKeyPressed(KeyboardKey.D)))
+        if ((Raylib.IsKeyDown(KeyboardKey.Right)) ||(Raylib.IsKeyDown(KeyboardKey.D)))
         {
             direction = new Vector2(1, 0);
         }
-        else if ((Raylib.IsKeyPressed(KeyboardKey.Left))||(Raylib.IsKeyPressed(KeyboardKey.A)))
+        else if ((Raylib.IsKeyDown(KeyboardKey.Left))||(Raylib.IsKeyDown(KeyboardKey.A)))
         {
             direction = new Vector2(-1, 0);
         }
-        else if ((Raylib.IsKeyPressed(KeyboardKey.Up))||(Raylib.IsKeyPressed(KeyboardKey.W)))
+        else if ((Raylib.IsKeyDown(KeyboardKey.Up))||(Raylib.IsKeyDown(KeyboardKey.W)))
         {
             direction = new Vector2(0, -1);
         }
-        else if ((Raylib.IsKeyPressed(KeyboardKey.Down))||(Raylib.IsKeyPressed(KeyboardKey.S)))
+        else if ((Raylib.IsKeyDown(KeyboardKey.Down))||(Raylib.IsKeyDown(KeyboardKey.S)))
         {
             direction = new Vector2(0, 1);
         }

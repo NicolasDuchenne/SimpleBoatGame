@@ -9,12 +9,18 @@ public class EnemyGridEntity: GridEntity
     public int TargetRow {get; protected set;} = GameState.Instance.GridMap.Tiles[0].Count - 1;
     public Vector2 Direction = new Vector2(0,1);
     public bool changeDirection = false;
+    public int shootCounter = 0;
+    public int shootTurn = 3;
+    public bool willShoot = false;
 
-    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, canBeSentInThePast)
+
+
+    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
         CanBeMoved = false;
-        CanBeMovedEntities = false;
+        CanMoveEntities = false;
         CanBeHurt = true;
+        CanHurtPlayer = true;
         if (direction != new Vector2())
         {
             Direction = direction;
@@ -22,30 +28,49 @@ public class EnemyGridEntity: GridEntity
         GameState.Instance.enemyNumber ++;
     }
 
+    private void Shoot()
+    {
+        Projectiles.Create(Projectiles.Missile, Column, Row+1,new Vector2(0,1));
+        willShoot = false;
+    }
+
     public override void Update()
     {
-        GameState.Instance.debugMagic.AddOption("target column", TargetColumn);
-        
-        if (Timers.Instance.EnemyPlayTurn)
+        if (InThePast == false)
         {
-            bool hasMoved = Move(Direction);
-            if ((hasMoved == false) & (InThePast == false))
+            if ((Position == TargetPosition) & (willShoot))
             {
-                changeDirection = true;
-                Direction.X = -Direction.X;
-                Direction.Y = -Direction.Y;
-                Move(Direction);
+                Shoot();
+                willShoot = false;
             }
-            
+            if (Timers.Instance.EnemyPlayTurn)
+            {
+                shootCounter ++;
+                if (shootCounter == shootTurn)
+                {
+                    shootCounter = 0;
+                    willShoot = true;
+                }
+                bool hasMoved = Move(Direction);
+                if ((hasMoved == false) & (InThePast == false) &(touchedPlayer==false))
+                {
+                    changeDirection = true;
+                    Direction.X = -Direction.X;
+                    Direction.Y = -Direction.Y;
+                    Move(Direction);
+                }
+                
+            }
+                
+            base.Update();
         }
-            
-        base.Update();
+        
     }
 
     public override void Destroy()
     {
         GameState.Instance.enemyNumber --;
-        Destroyed = true;
+        base.Destroy();
     }
 
 }

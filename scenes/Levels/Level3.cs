@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 public class Level3: SceneGameplay
 {
@@ -19,14 +20,13 @@ public class Level3: SceneGameplay
         // ]";
         string jsonMatrix = @"
         [
-            [0, 0 , 0 , 41],
-            [0, 0, 0 , 0],
-            [0, 1 , 0 , 0],
-            [0, 0, 0, 0]
+            [0, 41 , 0 , 41],
+            [0, 1, 0 , 0],
+            [0, 0 , 33 , 0],
+            [31, 32, 33, 34]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();
-        Projectiles.Create(Projectiles.Missile, 2,1);
         
     }
 }

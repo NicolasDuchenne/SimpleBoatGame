@@ -9,14 +9,16 @@ public class Sprite
     public int Height {get; private set;}
 
     public int Fps {get; private set;}
+    public bool FinishedAnimation { get; private set;} = false;
 
     private int nFrame = 0;
     private int currentFrame = 0;
     private List<Rectangle> framePos = new List<Rectangle>();
 
     private float timer = 0;
-    public Sprite(Texture2D texture, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null)
+    public Sprite(Texture2D texture, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null, int? startFrame = null, int? endFrame = null)
     {
+        int frame = 0;
         Texture = texture;
         Fps = fps;
         if (width is null)
@@ -27,12 +29,16 @@ public class Sprite
             Height = Texture.Height;
         else
             Height = (int)height;
-        for (int col = 0; col < nCol; col ++)
+        for (int row = 0; row < nRow; row ++)
         {
-            for (int row = 0; row < nRow; row ++)
+            for (int col = 0; col < nCol; col ++)
             {
-                framePos.Add(new Rectangle(col*Width,row*Width, Width, Height));
-                nFrame ++;
+                if (((startFrame is not null) & (frame >= startFrame) & (frame <= endFrame)) || startFrame is null)
+                {
+                    framePos.Add(new Rectangle(col*Width,row*Width, Width, Height));
+                    nFrame ++;
+                }
+                frame ++;
             }
         }
         
@@ -81,10 +87,15 @@ public class Sprite
             timer+=Raylib.GetFrameTime();
             if (timer > 1/(float)Fps)
             {
+                FinishedAnimation = false;
                 timer = 0;
                 currentFrame ++;
                 if (currentFrame >= nFrame)
+                {
                     currentFrame = 0;
+                    FinishedAnimation = true;
+                }
+                    
             }
         }
         

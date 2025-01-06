@@ -4,6 +4,7 @@ public class DeathScreen
     public string CurrentLevel {get; private set;}
     private Button restartButton;
     private ButtonsList buttonsList = new ButtonsList();
+    private float playerDeadTimer = 0;
     public DeathScreen(string currentLevel)
     {
         int buttonWidth = 200;
@@ -17,6 +18,8 @@ public class DeathScreen
     public void Update()
     {
         if (GameState.Instance.playerDead)
+            playerDeadTimer +=Raylib.GetFrameTime();
+        if (playerDeadTimer>0.5)
         {
             buttonsList.Update();
             if (restartButton.IsClicked)
@@ -29,7 +32,7 @@ public class DeathScreen
     }
     public void Draw()
     {
-        if (GameState.Instance.playerDead)
+        if (playerDeadTimer>0.5)
             buttonsList.Draw();
     }
 }

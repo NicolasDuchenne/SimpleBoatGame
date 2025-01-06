@@ -52,13 +52,19 @@ class LevelCreator
                         MovableObstacles.Create(MovableObstacles.Baril, j, i);
                         break;
                     case 22:
-                        MovableObstacles.Create(MovableObstacles.Baril, j, i, false);
+                        MovableObstacles.Create(MovableObstacles.Baril, j, i, new Vector2(),false);
                         break;
                     case 31:
                         Obstacles.Create(Obstacles.Obstacle, j, i);
                         break;
                     case 32:
-                        Obstacles.Create(Obstacles.Obstacle, j, i, false);
+                        Obstacles.Create(Obstacles.Obstacle, j, i,  new Vector2(), false);
+                        break;
+                    case 33:
+                        DestroyableObstacles.Create(DestroyableObstacles.Obstacle, j, i);
+                        break;
+                    case 34:
+                        DestroyableObstacles.Create(DestroyableObstacles.Obstacle, j, i,  new Vector2(), false);
                         break;
                     case 41:
                         Enemies.Create(Enemies.Fregate, j, i, new Vector2(1,0));
