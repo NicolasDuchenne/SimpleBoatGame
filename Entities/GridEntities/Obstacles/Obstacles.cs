@@ -3,7 +3,7 @@ public class Obstacles
 {
     public static Dictionary<string, object> Obstacle = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("images/png/Obstacle.png")},
+        { "texture", Raylib.LoadTexture("ressources/images/png/Obstacle.png")},
     };
 
     public static void Create(Dictionary<string, object> config, int col , int row, bool canBeSentInThePast=true)

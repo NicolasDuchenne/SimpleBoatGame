@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Security.AccessControl;
 using Raylib_cs;
 public class SceneOptions : Scene
 {
@@ -13,11 +14,23 @@ public class SceneOptions : Scene
 
     private bool isFullScreen;
 
-    public SceneOptions()
+    private List<string> controles =  ["CONTROLES:",
+"* Up Arrow: up",
+"* Down Arrow: down",
+"* Left Arrow: left",
+"* Right Arrow: right",
+"* Control Left: decrease number of turn for send in past",
+"* Shift Left: increase number of turn for send in past",
+"* Left Click: send in past"];
+
+    
+
+
+    public SceneOptions(string scene_name): base(scene_name)
     {
         backButton = new Button {Rect = new Rectangle(10, 65, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
         okButton = new Button {Rect = new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Save options", Color = Color.White};
-        deleteSaveButton = new Button {Rect = new Rectangle(10, 65 + 5*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
+        deleteSaveButton = new Button {Rect = new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
             
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
@@ -27,6 +40,7 @@ public class SceneOptions : Scene
 
     public override void Draw()
     {
+
         base.Draw();
         Raylib.DrawText("Options", 5, 5, 15, Color.Black);
         int screenWidth = GameState.Instance.GameScreenWidth;
@@ -40,6 +54,17 @@ public class SceneOptions : Scene
         }
         Raylib.DrawText($"Plein ecran (press F to toggle): {bFull}", 10, 50, 10, Color.Black);
         buttonsList.Draw();
+        //Raylib.DrawText(controles, 10, 310, 10, Color.Black);
+        int i = 150;
+        foreach (string line in controles)
+        {
+            Raylib.DrawTextEx(GameState.Instance.customFont, line, new Vector2(10, i), GameState.Instance.customFont.BaseSize, 1, Color.Black);
+            i+= GameState.Instance.customFont.BaseSize+2;
+            // Raylib.DrawText(line, 10, i, 15, Color.Black);
+            // i+= 17;
+        }
+
+        
 
     }
 

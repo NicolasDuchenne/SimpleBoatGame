@@ -17,7 +17,7 @@ public class Water
         Raylib.UnloadImage(gradientImage);
          // Load shader with default vertex shader and custom fragment shader
         // The file needs to be copied to build directory, this is done in .csproj file 
-        waterShader = Raylib.LoadShader(null, "Shaders/water.fs");
+        waterShader = Raylib.LoadShader(null, "ressources/Shaders/water.fs");
 
         timeLoc = Raylib.GetShaderLocation(waterShader, "time");
         windowWidthLoc = Raylib.GetShaderLocation(waterShader, "windowWidth");

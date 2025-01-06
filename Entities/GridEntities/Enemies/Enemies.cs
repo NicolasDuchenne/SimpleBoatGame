@@ -4,7 +4,7 @@ public class Enemies
 {
     public static Dictionary<string, object> Fregate = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("images/png/Fregate.png")},
+        { "texture", Raylib.LoadTexture("ressources/images/png/Fregate.png")},
         { "nCol", 1 },
         { "nRow", 6 },
         { "fps", 6 },

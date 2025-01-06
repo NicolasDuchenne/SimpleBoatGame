@@ -43,9 +43,22 @@ public class GameState
     public GridMap GridMap {get; private set;}
 
     public int elemInPast = 0;
-    public int MaxElemInPast {get; private set;} = 1;
 
+    private int maxElemInPast=3;
 
+    public int MaxElemInPast
+    {
+        get => maxElemInPast;
+        set => maxElemInPast = Math.Clamp(value, 1, 3); 
+    }
+
+    private int maxTurnInPast=3;
+
+    public int MaxTurnInPast
+    {
+        get => maxTurnInPast;
+        set => maxTurnInPast = Math.Clamp(value, 1, 5);
+    }
 
     int ecran = 0;
     int monitorWidth = 0;
@@ -55,6 +68,11 @@ public class GameState
     public bool levelFinished = false;
 
     public int enemyNumber = 0;
+
+    private string fontPath = "ressources/Font/JungleAdventurer.ttf";
+    public Font customFont;
+    public Font customFontBig;
+
 
     public void SetVirtualGameResolution(int width, int height)
     {
@@ -89,6 +107,8 @@ public class GameState
     }
     public GameState()
     {
+        customFont = Raylib.LoadFontEx(fontPath, 20,null,0); 
+        customFontBig = Raylib.LoadFontEx(fontPath, 40,null,0);
         ecran = Raylib.GetCurrentMonitor();
         monitorWidth = Raylib.GetMonitorWidth(ecran);
         monitorHeight = Raylib.GetMonitorHeight(ecran);
@@ -146,10 +166,9 @@ public class GameState
             Raylib.SetWindowState(ConfigFlags.ResizableWindow);
         } 
     }
-    public void RegisterScene(string name, Scene scene, string next_scene="")
+    public void RegisterScene(Scene scene, string next_scene="")
     {
-        scene.name = name;
-        scenes[name] = scene;
+        scenes[scene.name] = scene;
         if (next_scene!="")
             scene.next_scene = next_scene;
     }
@@ -182,10 +201,13 @@ public class GameState
     }
 
     
+
+    
     public void Update()
     {
         Mouse.Update();
         ChangeAspectRatio();
+        
         currentScene?.Update(); // put the ? to signify that we know that it could be null
         debugMagic.Update();
         GameState.Instance.debugMagic.AddOption("max current level", GameState.Instance.maxCurrentLevel);

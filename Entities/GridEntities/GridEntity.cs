@@ -1,6 +1,4 @@
 using Raylib_cs;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Numerics;
 
 public class GridEntity: Entity

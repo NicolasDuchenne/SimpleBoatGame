@@ -4,12 +4,12 @@ using System.Numerics;
 
 public static class RaylibGame
 {
-    static SceneMenu sceneMenu = new SceneMenu();
-    static SceneMenuLevel sceneMenuLevel = new SceneMenuLevel();
-    static SceneOptions sceneOptions = new SceneOptions();
-    static Level1 Level1 = new Level1();
-    static Level2 Level2 = new Level2();
-    static Level3 Level3 = new Level3();
+    static SceneMenu sceneMenu = new SceneMenu("menu");
+    static SceneMenuLevel sceneMenuLevel = new SceneMenuLevel("menuLevel");
+    static SceneOptions sceneOptions = new SceneOptions("options");
+    static Level1 Level1 = new Level1("1");
+    static Level2 Level2 = new Level2("2");
+    static Level3 Level3 = new Level3("3");
     
 
     public static int Main()
@@ -30,12 +30,12 @@ public static class RaylibGame
         GameState gameState = GameState.Instance;
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
-        gameState.RegisterScene("menu", sceneMenu);
-        gameState.RegisterScene("menuLevel", sceneMenuLevel);
-        gameState.RegisterScene("options", sceneOptions);
-        gameState.RegisterScene("1", Level1, "2");
-        gameState.RegisterScene("2", Level2, "3");
-        gameState.RegisterScene("3", Level3, "menu");
+        gameState.RegisterScene(sceneMenu);
+        gameState.RegisterScene(sceneMenuLevel);
+        gameState.RegisterScene(sceneOptions);
+        gameState.RegisterScene(Level1, "2");
+        gameState.RegisterScene(Level2, "3");
+        gameState.RegisterScene(Level3, "menu");
         gameState.changeScene("menu");
         Water water = new Water();
 

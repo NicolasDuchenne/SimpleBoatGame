@@ -8,7 +8,7 @@ public class SceneMenu : Scene
 
     private ButtonsList buttonsList = new ButtonsList();
 
-    public SceneMenu()
+    public SceneMenu(string scene_name): base(scene_name)
     {
         int buttonWidth = 120;
         int buttonHeight = 20;

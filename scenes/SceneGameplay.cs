@@ -13,10 +13,11 @@ public class SceneGameplay : Scene
     private WinScreen winScreen;
     
     protected GridMap gridMap;
+    private UI UI;
 
-    public SceneGameplay():base()
+    public SceneGameplay(string scene_name): base(scene_name)
     {
-        
+        UI = new UI(name);
     }
 
     public override void Draw()
@@ -27,14 +28,25 @@ public class SceneGameplay : Scene
         gridMap.Draw();
         deathScreen.Draw();
         winScreen.Draw();
-        Timers.Instance.Draw();
-        Raylib.DrawText($"Level {name}", (int)(GameState.Instance.GameScreenWidth*0.5), 5, 25, Color.Black);
+        UI.Draw();
+    }
+
+    private void UpdateMaxTurnInThePast()
+    {
+        if (Raylib.IsKeyPressed(KeyboardKey.LeftControl))
+        {
+            GameState.Instance.MaxTurnInPast --;
+        }
+        else if (Raylib.IsKeyPressed(KeyboardKey.LeftShift))
+        {
+            GameState.Instance.MaxTurnInPast ++;
+        }
     }
 
     public override void Update()
     {
         base.Update();
-        Timers.Instance.Update();
+        UpdateMaxTurnInThePast();
         timer+=Raylib.GetFrameTime();
 #if DEBUG
         GameState.Instance.debugMagic.AddOption("timer", timer);
@@ -58,6 +70,7 @@ public class SceneGameplay : Scene
 
         deathScreen.Update();
         winScreen.Update();
+        UI.Update();
     }
 
     public override void Show()
@@ -76,5 +89,6 @@ public class SceneGameplay : Scene
         Entity.ALL.Clear();   
         deathScreen = new DeathScreen(name);
         winScreen = new WinScreen(next_scene);
+        GameState.Instance.MaxElemInPast = 1;
     }
 }

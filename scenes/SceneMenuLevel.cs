@@ -12,7 +12,7 @@ public class SceneMenuLevel : Scene
     int buttonHeight = 20;
     int buttonSpace = 5;
 
-    public SceneMenuLevel()
+    public SceneMenuLevel(string scene_name): base(scene_name)
     {
         backButton = new Button {Rect = new Rectangle(GameState.Instance.GameScreenWidth-buttonWidth-10, 10, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
         buttonList.AddButton(backButton);

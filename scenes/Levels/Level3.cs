@@ -1,10 +1,15 @@
 using Raylib_cs;
 public class Level3: SceneGameplay
 {
+    public Level3(string scene_name): base(scene_name)
+    {
+        
+    }
     //needs to be debugged
     public override void Show()
     {
         base.Show();
+        GameState.Instance.MaxElemInPast = 2;
         string jsonMatrix = @"
         [
             [42, 0 , 0 , 41],

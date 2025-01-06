@@ -4,8 +4,9 @@ public abstract class Scene
     public string name;
     public string next_scene;
 
-    public Scene()
+    public Scene(string scene_name)
     {
+        name = scene_name;
         nombreDeScene++;
     }
     public virtual void Show()

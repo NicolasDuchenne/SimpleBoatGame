@@ -2,6 +2,10 @@ using System.Numerics;
 using Raylib_cs;
 public class Level1:SceneGameplay
 {
+    public Level1(string scene_name): base(scene_name)
+    {
+        
+    }
     public override void Show()
     {
         base.Show();

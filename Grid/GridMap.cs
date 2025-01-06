@@ -80,7 +80,9 @@ public class Tile
     private Rectangle rect ;
 
     private float turnInPast = 0;
-    private float maxTurnInPast = 3;
+    
+    private int maxTurnInPast;
+    private bool processPast = false;
 
     public Tile(Vector2 position, int size, Color color)
     {
@@ -131,38 +133,44 @@ public class Tile
         }
         if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
         {
+            maxTurnInPast = GameState.Instance.MaxTurnInPast;
             PastGridEntity = GridEntity;
             GridEntity.InThePast = true;
             removeEntity();
             GameState.Instance.elemInPast ++;
+            processPast = true;
         }
     }
 
     public void processPastEntities()
     {
-        // We test this before incrementing so that the set entity is made after either Player or all enemy have played there turn
-        if (turnInPast >= maxTurnInPast)
+        if (processPast)
         {
-            bool resetPastEntity = false;
-            if (GridEntity is null) 
-                resetPastEntity = true;
-            // wait for current entity to arrive before resetting past for a better visual
-            else if ((GridEntity is not null) & (GridEntity.Moving==false))
-                resetPastEntity = true;
-            if (resetPastEntity) 
+            // We test this before incrementing so that the set entity is made after either Player or all enemy have played there turn
+            if (turnInPast >= maxTurnInPast)
             {
-                PastGridEntity.InThePast = false;
-                setEntity(PastGridEntity);
-                PastGridEntity = null;
-                turnInPast = 0;
-                GameState.Instance.elemInPast = 0;
+                bool resetPastEntity = false;
+                if (GridEntity is null) 
+                    resetPastEntity = true;
+                // wait for current entity to arrive before resetting past for a better visual
+                else if ((GridEntity is not null) & (GridEntity.Moving==false))
+                    resetPastEntity = true;
+                if (resetPastEntity) 
+                {
+                    PastGridEntity.InThePast = false;
+                    setEntity(PastGridEntity);
+                    PastGridEntity = null;
+                    turnInPast = 0;
+                    GameState.Instance.elemInPast = 0;
+                    processPast = false;
+                }
             }
-
+            if ((PastGridEntity is not null)&((Timers.Instance.PlayerPlayTurn)|(Timers.Instance.EnemyPlayTurn)))
+            {      
+                turnInPast = turnInPast + 0.5f;
+            }
         }
-        if ((PastGridEntity is not null)&((Timers.Instance.PlayerPlayTurn)|(Timers.Instance.EnemyPlayTurn)))
-        {      
-            turnInPast = turnInPast + 0.5f;
-        }
+        
     }
 
     public void Update()

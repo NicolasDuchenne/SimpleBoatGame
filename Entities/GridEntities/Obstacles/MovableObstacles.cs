@@ -3,7 +3,7 @@ public class MovableObstacles
 {
     public static Dictionary<string, object> Baril = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("images/png/Baril.png")},
+        { "texture", Raylib.LoadTexture("ressources/images/png/Baril.png")},
     };
 
     public static void Create(Dictionary<string, object> config, int col , int row, bool canBeSentInThePast=true)
