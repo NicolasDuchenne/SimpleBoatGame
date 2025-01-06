@@ -33,14 +33,16 @@ public class SceneGameplay : Scene
 
     private void UpdateMaxTurnInThePast()
     {
-        if (Raylib.IsKeyPressed(KeyboardKey.LeftControl))
+        if ((Raylib.IsKeyPressed(KeyboardKey.RightAlt)) || (Raylib.IsKeyPressed(KeyboardKey.LeftControl)))
         {
             GameState.Instance.MaxTurnInPast --;
         }
-        else if (Raylib.IsKeyPressed(KeyboardKey.LeftShift))
+        else if ((Raylib.IsKeyPressed(KeyboardKey.RightShift)) || (Raylib.IsKeyPressed(KeyboardKey.LeftShift)))
         {
             GameState.Instance.MaxTurnInPast ++;
         }
+        //float zoomChange = Raylib.GetMouseWheelMove();
+        //GameState.Instance.MaxTurnInPast +=(int)zoomChange;
     }
 
     public override void Update()

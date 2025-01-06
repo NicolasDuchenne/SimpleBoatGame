@@ -26,19 +26,19 @@ public class PlayerBoat: GridEntity
     public override void Update()
     {
         
-        if (Raylib.IsKeyPressed(KeyboardKey.Right))
+        if ((Raylib.IsKeyPressed(KeyboardKey.Right)) ||(Raylib.IsKeyPressed(KeyboardKey.D)))
         {
             direction = new Vector2(1, 0);
         }
-        else if (Raylib.IsKeyPressed(KeyboardKey.Left))
+        else if ((Raylib.IsKeyPressed(KeyboardKey.Left))||(Raylib.IsKeyPressed(KeyboardKey.A)))
         {
             direction = new Vector2(-1, 0);
         }
-        else if (Raylib.IsKeyPressed(KeyboardKey.Up))
+        else if ((Raylib.IsKeyPressed(KeyboardKey.Up))||(Raylib.IsKeyPressed(KeyboardKey.W)))
         {
             direction = new Vector2(0, -1);
         }
-        else if (Raylib.IsKeyPressed(KeyboardKey.Down))
+        else if ((Raylib.IsKeyPressed(KeyboardKey.Down))||(Raylib.IsKeyPressed(KeyboardKey.S)))
         {
             direction = new Vector2(0, 1);
         }

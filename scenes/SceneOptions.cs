@@ -15,12 +15,12 @@ public class SceneOptions : Scene
     private bool isFullScreen;
 
     private List<string> controles =  ["CONTROLES:",
-"* Up Arrow: up",
-"* Down Arrow: down",
-"* Left Arrow: left",
-"* Right Arrow: right",
-"* Control Left: decrease number of turn for send in past",
-"* Shift Left: increase number of turn for send in past",
+"* Up Arrow or Z: up",
+"* Down Arrow or S: down",
+"* Left Arrow or Q: left",
+"* Right Arrow or D: right",
+"* Alt Right or Control Left: decrease number of turn for send in past",
+"* Shift Right or Shift Left: increase number of turn for send in past",
 "* Left Click: send in past"];
 
     
