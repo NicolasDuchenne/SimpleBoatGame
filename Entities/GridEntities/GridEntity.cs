@@ -3,15 +3,23 @@ using System.Numerics;
 
 public class GridEntity: Entity
 {
-    static int[,] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+    static List<Vector2> directions = new List<Vector2>
+    {
+        new Vector2(0, 1),  // Up
+        new Vector2(1, 0),  // Right
+        new Vector2(0, -1), // Down
+        new Vector2(-1, 0)  // Left
+    };
     public int Column {get; protected set;}
     public int Row {get; protected set;}
     private int LastTriedColumn;
     private int LastTriedRow;
-    public bool CanMove {get; protected set;} = false;
-    public bool CanMoveEntities {get; protected set;} = false;
+    public bool CanBeMoved {get; protected set;} = false;
+    public bool CanBeMovedEntities {get; protected set;} = false;
 
     public bool CanBeHurt {get; protected set;} = false;
+
+    public bool CanHurt {get; protected set;} = false;
 
     public bool InThePast = false;
 
@@ -22,6 +30,45 @@ public class GridEntity: Entity
     public float speed = 5;
 
     public Vector2 TargetPosition = new Vector2();
+    public new Vector2 Direction {get; private set;}
+
+    public void UpdateDirection(Vector2 inputDirection)
+    {
+        if (directions.Contains(inputDirection))
+        {
+            Rotation = GetAngleFromDirection(inputDirection);
+            Direction = inputDirection;
+        }
+        else
+        {
+            throw new Exception($"Direction {inputDirection} not in {directions}!");
+        }
+    }
+    private float GetAngleFromDirection(Vector2 direction)
+    {
+        
+        if (direction == new Vector2(0, 1)) 
+        {
+            Flip = true;
+            return 90f;  
+        }
+        if (direction == new Vector2(1, 0)) 
+        {
+            Flip = true;
+            return 0; 
+        }
+        if (direction == new Vector2(0, -1))
+        {
+            Flip = false;
+            return 90f; 
+        } 
+        if (direction == new Vector2(-1, 0))
+        {
+            Flip = false;
+            return 0f;  
+        } 
+        return 0f; // Default
+    }
 
 
     
@@ -41,10 +88,11 @@ public class GridEntity: Entity
     {
         if (InThePast == false)
         {
+            UpdateDirection(direction);
             int baseColumn = Column;
             int baseRow = Row;
-            Column += (int)direction.X;
-            Row += (int)direction.Y;
+            Column += (int)Direction.X;
+            Row += (int)Direction.Y;
             (Column, Row) = ClampPosition(Column, Row);
             (LastTriedColumn, LastTriedRow) = (Column, Row);
             if ((Column==baseColumn)&(Row==baseRow))
@@ -54,12 +102,12 @@ public class GridEntity: Entity
             if (GameState.Instance.GridMap.Tiles[Column][Row].GridEntity is not null)
             {
                 Moving = true;
-                TargetPosition = GetBordureSpritePositionFromTile(Column, Row, direction);
+                TargetPosition = GetBordureSpritePositionFromTile(Column, Row, Direction);
                 GridEntity collidedEntity = GameState.Instance.GridMap.Tiles[Column][Row].GridEntity;
                 bool hasMoved = false;
-                if ((collidedEntity.CanMove) & (CanMoveEntities))
+                if ((collidedEntity.CanBeMoved) & (CanBeMovedEntities))
                 {
-                    hasMoved = collidedEntity.Move(direction);
+                    hasMoved = collidedEntity.Move(Direction);
                 }
                 if (hasMoved == false)
                 {

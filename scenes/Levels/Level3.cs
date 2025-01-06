@@ -10,15 +10,23 @@ public class Level3: SceneGameplay
     {
         base.Show();
         GameState.Instance.MaxElemInPast = 2;
+        // string jsonMatrix = @"
+        // [
+        //     [42, 0 , 0 , 41],
+        //     [32, 22, 0 , 32],
+        //     [32, 1 , 0 , 32],
+        //     [32, 32, 32, 32]
+        // ]";
         string jsonMatrix = @"
         [
-            [42, 0 , 0 , 41],
-            [32, 22, 0 , 32],
-            [32, 1 , 0 , 32],
-            [32, 32, 32, 32]
+            [0, 0 , 0 , 41],
+            [0, 0, 0 , 0],
+            [0, 1 , 0 , 0],
+            [0, 0, 0, 0]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();
+        Projectiles.Create(Projectiles.Missile, 2,1);
         
     }
 }

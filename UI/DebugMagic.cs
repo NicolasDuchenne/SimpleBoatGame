@@ -13,6 +13,7 @@ public class DebugMagic: OptionsFile
     public void ToggleDebug()
     {
         showDebug = !showDebug;
+        Entity.ToggleDebug();
     }
 
     public void Update()

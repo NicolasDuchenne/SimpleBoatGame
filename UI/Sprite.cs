@@ -59,10 +59,12 @@ public class Sprite
         return sprite;
     }
 
-    public void DrawCentre(Texture2D texture, Vector2 position, float angle, Color Color)
+    public void DrawCentre(Texture2D texture, Vector2 position, float angle, Color Color, bool flip)
     {
         Rectangle img_rect_source = framePos[currentFrame];
         Rectangle img_rect_dest = new Rectangle(position.X,position.Y, Width, Height);
+        if (flip)
+            img_rect_source.Width*=-1;
         Raylib.DrawTexturePro(
             texture,
             img_rect_source,
@@ -88,8 +90,8 @@ public class Sprite
         
     }
 
-    public void Draw(Vector2 position, float angle, Color color)
+    public void Draw(Vector2 position, float angle, Color color, bool flip)
     {
-        DrawCentre(Texture, position, angle, color);
+        DrawCentre(Texture, position, angle, color, flip);
     }
 }

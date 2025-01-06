@@ -20,7 +20,7 @@ public class PlayerBoat: GridEntity
     Vector2 direction = new Vector2();
     public PlayerBoat(Sprite sprite, int column, int row, bool canBeSentInThePast = true): base(sprite, column,  row, canBeSentInThePast)
     {
-        CanMoveEntities = true;
+        CanBeMovedEntities = true;
         CanBeHurt = true;
     }
     public override void Update()

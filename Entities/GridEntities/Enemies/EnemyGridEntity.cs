@@ -12,8 +12,8 @@ public class EnemyGridEntity: GridEntity
 
     public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, canBeSentInThePast)
     {
-        CanMove = false;
-        CanMoveEntities = false;
+        CanBeMoved = false;
+        CanBeMovedEntities = false;
         CanBeHurt = true;
         if (direction != new Vector2())
         {

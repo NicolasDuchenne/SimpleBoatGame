@@ -16,7 +16,7 @@ public class WinScreen
     }
     public void Update()
     {
-        if (GameState.Instance.levelFinished)
+        if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
         {
             buttonsList.Update();
             if (changeLevel.IsClicked)
@@ -29,7 +29,7 @@ public class WinScreen
     }
     public void Draw()
     {
-        if (GameState.Instance.levelFinished)
+        if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
             buttonsList.Draw();
     }
 }
