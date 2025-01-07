@@ -49,6 +49,7 @@ public class GridEntity: Entity
         TargetPosition = Position;
         GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
         CanBeSentInThepast = canBeSentInThePast;
+
     }
 
     public void UpdateDirection(Vector2 inputDirection)

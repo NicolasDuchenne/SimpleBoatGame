@@ -162,10 +162,10 @@ public class Tile
                     processPast = false;
                 }
             }
-            //if ((PastGridEntity is not null)&((Timers.Instance.PlayerPlayTurn)|(Timers.Instance.EnemyPlayTurn)))
-            if (PastGridEntity is not null&Timers.Instance.OneSecondTurn)
+            if ((PastGridEntity is not null)&((Timers.Instance.OneSecondTurn)|(Timers.Instance.HalfSecondTurn)))
+            //if (PastGridEntity is not null&Timers.Instance.OneSecondTurn)
             {      
-                turnInPast ++;
+                turnInPast = turnInPast + 0.5f;
             }
         }
         
