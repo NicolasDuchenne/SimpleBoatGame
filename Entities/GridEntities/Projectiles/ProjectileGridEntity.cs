@@ -4,6 +4,7 @@ public class ProjectileGridEntity: GridEntity
 {
     public ProjectileGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
+        name = "projectile";
         CanBeMoved = false;
         CanMoveEntities = false;
         CanBeHurt = true;
@@ -12,7 +13,8 @@ public class ProjectileGridEntity: GridEntity
     public override void Update()
     {
         base.Update();
-        if (Timers.Instance.EnemyPlayTurn||Timers.Instance.PlayerPlayTurn)
+        //if (Timers.Instance.OneSecondTurn||Timers.Instance.HalfSecondTurn)
+        if (Timers.Instance.HalfSecondTurn)
         {
             Move(Direction);
             if (positionWasClamped)

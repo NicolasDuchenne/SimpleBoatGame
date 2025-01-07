@@ -3,12 +3,13 @@ using System.Numerics;
 
 public class GridEntity: Entity
 {
-    static List<Vector2> directions = new List<Vector2>
+    protected static List<Vector2> directions = new List<Vector2>
     {
-        new Vector2(0, 1),  // Up
         new Vector2(1, 0),  // Right
+        new Vector2(-1, 0),  // Left
+        new Vector2(0, 1),  // Up
         new Vector2(0, -1), // Down
-        new Vector2(-1, 0)  // Left
+        
     };
     public int Column {get; protected set;}
     public int Row {get; protected set;}
@@ -29,7 +30,7 @@ public class GridEntity: Entity
 
     public bool Moving=false;
 
-    public float speed = 127;
+    public float speed = 200;
 
     public Vector2 TargetPosition = new Vector2();
     public new Vector2 Direction {get; private set;}
@@ -48,7 +49,6 @@ public class GridEntity: Entity
         TargetPosition = Position;
         GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
         CanBeSentInThepast = canBeSentInThePast;
-
     }
 
     public void UpdateDirection(Vector2 inputDirection)
@@ -82,6 +82,7 @@ public class GridEntity: Entity
     {
         if (InThePast == false)
         {
+
             touchedPlayer = false;
             positionWasClamped = false;
             UpdateDirection(direction);
@@ -156,7 +157,7 @@ public class GridEntity: Entity
         if (Moving)
         {
             float dist = (TargetPosition-Position).Length();
-            if (dist < 1)
+            if (dist < 2)
             {
                 Moving = false;
                 Position = TargetPosition;

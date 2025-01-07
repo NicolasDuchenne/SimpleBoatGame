@@ -11,10 +11,10 @@ public class Level1:SceneGameplay
         base.Show();
         string jsonMatrix = @"
         [
-            [0 , 0 , 0 , 42],
-            [0, 21, 0 , 0],
-            [0, 1 , 0 , 0],
-            [0, 32, 32, 0]
+            [0 , 0 , 43 , 0],
+            [0, 1, 0, 0],
+            [0, 0 , 0 , 0],
+            [0 , 43, 0, 0]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();

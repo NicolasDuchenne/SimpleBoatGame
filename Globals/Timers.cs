@@ -21,13 +21,15 @@ public class Timers
     private int timerWidth = 400;
     private int timerHeight = 20;
     private int timerYOffset = 30;
+    public float OneSecondTimer {get; private set;} = 0;
+    public bool OneSecondTurn {get; private set;}
+
     public float PlayerTimer {get; private set;} = 0;
-    private float playerTurnDuration = 1f;
+    private float playerTurnDuration = 0.5f;
     public bool PlayerPlayTurn {get; private set;}
 
-    public bool EnemyPlayTurn{get; private set;}
-    private bool enemyHasPlayed;
-    public float EnemyPlayTime {get; private set;}= 0.5f;
+    public bool HalfSecondTurn{get; private set;}
+    private bool halfSecondFinished;
 
     private int GameScreenWidth;
     private int GameScreenHeight;
@@ -40,26 +42,34 @@ public class Timers
 
     private void updateTimers()
     {
+        OneSecondTurn = false;
         PlayerPlayTurn = false;
-        EnemyPlayTurn = false;
+        HalfSecondTurn = false;
+        
+        OneSecondTimer+=Raylib.GetFrameTime();
         PlayerTimer+=Raylib.GetFrameTime();
-        GameState.Instance.debugMagic.AddOption("playerTimer", Math.Round(PlayerTimer,1));
+        GameState.Instance.debugMagic.AddOption("playerTimer", Math.Round(OneSecondTimer,1));
+        if (OneSecondTimer > 1)
+        {
+            OneSecondTimer = 0;
+            OneSecondTurn = true;
+        } 
         if (PlayerTimer > playerTurnDuration)
         {
             PlayerTimer = 0;
             PlayerPlayTurn = true;
         } 
-        if (PlayerTimer > playerTurnDuration*EnemyPlayTime)
+        if (OneSecondTimer > 0.5)
         {
-            if (enemyHasPlayed == false)
+            if (halfSecondFinished == false)
             {
-                enemyHasPlayed = true;
-                EnemyPlayTurn = true;
+                halfSecondFinished = true;
+                HalfSecondTurn = true;
             }
         }
         else
         {
-            enemyHasPlayed = false;
+            halfSecondFinished = false;
         }
 
         
@@ -73,7 +83,7 @@ public class Timers
 
     private void DrawTimer()
     {
-        Raylib.DrawRectangleRec(new Rectangle((GameScreenWidth-timerWidth)/2, GameScreenHeight-timerHeight - timerYOffset, (int)Math.Round(timerWidth*(PlayerTimer/playerTurnDuration)), timerHeight), Color.White);
+        Raylib.DrawRectangleRec(new Rectangle((GameScreenWidth-timerWidth)/2, GameScreenHeight-timerHeight - timerYOffset, (int)Math.Round(timerWidth*OneSecondTimer), timerHeight), Color.White);
         Raylib.DrawRectangleLinesEx(new Rectangle((GameScreenWidth-timerWidth)/2, GameScreenHeight-timerHeight- timerYOffset, timerWidth, timerHeight),2, Color.Black);
         Raylib.DrawLineEx(new Vector2(GameScreenWidth/2, GameScreenHeight-timerHeight - timerYOffset),  new Vector2(GameScreenWidth/2, GameScreenHeight-timerYOffset),2, Color.Black);
     }

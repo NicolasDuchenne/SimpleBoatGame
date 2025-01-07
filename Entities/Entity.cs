@@ -4,6 +4,7 @@ using Raylib_cs;
 
 public class Entity
 {
+    public string name {get; protected set;}
     public static List<Entity> ALL = new List<Entity>();
     public Sprite Sprite {get; private set;}
     public Vector2 Position;
@@ -49,6 +50,8 @@ public class Entity
             return;
         if (!Visible)
             return;
+        Console.WriteLine(name);
+        Console.WriteLine(Flip);
         if (color is not null)
         {
             Sprite.Draw(Position, Rotation, (Color)color, Flip);

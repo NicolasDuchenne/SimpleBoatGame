@@ -14,7 +14,7 @@ public class Destruction: Entity
 {
     public Destruction(Sprite sprite, Vector2 position): base(sprite, position)
     {
-
+        name = "destruction";
     }
     public override void Update()
     {
