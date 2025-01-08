@@ -50,8 +50,6 @@ public class Entity
             return;
         if (!Visible)
             return;
-        Console.WriteLine(name);
-        Console.WriteLine(Flip);
         if (color is not null)
         {
             Sprite.Draw(Position, Rotation, (Color)color, Flip);

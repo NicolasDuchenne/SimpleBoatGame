@@ -6,7 +6,6 @@ public class EnemyGridEntity: GridEntity
     
     public int TargetColumn {get; protected set;} = GameState.Instance.GridMap.Tiles.Count - 1;
     public int TargetRow {get; protected set;} = GameState.Instance.GridMap.Tiles[0].Count - 1;
-    public Vector2 movingDirection = new Vector2(0,1);
     public bool changeDirection = false;
     public int shootCounter = 0;
     public int shootTurn = 3;
@@ -24,9 +23,9 @@ public class EnemyGridEntity: GridEntity
         CanMoveEntities = false;
         CanBeHurt = true;
         CanHurtPlayer = true;
-        if (movingDirection != new Vector2())
+        if (Direction != new Vector2())
         {
-            movingDirection = direction;
+            Direction = direction;
         }
         GameState.Instance.enemyNumber ++;
         if ((Column+1) > GameState.Instance.GridMap.ColumnNumber/2)
@@ -37,7 +36,7 @@ public class EnemyGridEntity: GridEntity
 
     private void Shoot()
     {
-        if (movingDirection == directions[0] || movingDirection == directions[1])
+        if (Direction == directions[0] || Direction == directions[1])
         {
             ShootingColumn = Column;
             if ((Row+1) <=GameState.Instance.GridMap.RowNumber/2)
@@ -51,7 +50,7 @@ public class EnemyGridEntity: GridEntity
                 ShootingRow = Row - 1;
             }
         }
-        else if (movingDirection == directions[2] || movingDirection == directions[3])
+        else if (Direction == directions[2] || Direction == directions[3])
         {
             ShootingRow = Row;
             if ((Column+1) <=GameState.Instance.GridMap.ColumnNumber/2)
@@ -91,22 +90,12 @@ public class EnemyGridEntity: GridEntity
                     shootCounter = 0;
                     willShoot = true;
                 }
-                bool hasMoved = Move(movingDirection);
+                bool hasMoved = Move(Direction);
                 if ((hasMoved == false) & (InThePast == false) &(touchedPlayer==false))
                 {
                     changeDirection = true;
-                    if (movingDirection.X!=0)
-                    {
-                        movingDirection.X = -movingDirection.X;
-                    }
-                       
-                    if (movingDirection.Y!=0)
-                    {
-                        movingDirection.Y = -movingDirection.Y;
-                    }
-                        
-
-                    Move(movingDirection);
+                    Direction = new Vector2(-Direction.X, -Direction.Y);
+                    Move(Direction);
                 }
                 
             }

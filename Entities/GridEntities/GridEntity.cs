@@ -33,7 +33,7 @@ public class GridEntity: Entity
     public float speed = 200;
 
     public Vector2 TargetPosition = new Vector2();
-    public new Vector2 Direction {get; private set;}
+    public new Vector2 Direction {get; protected set;}
     public bool positionWasClamped = false;
     public bool touchedPlayer = false;
     
