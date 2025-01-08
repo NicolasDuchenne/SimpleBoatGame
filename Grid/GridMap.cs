@@ -83,6 +83,7 @@ public class Tile
     
     private int maxTurnInPast;
     private bool processPast = false;
+    private float pastTimer=0;
 
     public Tile(Vector2 position, int size, Color color)
     {
@@ -162,10 +163,12 @@ public class Tile
                     processPast = false;
                 }
             }
-            if ((PastGridEntity is not null)&((Timers.Instance.OneSecondTurn)|(Timers.Instance.HalfSecondTurn)))
+            pastTimer+=Raylib.GetFrameTime();
+            if (pastTimer>=1)
             //if (PastGridEntity is not null&Timers.Instance.OneSecondTurn)
             {      
-                turnInPast = turnInPast + 0.5f;
+                pastTimer = 0;
+                turnInPast = turnInPast + 1f;
             }
         }
         

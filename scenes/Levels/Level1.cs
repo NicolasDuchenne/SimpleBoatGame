@@ -14,7 +14,7 @@ public class Level1:SceneGameplay
             [0 , 0 , 43 , 0],
             [0, 1, 0, 0],
             [0, 0 , 0 , 0],
-            [0 , 43, 0, 0]
+            [0 , 0, 0, 0]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();

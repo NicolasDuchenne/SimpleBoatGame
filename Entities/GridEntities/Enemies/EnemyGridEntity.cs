@@ -36,6 +36,7 @@ public class EnemyGridEntity: GridEntity
 
     private void Shoot()
     {
+        Vector2 shootingPosition = Position;
         if (Direction == directions[0] || Direction == directions[1])
         {
             ShootingColumn = Column;
@@ -43,11 +44,13 @@ public class EnemyGridEntity: GridEntity
             {
                 shootingDirection = new Vector2(0,1);
                 ShootingRow = Row + 1;
+                shootingPosition.Y = shootingPosition.Y + Sprite.Height;
             }
             else
             {
                 shootingDirection = new Vector2(0,-1);
                 ShootingRow = Row - 1;
+                shootingPosition.Y = shootingPosition.Y - Sprite.Height;
             }
         }
         else if (Direction == directions[2] || Direction == directions[3])
@@ -57,16 +60,20 @@ public class EnemyGridEntity: GridEntity
             {
                 shootingDirection = new Vector2(1,0);
                 ShootingColumn = Column+1;
+                shootingPosition.X = shootingPosition.X + Sprite.Width;
             }
             else
             {
                 shootingDirection = new Vector2(-1,0);
                 ShootingColumn = Column-1;
+                shootingPosition.X = shootingPosition.X - Sprite.Width;
             }
         }
         if (ShootingColumn < GameState.Instance.GridMap.ColumnNumber & ShootingRow < GameState.Instance.GridMap.RowNumber)
         {
-            Projectiles.Create(Projectiles.Missile, ShootingColumn, ShootingRow, shootingDirection);
+            ProjectileGridEntity projectile =Projectiles.Create(Projectiles.Missile, Column, Row, shootingDirection);
+            projectile.Position = shootingPosition;
+            projectile.Move(new Vector2(ShootingColumn, ShootingRow)-new Vector2(Column, Row), false);
         }
         
         

@@ -1,4 +1,5 @@
 using Raylib_cs;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
 public class GridEntity: Entity
@@ -37,7 +38,7 @@ public class GridEntity: Entity
     public bool positionWasClamped = false;
     public bool touchedPlayer = false;
     
-    public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, GetCenterPositionFromTile(column, row))
+    public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true, bool setEntityAtSpawn = true): base(sprite, GetCenterPositionFromTile(column, row))
     {
         if (direction==new Vector2())
             direction = new Vector2(1, 0);
@@ -47,7 +48,11 @@ public class GridEntity: Entity
         Row = row; 
         Position = GetCenterPositionFromTile(Column, Row);
         TargetPosition = Position;
-        GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
+        if (setEntityAtSpawn)
+        {
+            GameState.Instance.GridMap.Tiles[column][row].setEntity(this);
+        }
+        
         CanBeSentInThepast = canBeSentInThePast;
 
     }
@@ -79,7 +84,7 @@ public class GridEntity: Entity
     }
     
 
-    public bool Move(Vector2 direction)
+    public bool Move(Vector2 direction, bool removeCurrentEntity = true)
     {
         if (InThePast == false)
         {
@@ -117,7 +122,10 @@ public class GridEntity: Entity
                     return false;
                 }   
             }
-            GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity();
+            if (removeCurrentEntity)
+            {
+                GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity();
+            }
             GameState.Instance.GridMap.Tiles[Column][Row].setEntity(this);
             TargetPosition = GetCenterPositionFromTile(Column, Row);
             Moving = true;
@@ -144,12 +152,23 @@ public class GridEntity: Entity
             GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.Hit();
         if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.Destroyed) 
         {
+            GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt = false;
             GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].removeEntity();
         }
         if (Destroyed)
         {
+            CanHurt = false;
             GameState.Instance.GridMap.Tiles[Column][Row].removeEntity();
         }
+    }
+
+    private bool CheckCollision(int column, int row)
+    {
+        if ((Position-GameState.Instance.GridMap.Tiles[column][row].GridEntity.Position).Length() <=(Sprite.Width+GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width)*0.5f)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void ProcessMovement()
@@ -183,16 +202,23 @@ public class GridEntity: Entity
                 // If the object is still here, we go either kill it, or go back to the last tried position
                 else
                 {
+                    bool hasCollided = CheckCollision(LastTriedColumn, LastTriedRow);
+                    
                     // Hurt if a canHurt object encouters any object
                     if (CanHurt || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt)
                     {
-                        Hurt();
+                        if (hasCollided)
+                            Hurt();
+
                     }
                     // Hurt if an enemie encouter the player
                     else if ((GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.IsPlayer&CanHurtPlayer)||(IsPlayer&GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurtPlayer))
                     {
-                        Hurt();
+                        if (hasCollided)
+                            Hurt();
                     }
+                    
+                    
                     else
                     {
                         Moving = true;
@@ -230,17 +256,17 @@ public class GridEntity: Entity
         base.Draw(drawColor);
     }
 
-    private static Vector2 GetCenterPositionFromTile(int column, int row)
+    protected static Vector2 GetCenterPositionFromTile(int column, int row)
     {
         (column, row) = ClampPosition(column, row);
         return GameState.Instance.GridMap.Tiles[column][row].CenterPosition;
     }
 
-    private static Vector2 GetBordureSpritePositionFromTile(int column, int row, Vector2 direction)
+    private Vector2 GetBordureSpritePositionFromTile(int column, int row, Vector2 direction)
     {
         (column, row) = ClampPosition(column, row);
         Vector2 centerPos = GameState.Instance.GridMap.Tiles[column][row].CenterPosition;
-        return centerPos-direction*GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width;
+        return centerPos-direction*(GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width+Sprite.Width)*0.5f;
     }
 
     public virtual void Hit()
