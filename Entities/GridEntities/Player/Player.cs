@@ -21,7 +21,7 @@ public class PlayerBoat: GridEntity
     Vector2 oldDirection = new Vector2();
     public PlayerBoat(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
-        name = "player";
+        name += "player";
         CanMoveEntities = true;
         CanBeHurt = true;
         CanBeMoved = false;

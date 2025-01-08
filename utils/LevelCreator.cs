@@ -3,9 +3,9 @@ using System.Text.Json;
 
 class LevelCreator
 {
-    protected int columnNumber;
-    protected int rowNumber;
-    protected int size = 60;
+    private int columnNumber;
+    private int rowNumber;
+    private int size;
     public Dictionary<int, Dictionary<int, int>> Matrix {get; private set;}
     public LevelCreator (String json)
     {
@@ -31,8 +31,9 @@ class LevelCreator
         return matrixDict;
     }
 
-    public GridMap Create()
+    public GridMap Create(int size = 60)
     {
+        this.size = Math.Max(size, 40);
         rowNumber = Matrix.Count();
         columnNumber = Matrix[0].Count();
         GridMap gridMap = new GridMap(columnNumber, rowNumber, size);
@@ -49,10 +50,10 @@ class LevelCreator
                         Player.Create(j,i);
                         break;
                     case 21:
-                        MovableObstacles.Create(MovableObstacles.Baril, j, i);
+                        Explosives.Create(Explosives.Baril, j, i);
                         break;
                     case 22:
-                        MovableObstacles.Create(MovableObstacles.Baril, j, i, new Vector2(),false);
+                        Explosives.Create(Explosives.Baril, j, i, new Vector2(),false);
                         break;
                     case 31:
                         Obstacles.Create(Obstacles.Obstacle, j, i);

@@ -18,7 +18,7 @@ public class EnemyGridEntity: GridEntity
 
     public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
-        name = "enemy";
+        name += "enemy";
         CanBeMoved = false;
         CanMoveEntities = false;
         CanBeHurt = true;
@@ -73,7 +73,7 @@ public class EnemyGridEntity: GridEntity
         {
             ProjectileGridEntity projectile =Projectiles.Create(Projectiles.Missile, Column, Row, shootingDirection);
             projectile.Position = shootingPosition;
-            projectile.Move(new Vector2(ShootingColumn, ShootingRow)-new Vector2(Column, Row), false);
+            projectile.Move(shootingDirection, false);
         }
         
         

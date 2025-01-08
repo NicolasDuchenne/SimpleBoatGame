@@ -20,9 +20,9 @@ public class Level3: SceneGameplay
         // ]";
         string jsonMatrix = @"
         [
-            [0, 0 , 0 , 41],
-            [0, 1, 0 , 0],
-            [0, 0 , 33 , 0],
+            [41, 0 , 0 , 41],
+            [0, 0, 0 , 0],
+            [0, 1 , 33 , 0],
             [34, 32, 33, 34]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);

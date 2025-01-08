@@ -34,7 +34,7 @@ public class Obstacle: GridEntity
 {
     public Obstacle(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
-        name = "obstacle";
+        name += "obstacle";
         CanBeHurt = false;
     }
 }
@@ -43,7 +43,7 @@ public class DestroyableObstacle: GridEntity
 {
     public DestroyableObstacle(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
     {
-        name = "destroyableObstacle";
+        name += "destroyableObstacle";
         CanBeHurt = true;
     }
 }

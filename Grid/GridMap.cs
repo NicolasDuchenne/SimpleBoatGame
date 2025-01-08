@@ -104,13 +104,21 @@ public class Tile
             }
             else
             {
+
                 if (GridEntity.CanBeHurt)
+                {
                     GridEntity.Hit();
+                }
+                    
+                    
                 if (gridEntity.CanBeHurt)
+                {
                     gridEntity.Hit();
+                }
                 if ((GridEntity.Destroyed) & (gridEntity.Destroyed))
                 {
-                    removeEntity();
+                    removeEntity(GridEntity.name);
+                    removeEntity(gridEntity.name);
                 }
             }
         } 
@@ -134,7 +142,7 @@ public class Tile
             maxTurnInPast = GameState.Instance.MaxTurnInPast;
             PastGridEntity = GridEntity;
             GridEntity.InThePast = true;
-            removeEntity();
+            removeEntity(GridEntity.name);
             GameState.Instance.elemInPast ++;
             processPast = true;
         }
@@ -179,11 +187,19 @@ public class Tile
         SendToPast();
         processPastEntities();
         
+        
     }
 
-    public void removeEntity()
+    public void removeEntity(string name)
     {
-        GridEntity = null;
+        if (GridEntity is not null)
+        {
+            // To make sure that we do not remove an object we did not expect to remove
+            if (GridEntity.name == name)
+            {
+                GridEntity = null;
+            }
+        }
     }
 
     public void Draw()

@@ -6,6 +6,7 @@ public class Entity
 {
     public string name {get; protected set;}
     public static List<Entity> ALL = new List<Entity>();
+    protected static int entityNumber = 0;
     public Sprite Sprite {get; private set;}
     public Vector2 Position;
     public Vector2 Velocity;
@@ -22,11 +23,13 @@ public class Entity
     public string DebugLabel = "";
     public Entity(Sprite sprite, Vector2 position)
     {
+        name = entityNumber.ToString() + "_";
         Sprite = sprite;
         Position = position;
         Velocity = Vector2.Zero;
         Box = new Rectangle(Position.X, Position.Y, Sprite.Width, Sprite.Height);
         ALL.Add(this);
+        entityNumber+=1;
     }
 
     public virtual void Destroy()

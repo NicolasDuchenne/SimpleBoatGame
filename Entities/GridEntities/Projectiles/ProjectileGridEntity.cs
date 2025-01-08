@@ -4,7 +4,7 @@ public class ProjectileGridEntity: GridEntity
 {
     public ProjectileGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast, false)
     {
-        name = "projectile";
+        name += "projectile";
         CanBeMoved = false;
         CanMoveEntities = false;
         CanBeHurt = true;
@@ -19,7 +19,7 @@ public class ProjectileGridEntity: GridEntity
             if (positionWasClamped)
             {
                 Destroy();
-                GameState.Instance.GridMap.Tiles[Column][Row].removeEntity();    
+                GameState.Instance.GridMap.Tiles[Column][Row].removeEntity(name);    
             }
                 
         }
