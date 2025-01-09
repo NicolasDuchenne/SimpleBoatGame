@@ -104,13 +104,10 @@ public class Tile
             }
             else
             {
-
                 if (GridEntity.CanBeHurt)
                 {
                     GridEntity.Hit();
-                }
-                    
-                    
+                } 
                 if (gridEntity.CanBeHurt)
                 {
                     gridEntity.Hit();
@@ -186,8 +183,6 @@ public class Tile
     {
         SendToPast();
         processPastEntities();
-        
-        
     }
 
     public void removeEntity(string name)

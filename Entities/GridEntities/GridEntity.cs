@@ -107,6 +107,7 @@ public class GridEntity: Entity
             (LastTriedColumn, LastTriedRow) = (Column, Row);
             if ((Column==baseColumn)&(Row==baseRow))
             {
+
                 positionWasClamped = true;
                 return false;
             }
@@ -115,7 +116,7 @@ public class GridEntity: Entity
                 Moving = true;
                 TargetPosition = GetBordureSpritePositionFromTile(Column, Row, Direction);
                 GridEntity collidedEntity = GameState.Instance.GridMap.Tiles[Column][Row].GridEntity;
-                
+
                 if (goesThroughEntities== false)
                 {
                     bool hasMoved = false;
@@ -127,6 +128,7 @@ public class GridEntity: Entity
                     }
                     if (hasMoved == false)
                     {
+
                         Column = baseColumn;
                         Row = baseRow;
                         return false;
@@ -148,6 +150,7 @@ public class GridEntity: Entity
             }
             
             TargetPosition = GetCenterPositionFromTile(Column, Row);
+
             Moving = true;
             return true;
         }
@@ -185,9 +188,12 @@ public class GridEntity: Entity
 
     private bool CheckCollision(int column, int row)
     {
-        if ((Position-GameState.Instance.GridMap.Tiles[column][row].GridEntity.Position).Length() <=(Sprite.Width+GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width)*0.5f)
+        if (GameState.Instance.GridMap.Tiles[column][row].GridEntity is not null)
         {
-            return true;
+            if ((Position-GameState.Instance.GridMap.Tiles[column][row].GridEntity.Position).Length() <=(Sprite.Width+GameState.Instance.GridMap.Tiles[column][row].GridEntity.Sprite.Width)*0.5f)
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -197,6 +203,7 @@ public class GridEntity: Entity
         
         if (Moving)
         {
+
             float dist = (TargetPosition-Position).Length();
             if (dist < maxPixelMovePerFrame)
             {
@@ -208,48 +215,44 @@ public class GridEntity: Entity
                 float deltaSpeed = Math.Max(speed *Raylib.GetFrameTime(),maxPixelMovePerFrame);
                 Position = Position + Vector2.Normalize(TargetPosition-Position) * deltaSpeed;
             }
+            // Check collision with entity in target tile
+            if(LastTriedColumn!=Column | LastTriedRow!=Row)
+            {
+
+                if (CheckCollision(LastTriedColumn, LastTriedRow))
+                {
+                    if (CanHurt || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt)
+                    {
+                        Hurt();
+                    }
+                    // Hurt if an enemie encouter the player
+                    else if ((GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.IsPlayer&CanHurtPlayer)||(IsPlayer&GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurtPlayer))
+                    {
+                        Hurt();
+                    }
+                }
+            }
         }
         else
         {
-            //If we tried to move a inmovable object, we go to the object position
+
+            //If we tried to move a inmovable object, we go back to the object position
             Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
             if (TargetPosition!=expectedPosition)
             {
                 // If the object left, we go to the last tried pos
                 if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is null)
                 {
+
                     Vector2 direction = Vector2.Normalize(GetCenterPositionFromTile(LastTriedColumn, LastTriedRow) - GetCenterPositionFromTile(Column, Row));
                     Move(direction);
                 }
-                // If the object is still here, we go either kill it, or go back to the last tried position
+                // If the object is still here we go back to the last tried position
                 else
                 {
-                    bool hasCollided = CheckCollision(LastTriedColumn, LastTriedRow);
-                    
-                    // Hurt if a canHurt object encouters any object
-                    if (CanHurt || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt)
-                    {
-                        if (hasCollided)
-                            Hurt();
-
-                    }
-                    // Hurt if an enemie encouter the player
-                    else if ((GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.IsPlayer&CanHurtPlayer)||(IsPlayer&GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurtPlayer))
-                    {
-                        if (hasCollided)
-                            Hurt();
-                    }
-                    
-                    
-                    else
-                    {
-                        Moving = true;
-                        TargetPosition = expectedPosition;
-                    }
-                    
+                    Moving = true;
+                    TargetPosition = expectedPosition;
                 }
-                
-                
             }
         }
     }

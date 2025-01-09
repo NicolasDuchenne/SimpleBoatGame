@@ -11,14 +11,18 @@ public class DeathScreen
         int buttonHeight = 60;
         CurrentLevel = currentLevel;
         restartButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), (int)((GameState.Instance.GameScreenHeight-buttonHeight) * 0.5), buttonWidth, buttonHeight), Text = "You Died \n Click to Restart", Color = Color.White};
-        
+        GameState.Instance.playerDead = false;
         buttonsList.AddButton(restartButton);
        
     }
     public void Update()
     {
         if (GameState.Instance.playerDead)
+        {
+            Console.WriteLine("player dead");
             playerDeadTimer +=Raylib.GetFrameTime();
+        }
+           
         if (playerDeadTimer>0.5)
         {
             buttonsList.Update();

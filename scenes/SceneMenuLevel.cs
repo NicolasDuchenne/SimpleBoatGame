@@ -6,8 +6,6 @@ public class SceneMenuLevel : Scene
     private ButtonsList levelButtonsList;
     private ButtonsList buttonList= new ButtonsList();
     Button backButton ;
-
-
     int buttonWidth = 100;
     int buttonHeight = 20;
     int buttonSpace = 5;

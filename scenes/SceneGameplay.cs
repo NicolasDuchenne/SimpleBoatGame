@@ -65,10 +65,6 @@ public class SceneGameplay : Scene
         gridMap.Update();
         Entity.UpdateAll();
         GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
-        if (GameState.Instance.enemyNumber == 0)
-        {
-            GameState.Instance.levelFinished = true;
-        }
 
         deathScreen.Update();
         winScreen.Update();
@@ -85,7 +81,6 @@ public class SceneGameplay : Scene
         }
         
         GameState.Instance.elemInPast = 0;
-        GameState.Instance.levelFinished = false;
         GameState.Instance.enemyNumber = 0;
         base.Show();
         Entity.ALL.Clear();   

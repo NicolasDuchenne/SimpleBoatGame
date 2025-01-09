@@ -15,6 +15,7 @@ public class ProjectileGridEntity: GridEntity
         base.Update();
         if (Timers.Instance.HalfSecondTurn)
         {
+
             Move(Direction);
             if (positionWasClamped)
             {

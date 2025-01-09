@@ -45,27 +45,4 @@ public class Explosion: GridEntity
             
         }
     }
-    protected override float GetAngleFromDirection(Vector2 direction)
-    {
-        
-        if (direction == new Vector2(0, 1)) 
-        {
-            return 90f;  
-        }
-        if (direction == new Vector2(1, 0)) 
-        {
-            Flip = false;
-            return 0; 
-        }
-        if (direction == new Vector2(0, -1))
-        {
-            return -90f; 
-        } 
-        if (direction == new Vector2(-1, 0))
-        {
-            Flip = true;
-            return 0f;  
-        } 
-        return 0f; // Default
-    }
 }

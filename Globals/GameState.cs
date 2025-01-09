@@ -65,7 +65,7 @@ public class GameState
     int monitorHeight = 0;
 
     public bool playerDead = false;
-    public bool levelFinished = false;
+    public bool levelFinished => enemyNumber == 0;
 
     public int enemyNumber = 0;
 
