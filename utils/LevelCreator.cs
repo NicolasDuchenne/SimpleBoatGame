@@ -50,10 +50,16 @@ class LevelCreator
                         Player.Create(j,i);
                         break;
                     case 21:
-                        Explosives.Create(Explosives.Baril, j, i);
+                        MovingObstacles.Create(MovingObstacles.Baril, j, i);
                         break;
                     case 22:
-                        Explosives.Create(Explosives.Baril, j, i, new Vector2(),false);
+                        MovingObstacles.Create(MovingObstacles.Baril, j, i, new Vector2(),false);
+                        break;
+                    case 23:
+                        MovingObstacles.Create(MovingObstacles.BarilExplosive, j, i);
+                        break;
+                    case 24:
+                        MovingObstacles.Create(MovingObstacles.BarilExplosive, j, i, new Vector2(),false);
                         break;
                     case 31:
                         Obstacles.Create(Obstacles.Obstacle, j, i);
@@ -78,6 +84,32 @@ class LevelCreator
                         break;
                     case 44:
                         Enemies.Create(Enemies.Fregate, j, i, new Vector2(0,1), false);
+                        break;
+
+                    case 51:
+                        Enemies.Create(Enemies.Baleine, j, i, new Vector2(1,0));
+                        break;
+                    case 52:
+                        Enemies.Create(Enemies.Baleine, j, i, new Vector2(1,0), false);
+                        break;
+                    case 53:
+                        Enemies.Create(Enemies.Baleine, j, i, new Vector2(0,1));
+                        break;
+                    case 54:
+                        Enemies.Create(Enemies.Baleine, j, i, new Vector2(0,1), false);
+                        break;
+
+                    case 61:
+                        Enemies.Create(Enemies.Pieuvre, j, i, new Vector2(1,0));
+                        break;
+                    case 62:
+                        Enemies.Create(Enemies.Pieuvre, j, i, new Vector2(1,0), false);
+                        break;
+                    case 63:
+                        Enemies.Create(Enemies.Pieuvre, j, i, new Vector2(0,1));
+                        break;
+                    case 64:
+                        Enemies.Create(Enemies.Pieuvre, j, i, new Vector2(0,1), false);
                         break;
                     
                     default:

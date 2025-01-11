@@ -19,7 +19,6 @@ public class DeathScreen
     {
         if (GameState.Instance.playerDead)
         {
-            Console.WriteLine("player dead");
             playerDeadTimer +=Raylib.GetFrameTime();
         }
            

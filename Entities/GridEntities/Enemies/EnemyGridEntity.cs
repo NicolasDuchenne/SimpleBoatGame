@@ -8,7 +8,7 @@ public class EnemyGridEntity: GridEntity
     public int TargetRow {get; protected set;} = GameState.Instance.GridMap.Tiles[0].Count - 1;
     public bool changeDirection = false;
     public int shootCounter = 0;
-    public int shootTurn = 3;
+    public int shootTurn;
     public bool willShoot = false;
     private Vector2 shootingDirection = new Vector2(0,1);
     private int ShootingColumn = 0;
@@ -16,7 +16,7 @@ public class EnemyGridEntity: GridEntity
 
 
 
-    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
+    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true, int shootTurn = 0): base(sprite, column,  row, direction, canBeSentInThePast)
     {
         name += "enemy";
         CanBeMoved = false;
@@ -32,6 +32,7 @@ public class EnemyGridEntity: GridEntity
         {
             Flip=true;
         }
+        this.shootTurn = shootTurn;
     }
 
     private void Shoot()
@@ -91,12 +92,16 @@ public class EnemyGridEntity: GridEntity
             }
             if (Timers.Instance.HalfSecondTurn)
             {
-                shootCounter ++;
-                if (shootCounter == shootTurn)
+                if (shootTurn >0)
                 {
-                    shootCounter = 0;
-                    willShoot = true;
+                    shootCounter ++;
+                    if (shootCounter == shootTurn)
+                    {
+                        shootCounter = 0;
+                        willShoot = true;
+                    }
                 }
+                
                 bool hasMoved = Move(Direction);
                 if ((hasMoved == false) & (InThePast == false) &(touchedPlayer==false))
                 {

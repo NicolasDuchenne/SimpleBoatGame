@@ -1,34 +1,43 @@
 using System.Numerics;
 using Raylib_cs;
-public class Explosives
+public class MovingObstacles
 {
+    public static Dictionary<string, object> BarilExplosive = new Dictionary<string, object>
+    {
+        { "texture", Raylib.LoadTexture("ressources/images/png/BarilExplosive.png")},
+        { "explosive", true}
+
+    };
+
     public static Dictionary<string, object> Baril = new Dictionary<string, object>
     {
         { "texture", Raylib.LoadTexture("ressources/images/png/Baril.png")},
+        { "explosive", false}
     };
 
     public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true)
     {
         Sprite sprite = Sprite.SpriteFromConfig(config);
-        new Explosive(sprite, col, row, direction, canBeSentInThePast);
+        new MovingObstacle(sprite, col, row, direction, canBeSentInThePast, (bool)config["explosive"]);
     }
 
 }
 
-public class Explosive: GridEntity
+public class MovingObstacle: DestroyableObstacle
 {
-    public Explosive(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true): base(sprite, column,  row, direction, canBeSentInThePast)
+    bool explosive ;
+
+    public MovingObstacle(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true, bool explosive=false): base(sprite, column,  row, direction, canBeSentInThePast, explosive)
     {
-        name+="explosive";
+        name+="Moving";
         CanBeMoved = true;
         CanMoveEntities = true;
-        CanBeHurt = true;
     }
     
     public override void Destroy()
     {
         base.Destroy();
-        if (Destroyed)
+        if (Destroyed & explosive)
         {
             for (int column=-1; column<=1; column++)
             {
