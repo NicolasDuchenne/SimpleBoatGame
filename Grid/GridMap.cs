@@ -129,10 +129,13 @@ public class Tile
     {
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
-        if ((GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)) )
+        if ((PastGridEntity is null)&(GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)) )
         {
             if ((GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
+            {
                 isMousedOver = true;
+            }
+                
         }
         if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
         {
@@ -142,6 +145,9 @@ public class Tile
             removeEntity(GridEntity.name);
             GameState.Instance.elemInPast ++;
             processPast = true;
+
+            Score.Instance.addSendToPast();
+            
         }
     }
 

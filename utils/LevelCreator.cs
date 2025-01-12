@@ -73,6 +73,12 @@ class LevelCreator
                     case 34:
                         DestroyableObstacles.Create(DestroyableObstacles.Obstacle, j, i,  new Vector2(), false);
                         break;
+                    case 35:
+                        DestroyableObstacles.Create(DestroyableObstacles.ExplosiveObstacle, j, i);
+                        break;
+                    case 36:
+                        DestroyableObstacles.Create(DestroyableObstacles.ExplosiveObstacle, j, i,  new Vector2(), false);
+                        break;
                     case 41:
                         Enemies.Create(Enemies.Fregate, j, i, new Vector2(1,0));
                         break;

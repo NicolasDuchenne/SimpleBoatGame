@@ -29,6 +29,7 @@ public class SceneGameplay : Scene
         deathScreen.Draw();
         winScreen.Draw();
         UI.Draw();
+        Score.Instance.Draw();
     }
 
     private void UpdateMaxTurnInThePast()
@@ -69,6 +70,7 @@ public class SceneGameplay : Scene
         deathScreen.Update();
         winScreen.Update();
         UI.Update();
+        Score.Instance.Update();
     }
 
     public override void Show()
@@ -87,5 +89,6 @@ public class SceneGameplay : Scene
         deathScreen = new DeathScreen(name);
         winScreen = new WinScreen(next_scene);
         GameState.Instance.MaxElemInPast = 1;
+        Score.Instance.ResetScore();
     }
 }

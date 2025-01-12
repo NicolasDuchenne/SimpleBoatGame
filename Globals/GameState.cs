@@ -41,6 +41,7 @@ public class GameState
     public int maxCurrentLevel;
 
     public GridMap GridMap {get; private set;}
+    public int gridMapDefaultSize = 60;
 
     public int elemInPast = 0;
 

@@ -29,6 +29,7 @@ public class Explosion: GridEntity
         CanHurt = true;
         goesThroughEntities = true;
         speed = 250;
+        updateSpeedWithGridSize();
     }
     public override void Update()
     {

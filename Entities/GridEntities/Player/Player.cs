@@ -63,7 +63,11 @@ public class PlayerBoat: GridEntity
 
         if ((Timers.Instance.PlayerPlayTurn) & (direction != new Vector2()))
         {
-            Move(direction);
+            bool hasMoved = Move(direction);
+            if(hasMoved)
+            {
+                Score.Instance.addMove();
+            }
             oldDirection=direction;
             direction = new Vector2();
         }

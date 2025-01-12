@@ -49,6 +49,7 @@ public class GridEntity: Entity
     {
         if (direction==new Vector2())
             direction = new Vector2(1, 0);
+        updateSpeedWithGridSize();
         UpdateDirection((Vector2)direction);
         (column, row) = ClampPosition(column, row);
         Column = column;
@@ -62,6 +63,11 @@ public class GridEntity: Entity
         
         CanBeSentInThepast = canBeSentInThePast;
 
+    }
+
+    protected void updateSpeedWithGridSize()
+    {
+        speed = speed*GameState.Instance.GridMap.Size/GameState.Instance.gridMapDefaultSize;
     }
 
     private void UpdateDirection(Vector2 inputDirection)

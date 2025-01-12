@@ -22,6 +22,11 @@ public class DestroyableObstacles
         { "texture", Raylib.LoadTexture("ressources/images/png/Piques.png")},
         { "explosive", false}
     };
+    public static Dictionary<string, object> ExplosiveObstacle = new Dictionary<string, object>
+    {
+        { "texture", Raylib.LoadTexture("ressources/images/png/ExplosivePiques.png")},
+        { "explosive", true}
+    };
 
     public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true)
     {

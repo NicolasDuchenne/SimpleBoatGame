@@ -12,13 +12,14 @@ public class Level1:SceneGameplay
         string jsonMatrix = @"
         [
             [0 , 0 , 0 , 51],
-            [32, 21, 23 , 32],
-            [32, 1 , 0 , 32],
-            [32, 32, 32, 32]
+            [35, 21, 23 , 32],
+            [35, 1 , 0 , 32],
+            [35, 32, 32, 32]
         ]";
         
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();
+        Score.Instance.InitScore(10, 4, 1);
         
     }
 }
