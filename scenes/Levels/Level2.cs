@@ -11,8 +11,8 @@ public class Level2:SceneGameplay
         string jsonMatrix = @"
         [
             [0 , 0 , 0 , 42],
-            [35, 21, 0 , 33],
-            [35, 1 , 0 , 33],
+            [33, 21, 0 , 33],
+            [33, 1 , 0 , 33],
             [33, 33, 33, 33]
         ]";
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);

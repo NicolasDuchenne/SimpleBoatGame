@@ -10,6 +10,13 @@ public static class RaylibGame
     static Level1 Level1 = new Level1("1");
     static Level2 Level2 = new Level2("2");
     static Level3 Level3 = new Level3("3");
+    static Level3 Level4 = new Level3("4");
+    static Level3 Level5 = new Level3("5");
+    static Level3 Level6 = new Level3("6");
+    static Level3 Level7 = new Level3("7");
+    static Level3 Level8 = new Level3("8");
+    static Level3 Level9 = new Level3("9");
+    static Level3 Level10 = new Level3("10");
     
 
     public static int Main()
@@ -35,9 +42,17 @@ public static class RaylibGame
         gameState.RegisterScene(sceneOptions);
         gameState.RegisterScene(Level1, "2");
         gameState.RegisterScene(Level2, "3");
-        gameState.RegisterScene(Level3, "menu");
+        gameState.RegisterScene(Level3, "4");
+        gameState.RegisterScene(Level4, "5");
+        gameState.RegisterScene(Level5, "6");
+        gameState.RegisterScene(Level6, "7");
+        gameState.RegisterScene(Level7, "8");
+        gameState.RegisterScene(Level8, "9");
+        gameState.RegisterScene(Level9, "10");
+        gameState.RegisterScene(Level10, "menu");
+
         Save.Instance.LoadSave();
-        gameState.changeScene("1");
+        gameState.changeScene("10");
         Water water = new Water();
 
         while (!WindowShouldClose() & gameState.finishGame == false)

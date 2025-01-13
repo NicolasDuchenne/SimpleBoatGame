@@ -48,10 +48,23 @@ public class SceneMenuLevel : Scene
     public override void Show()
     {
         levelButtonsList = new ButtonsList();
-        for (int i =0; i<GameState.Instance.maxCurrentLevel; i++)
+        int col = 0;
+        int pos = 0;
+        int row = 0;
+        for (int i=0; i<GameState.Instance.maxCurrentLevel; i++)
         {
-            Button tmpButton= new LevelButton(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+i*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  $"Level {i+1}",  Color.White, Save.Instance.levelsScore[(i+1).ToString()]);  
+            pos = 40+row*(buttonHeight + buttonSpace);
+            Console.WriteLine(pos);
+            Console.WriteLine(GameState.Instance.GameScreenHeight);
+            if (pos+buttonHeight > GameState.Instance.GameScreenHeight)
+            {
+                row = 0;
+                col++;
+                pos = 40+row*(buttonHeight + buttonSpace);
+            }
+            Button tmpButton= new LevelButton(new Rectangle(col*(buttonWidth+20)+20, pos, buttonWidth, buttonHeight),  $"Level {i+1}",  Color.White, Save.Instance.levelsScore[(i+1).ToString()]);  
             levelButtonsList.AddButton(tmpButton); 
+            row ++;
         }
     }
 }

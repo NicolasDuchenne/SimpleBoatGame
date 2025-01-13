@@ -35,6 +35,10 @@ public class Score
 
     private Vector2 scorePos = new Vector2(GameState.Instance.GameScreenWidth*0.5f-100, GameState.Instance.GameScreenHeight*0.25f);
 
+    public Score()
+    {
+        UpdateStars();
+    }
     public void InitScore(float maxTimer, int maxMoves, int maxSendToPast)
     {
         this.maxTimer = maxTimer;
