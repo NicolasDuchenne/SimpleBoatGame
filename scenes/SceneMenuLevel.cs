@@ -4,17 +4,14 @@ public class SceneMenuLevel : Scene
 
 
     private ButtonsList levelButtonsList;
-    private ButtonsList buttonList= new ButtonsList();
     Button backButton ;
-    int buttonWidth = 100;
-    int buttonHeight = 20;
+    int buttonWidth = 200;
+    int buttonHeight = 40;
     int buttonSpace = 5;
 
     public SceneMenuLevel(string scene_name): base(scene_name)
     {
-        backButton = new Button {Rect = new Rectangle(GameState.Instance.GameScreenWidth-buttonWidth-10, 10, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
-        buttonList.AddButton(backButton);
-
+        backButton = new Button(new Rectangle(GameState.Instance.GameScreenWidth-110, 10, 100, 20),"Retour", Color.White);
     }
 
     public override void Draw()
@@ -22,7 +19,7 @@ public class SceneMenuLevel : Scene
         base.Draw();
         Raylib.DrawText("Levels", 5, 5, 25, Color.Black);
         levelButtonsList.Draw();
-        buttonList.Draw();
+        backButton.Draw();
     }
 
     public override void Update()
@@ -30,7 +27,7 @@ public class SceneMenuLevel : Scene
 
         base.Update();
         levelButtonsList.Update();
-        buttonList.Update();
+        backButton.Update();
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
             GameState.Instance.changeScene("menu");
@@ -53,7 +50,7 @@ public class SceneMenuLevel : Scene
         levelButtonsList = new ButtonsList();
         for (int i =0; i<GameState.Instance.maxCurrentLevel; i++)
         {
-            Button tmpButton= new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+i*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = $"Level {i+1}", Color = Color.White};  
+            Button tmpButton= new LevelButton(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+i*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  $"Level {i+1}",  Color.White, Save.Instance.levelsScore[(i+1).ToString()]);  
             levelButtonsList.AddButton(tmpButton); 
         }
     }

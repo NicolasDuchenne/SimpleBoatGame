@@ -18,6 +18,7 @@ public class SceneGameplay : Scene
     public SceneGameplay(string scene_name): base(scene_name)
     {
         UI = new UI(name);
+        Save.Instance.levelsScore[name] = new Score();
     }
 
     public override void Draw()
@@ -29,7 +30,6 @@ public class SceneGameplay : Scene
         deathScreen.Draw();
         winScreen.Draw();
         UI.Draw();
-        Score.Instance.Draw();
     }
 
     private void UpdateMaxTurnInThePast()
@@ -68,9 +68,9 @@ public class SceneGameplay : Scene
         GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
 
         deathScreen.Update();
-        winScreen.Update();
+        winScreen.Update(name);
         UI.Update();
-        Score.Instance.Update();
+        
     }
 
     public override void Show()

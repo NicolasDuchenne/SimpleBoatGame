@@ -36,7 +36,8 @@ public static class RaylibGame
         gameState.RegisterScene(Level1, "2");
         gameState.RegisterScene(Level2, "3");
         gameState.RegisterScene(Level3, "menu");
-        gameState.changeScene("3");
+        Save.Instance.LoadSave();
+        gameState.changeScene("1");
         Water water = new Water();
 
         while (!WindowShouldClose() & gameState.finishGame == false)
@@ -58,9 +59,7 @@ public static class RaylibGame
             EndDrawing();
         }
 
-        OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
-        saveFile.AddOption("maxCurrentLevel", gameState.maxCurrentLevel);
-        saveFile.Save();
+        Save.Instance.SaveGame();
         gameState.Close();
         
 

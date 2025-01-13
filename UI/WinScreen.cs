@@ -10,22 +10,30 @@ public class WinScreen
         int buttonWidth = 200;
         int buttonHeight = 60;
         NextLevel = nextLevel;
-        changeLevel = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), (int)((GameState.Instance.GameScreenHeight-buttonHeight) * 0.5), buttonWidth, buttonHeight), Text = $"You Won \nClick to go to {nextLevel}", Color = Color.White};
+        changeLevel = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), (int)((GameState.Instance.GameScreenHeight-buttonHeight) * 0.5), buttonWidth, buttonHeight), $"You Won \nClick to save and go to {nextLevel}", Color.White);
         
         buttonsList.AddButton(changeLevel);
        
     }
-    public void Update()
+    public void Update(string level_name)
     {
         if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
         {
             winTimer +=Raylib.GetFrameTime();
+        }
+        else
+        {
+            Score.Instance.Update();
         }
         if(winTimer >0.5)
         {
             buttonsList.Update();
             if (changeLevel.IsClicked)
             {
+                if ((GameState.Instance.levelFinished)&(GameState.Instance.playerDead==false))
+                {
+                    Save.Instance.levelsScore[level_name].updateBestScore(Score.Instance);
+                }
                 GameState.Instance.playerDead=false;
                 GameState.Instance.changeScene(NextLevel);
             }
@@ -35,6 +43,10 @@ public class WinScreen
     public void Draw()
     {
         if(winTimer >0.5)
+        {
             buttonsList.Draw();
+            Score.Instance.Draw();
+        }   
+
     }
 }

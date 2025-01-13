@@ -38,7 +38,7 @@ public class GameState
     public bool finishGame = false;
 
     public string currentLevel;
-    public int maxCurrentLevel;
+    public int maxCurrentLevel=1;
 
     public GridMap GridMap {get; private set;}
     public int gridMapDefaultSize = 60;
@@ -115,19 +115,7 @@ public class GameState
         monitorHeight = Raylib.GetMonitorHeight(ecran);
         scenes = new Dictionary<string, Scene>();
         LoadOptions();
-        LoadSave();
     }
-    private void LoadSave()
-    {
-        OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
-        saveFile.Load();
-        maxCurrentLevel = 1;
-        if (saveFile.IsOptionExists("maxCurrentLevel"))
-        {
-            maxCurrentLevel = saveFile.GetOptionInt("maxCurrentLevel");
-        }
-    }
-
     private void LoadOptions()
     {
         OptionsFile optionsFile = new OptionsFile(OptionsFile.OPTIONSFILENAME);

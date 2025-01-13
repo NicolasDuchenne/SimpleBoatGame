@@ -30,9 +30,9 @@ public class SceneOptions : Scene
 
     public SceneOptions(string scene_name): base(scene_name)
     {
-        backButton = new Button {Rect = new Rectangle(10, 65, buttonWidth, buttonHeight), Text = "Retour", Color = Color.White};
-        okButton = new Button {Rect = new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), Text = "Save options", Color = Color.White};
-        deleteSaveButton = new Button {Rect = new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), Text = "Delete Save", Color = Color.White};
+        backButton = new Button(new Rectangle(10, 65, buttonWidth, buttonHeight), "Retour", Color.White);
+        okButton = new Button(new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), "Save options", Color.White);
+        deleteSaveButton = new Button(new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), "Delete Save", Color.White);
             
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
@@ -123,8 +123,8 @@ public class SceneOptions : Scene
         {
             GameState.Instance.maxCurrentLevel = 1;
             GameState.Instance.currentLevel = "1";
-            OptionsFile saveFile = new OptionsFile(OptionsFile.SAVEFILLNAME);
-            saveFile.Save();
+            Save.Instance.ResetSave();
+            Save.Instance.SaveGame();
         }
         GameState.Instance.debugMagic.AddOption("full screen", isFullScreen);
         GameState.Instance.debugMagic.AddOption("game state full screen", GameState.Instance.fullScreen);

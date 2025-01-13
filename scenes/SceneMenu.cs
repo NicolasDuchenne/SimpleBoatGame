@@ -13,10 +13,10 @@ public class SceneMenu : Scene
         int buttonWidth = 120;
         int buttonHeight = 20;
         int buttonSpace = 5;
-        resumeButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Start", Color = Color.White};
-        choseButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Chose Level", Color = Color.White};
-        optionsButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Options", Color = Color.White};
-        quitButton = new Button {Rect = new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+4*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), Text = "Quit", Color = Color.White};
+        resumeButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Start",Color.White);
+        choseButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Chose Level",Color.White);
+        optionsButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Options", Color.White);
+        quitButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+4*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Quit", Color.White);
         
         buttonsList.AddButton(resumeButton);
         buttonsList.AddButton(choseButton);

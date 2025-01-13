@@ -14,7 +14,7 @@ public class OptionsFile
     {
         options = new Dictionary<string, string>();
         fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppName, name);
-        Debug.WriteLine($"Nom du fichier d'options: {fullPath}");
+        Console.WriteLine($"Nom du fichier d'options: {fullPath}");
     }
 
     public void Clear()
