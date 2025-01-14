@@ -29,7 +29,7 @@ public class Entity
         Velocity = Vector2.Zero;
         Box = new Rectangle(Position.X, Position.Y, Sprite.Width, Sprite.Height);
         ALL.Add(this);
-        entityNumber+=1;
+        entityNumber++;
     }
 
     public virtual void Destroy()

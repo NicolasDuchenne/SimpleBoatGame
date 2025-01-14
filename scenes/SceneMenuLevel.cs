@@ -54,8 +54,6 @@ public class SceneMenuLevel : Scene
         for (int i=0; i<GameState.Instance.maxCurrentLevel; i++)
         {
             pos = 40+row*(buttonHeight + buttonSpace);
-            Console.WriteLine(pos);
-            Console.WriteLine(GameState.Instance.GameScreenHeight);
             if (pos+buttonHeight > GameState.Instance.GameScreenHeight)
             {
                 row = 0;

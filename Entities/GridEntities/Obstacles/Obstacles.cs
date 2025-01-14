@@ -64,14 +64,14 @@ public class DestroyableObstacle: GridEntity
         base.Destroy();
         if (Destroyed & explosive)
         {
-            for (int column=-1; column<=1; column++)
+            for (int col=-1; col<=1; col++)
             {
                 for (int row = -1; row<=1; row++)
                 {
-                    if(0<=Column+column & Column+column< GameState.Instance.GridMap.ColumnNumber & 0<=Row+row&Row + row < GameState.Instance.GridMap.RowNumber)
+                    if(0<=Column+col & Column+col< GameState.Instance.GridMap.ColumnNumber & 0<=Row+row&Row + row < GameState.Instance.GridMap.RowNumber)
                     {
                         
-                        Vector2 shootingDirection = new Vector2(Column+column, Row+row)-new Vector2(Column, Row);
+                        Vector2 shootingDirection = new Vector2(Column+col, Row+row)-new Vector2(Column, Row);
                         shootExplosive(shootingDirection);
                     }
                 }

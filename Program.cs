@@ -10,7 +10,7 @@ public static class RaylibGame
     static Level1 Level1 = new Level1("1");
     static Level2 Level2 = new Level2("2");
     static Level3 Level3 = new Level3("3");
-    static Level3 Level4 = new Level3("4");
+    static Level4 Level4 = new Level4("4");
     static Level3 Level5 = new Level3("5");
     static Level3 Level6 = new Level3("6");
     static Level3 Level7 = new Level3("7");
@@ -23,6 +23,9 @@ public static class RaylibGame
     {
         int gameScreenWidth = 960;
         int gameScreenHeight = 540;
+        
+        SceneManagerService scenesManager = new SceneManagerService();
+
         InitWindow(gameScreenWidth, gameScreenHeight, "Premier programme Raylib");
         Raylib.SetWindowState(ConfigFlags.ResizableWindow);
         //Raylib.SetWindowState(ConfigFlags.UndecoratedWindow);
@@ -52,21 +55,26 @@ public static class RaylibGame
         gameState.RegisterScene(Level10, "menu");
 
         Save.Instance.LoadSave();
-        gameState.changeScene("10");
+        gameState.changeScene("1");
         Water water = new Water();
+
+        Services.Get<ISceneManagerService>().Load<TestSceneService>();
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {
             gameState.Update();
+            scenesManager.Update();
+            
             water.Update();
             
             BeginDrawing();
             ClearBackground(Color.White);
             Raylib.BeginTextureMode(target); // dessine dans la target
             ClearBackground(Color.LightGray);
-            
+
             water.Draw();
             gameState.Draw();
+            scenesManager.Draw();
             Raylib.EndTextureMode();
             Rectangle sourceRect = new Rectangle(0, 0, target.Texture.Width, -target.Texture.Height); // Dans OpenGl, les axe des texturesy sont inversé, donc on mets le -
             Rectangle targetRect = new Rectangle(gameState.XOffset, gameState.YOffset, gameState.ResizedGameWidth, gameState.ResizedGameHeight);

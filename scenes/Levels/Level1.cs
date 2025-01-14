@@ -11,15 +11,22 @@ public class Level1:SceneGameplay
         base.Show();
         string jsonMatrix = @"
         [
-            [0 , 0 , 0 , 51],
-            [35, 21, 23 , 32],
-            [35, 1 , 0 , 32],
-            [35, 32, 32, 32]
+            [41, 0 , 0, 33],
+            [0 , 0 , 0, 0 ],
+            [0 , 0 , 0, 0 ],
+            [0 , 1 , 0, 0 ]
         ]";
+
         
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();
-        Score.Instance.InitScore(10, 4, 1);
+        Score.Instance.InitScore(8, 4, 1);
         
+    }
+
+    public override void Draw()
+    {
+        base.Draw();
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"Left Click on valid entity to send it to the futur when close enough", new Vector2(200, 80), GameState.Instance.customFont.BaseSize,1, Color.Black);
     }
 }

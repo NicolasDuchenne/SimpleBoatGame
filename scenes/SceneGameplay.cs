@@ -1,8 +1,5 @@
 using Raylib_cs;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Numerics;
+
 public class SceneGameplay : Scene
 {
 
@@ -63,8 +60,8 @@ public class SceneGameplay : Scene
         {
             GameState.Instance.changeScene(name);
         }
-        gridMap.Update();
         Entity.UpdateAll();
+        gridMap.Update();
         GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
 
         deathScreen.Update();

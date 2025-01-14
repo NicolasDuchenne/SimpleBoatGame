@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Security.Cryptography;
 using Raylib_cs;
 
 public class GridMap
@@ -8,6 +7,8 @@ public class GridMap
     public int RowNumber {get; private set;}
     public int Size {get ; private set;}
     public Color Color {get; private set;} = Color.Black;
+
+    private int rangeSendInPast = 1;
 
     public Dictionary<int, Dictionary<int, Tile>> Tiles {get; private set;}
 
@@ -31,16 +32,60 @@ public class GridMap
             }
         }
     }
+    private void ResetSendToPast()
+    {
+        for (int i = 0; i<ColumnNumber; i++)
+        {
+            for (int j=0; j<RowNumber; j++)
+            {
+                Tiles[i][j].CanBeSentInThepast = false;
+            }
+        }
+    }
+    private void SetSendToPast()
+    {
+        for (int i = 0; i<ColumnNumber; i++)
+        {
+            for (int j=0; j<RowNumber; j++)
+            {
+                if (Tiles[i][j].GridEntity is not null)
+                {
+                    if (Tiles[i][j].GridEntity.name.Contains("player"))
+                    {
+                        SetSendToPastOnNeighbors(i, j);
+                    }
+                }
+            }
+        }
+        
+    }
+    private void SetSendToPastOnNeighbors(int i, int j)
+    {
+        for (int col=-rangeSendInPast; col<=rangeSendInPast; col++)
+        {
+            for (int row = -rangeSendInPast; row<=rangeSendInPast; row++)
+            {
+                if(0<=i+col & i+col< GameState.Instance.GridMap.ColumnNumber & 0<=j+row&j + row < GameState.Instance.GridMap.RowNumber)
+                {
+                    Tiles[i+col][j+row].CanBeSentInThepast = true;
+                }
+            }
+        
+        }
+    }
 
     public void Update()
     {
-        foreach(var item in Tiles)
+        ResetSendToPast();
+        SetSendToPast();
+        for (int i = 0; i<ColumnNumber; i++)
         {
-            foreach(var tile in item.Value)
+            for (int j=0; j<RowNumber; j++)
             {
-                tile.Value.Update();
+                Tiles[i][j].Update();
             }
         }
+        
     }
 
     public void Draw()
@@ -55,12 +100,6 @@ public class GridMap
         Raylib.DrawRectangleLinesEx(new Rectangle(Tiles[0][0].Position, ColumnNumber*Size, RowNumber*Size), 1, Color);
    
     }
-
-    public Vector2 PathFind(int TargetColumn, int TargetRow)
-    {
-        return new Vector2(1,0);
-    }
-
 }
 
 public class Tile
@@ -76,6 +115,7 @@ public class Tile
     private bool isMousedOver = false;
 
     private Color MouseOverColor = new Color(128, 128, 128, 128);
+    private Color CanBeSendInpastColor = new Color(50,50,50, 128);
 
     private Rectangle rect ;
 
@@ -84,6 +124,8 @@ public class Tile
     private int maxTurnInPast;
     private bool processPast = false;
     private float pastTimer=0;
+    public bool CanBeSentInThepast=false;
+
 
     public Tile(Vector2 position, int size, Color color)
     {
@@ -129,9 +171,9 @@ public class Tile
     {
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
-        if ((PastGridEntity is null)&(GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)) )
+        if ((PastGridEntity is null)&(GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)))
         {
-            if ((GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
+            if (CanBeSentInThepast&(GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
             {
                 isMousedOver = true;
             }
@@ -185,6 +227,8 @@ public class Tile
         
     }
 
+
+
     public void Update()
     {
         SendToPast();
@@ -205,6 +249,10 @@ public class Tile
 
     public void Draw()
     {
+        if(CanBeSentInThepast)
+        {
+            //Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), CanBeSendInpastColor);
+        }
         if (isMousedOver)
         {
             Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);

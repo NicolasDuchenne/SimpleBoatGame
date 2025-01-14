@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 public class Level2:SceneGameplay
 {
@@ -10,13 +11,23 @@ public class Level2:SceneGameplay
         base.Show();
         string jsonMatrix = @"
         [
-            [0 , 0 , 0 , 42],
-            [33, 21, 0 , 33],
-            [33, 1 , 0 , 33],
-            [33, 33, 33, 33]
+            [42, 0 , 33],
+            [0 , 0 , 0 ],
+            [0 , 0 , 0 ],
+            [0 , 1 , 0 ]
         ]";
+        
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create();
+        Score.Instance.InitScore(5, 2, 1);
         
+    }
+
+    public override void Draw()
+    {
+        base.Draw();
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"Press Ctr Left or Alt Right to reduce number of turn for send in Past", new Vector2(200, 80), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"Press Shift Right or Shift Left to increase number of turn for send in Past", new Vector2(200, 110), GameState.Instance.customFont.BaseSize,1, Color.Black);
+    
     }
 }

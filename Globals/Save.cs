@@ -1,6 +1,5 @@
 public class Save
 {
-    
     private static Save? instance;
 
     public static Save Instance
