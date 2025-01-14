@@ -31,12 +31,12 @@ class LevelCreator
         return matrixDict;
     }
 
-    public GridMap Create(int size = 60)
+    public GridMap Create(int size = 60, int rangeSendInPast=1)
     {
         this.size = Math.Max(size, 40);
         rowNumber = Matrix.Count();
         columnNumber = Matrix[0].Count();
-        GridMap gridMap = new GridMap(columnNumber, rowNumber, size);
+        GridMap gridMap = new GridMap(columnNumber, rowNumber, size, rangeSendInPast);
         GameState.Instance.SetGridMap(gridMap);
         for (int i = 0; i < Matrix.Count; i++)
         {
@@ -49,7 +49,7 @@ class LevelCreator
                     case 1:
                         Player.Create(j,i);
                         break;
-                        
+
                     case 21:
                         MovingObstacles.Create(MovingObstacles.Baril, j, i);
                         break;

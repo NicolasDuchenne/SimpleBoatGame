@@ -175,21 +175,31 @@ public class GridEntity: Entity
 
     private void Hurt()
     {
-        GridEntity gridEntity = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity;
+        GridEntity? gridEntity = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity;
+        
         if (CanBeHurt)
-            Hit();
-        if (gridEntity.CanBeHurt)
-            gridEntity.Hit();
-        if (gridEntity.Destroyed) 
         {
-            gridEntity.CanHurt = false;
-            GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].removeEntity(gridEntity.name);
+            Hit();
         }
         if (Destroyed)
         {
             CanHurt = false;
             GameState.Instance.GridMap.Tiles[Column][Row].removeEntity(name);
         }
+        if (gridEntity is not null)
+        {
+            if (gridEntity.CanBeHurt)
+            {
+                gridEntity.Hit();
+            }
+            if (gridEntity.Destroyed) 
+            {
+                gridEntity.CanHurt = false;
+                GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].removeEntity(gridEntity.name);
+            }
+        }
+        
+        
     }
 
     private bool CheckCollision(int column, int row)

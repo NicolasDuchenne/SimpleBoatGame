@@ -8,15 +8,16 @@ public class GridMap
     public int Size {get ; private set;}
     public Color Color {get; private set;} = Color.Black;
 
-    private int rangeSendInPast = 1;
+    private int rangeSendInPast;
 
     public Dictionary<int, Dictionary<int, Tile>> Tiles {get; private set;}
 
     private float columnOffset;
     private float rowOffset;
 
-    public GridMap(int columnNumber, int rowNumber, int size)
+    public GridMap(int columnNumber, int rowNumber, int size, int rangeSendInPast=1)
     {
+        this.rangeSendInPast = rangeSendInPast;
         ColumnNumber = columnNumber;
         RowNumber = rowNumber;
         Size = size;
@@ -115,7 +116,7 @@ public class Tile
     private bool isMousedOver = false;
 
     private Color MouseOverColor = new Color(128, 128, 128, 128);
-    private Color CanBeSendInpastColor = new Color(50,50,50, 128);
+    private Color CanBeSendInpastColor = new Color(128,128,128, 50);
 
     private Rectangle rect ;
 
@@ -251,7 +252,7 @@ public class Tile
     {
         if(CanBeSentInThepast)
         {
-            //Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), CanBeSendInpastColor);
+            Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), CanBeSendInpastColor);
         }
         if (isMousedOver)
         {

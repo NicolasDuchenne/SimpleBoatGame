@@ -18,7 +18,7 @@ public class Level2:SceneGameplay
         ]";
         
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
-        gridMap = levelCreator.Create();
+        gridMap = levelCreator.Create(60, 2);
         Score.Instance.InitScore(5, 2, 1);
         
     }
