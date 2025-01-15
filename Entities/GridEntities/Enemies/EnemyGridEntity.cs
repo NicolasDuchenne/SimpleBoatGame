@@ -112,8 +112,9 @@ public class EnemyGridEntity: GridEntity
                 
             }
                 
-            base.Update();
+            
         }
+        base.Update();
         
     }
 

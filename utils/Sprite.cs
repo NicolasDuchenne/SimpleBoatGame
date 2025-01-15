@@ -16,9 +16,20 @@ public class Sprite
     private List<Rectangle> framePos = new List<Rectangle>();
 
     private float timer = 0;
-    public Sprite(Texture2D texture, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null, int? startFrame = null, int? endFrame = null)
+
+    private bool hasShader = false;
+    public bool shaderActivated = false;
+    private Shader shader;
+    private int timeLoc;
+    private int texture0Loc;
+    private float alpha = 0;
+    private int alphaLoc;
+
+    private float time = 0.0f;
+
+    public Sprite(Texture2D texture,string? shaderLoc = null, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null, int? startFrame = null, int? endFrame = null)
     {
-        int frame = 0;
+  
         Texture = texture;
         Fps = fps;
         if (width is null)
@@ -29,6 +40,13 @@ public class Sprite
             Height = Texture.Height;
         else
             Height = (int)height;
+        InitFrames(nRow, nCol, startFrame, endFrame);
+        InitShader(shaderLoc);
+    }
+
+    public void InitFrames(int nRow, int nCol, int? startFrame, int? endFrame)
+    {
+        int frame = 0;
         for (int row = 0; row < nRow; row ++)
         {
             for (int col = 0; col < nCol; col ++)
@@ -41,16 +59,39 @@ public class Sprite
                 frame ++;
             }
         }
-        
+
+    }
+
+    public void InitShader(string? shaderLoc)
+    {
+        if (shaderLoc is null)
+        {
+            hasShader = false;
+        }
+        else
+        {
+            hasShader = true;
+            shader = Raylib.LoadShader(null, shaderLoc);
+            timeLoc = Raylib.GetShaderLocation(shader, "time");
+            texture0Loc = Raylib.GetShaderLocation(shader, "texture0");
+            alphaLoc = Raylib.GetShaderLocation(shader, "alpha");
+            Raylib.SetShaderValueTexture(shader, texture0Loc, Texture);
+        }
     }
 
     public static Sprite SpriteFromConfig(Dictionary<string, object> config)
     {
         Sprite sprite;
+        string? shaderLoc = "ressources/Shaders/distorsion.fs";
+        if (config.ContainsKey("shaderLoc"))
+        {
+            shaderLoc = (string)config["shaderLoc"];
+        }
         if (config.ContainsKey("width"))
         {
             sprite = new Sprite(
                 (Texture2D)config["texture"],
+                shaderLoc,
                 (int)config["nCol"],
                 (int)config["nRow"], 
                 (int)config["fps"], 
@@ -60,7 +101,7 @@ public class Sprite
         }
         else
         {
-            sprite = new Sprite((Texture2D)config["texture"]);
+            sprite = new Sprite((Texture2D)config["texture"], shaderLoc);
         }
         return sprite;
     }
@@ -80,7 +121,7 @@ public class Sprite
             Color);
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (nFrame > 1)
         {
@@ -98,11 +139,47 @@ public class Sprite
                     
             }
         }
+        if (hasShader)
+        {
+            time+=Raylib.GetFrameTime();
+            Raylib.SetShaderValue(shader, timeLoc, new float[] { time }, ShaderUniformDataType.Float);
+        }
         
     }
 
-    public void Draw(Vector2 position, float angle, Color color, bool flip)
+    public virtual void Draw(Vector2 position, float angle, Color color, bool flip)
     {
+        if (shaderActivated)
+        {
+            Raylib.SetShaderValue(shader, alphaLoc, new float[] { color.A/255.0f }, ShaderUniformDataType.Float);//I send the alpha because the sahder did not getting automatically
+            Raylib.BeginShaderMode(shader);
+        }
+            
         DrawCentre(Texture, position, angle, color, flip);
+        if (shaderActivated)
+        {
+            Raylib.EndShaderMode();
+        }
+            
     }
+
+    public void ActivateShader()
+    {
+        if (hasShader)
+        {
+            if (shaderActivated==false)
+            {
+                time = 0;
+            }
+            shaderActivated = true;
+        }
+
+            
+    }
+    public void DeactivateShader()
+    {
+        shaderActivated = false;
+    }
+
 }
+

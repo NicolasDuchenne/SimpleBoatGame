@@ -6,7 +6,7 @@ public class Destructions
 {
     public static void Create(Vector2 position)
     {
-        Sprite sprite = new Sprite(Raylib.LoadTexture("ressources/images/Retro Impact Effect Pack ALL/Retro Impact Effect Pack 1 A.png"), 8,24, 12, 64, 64, 72, 79);
+        Sprite sprite = new Sprite(Raylib.LoadTexture("ressources/images/Retro Impact Effect Pack ALL/Retro Impact Effect Pack 1 A.png"), null, 8,24, 12, 64, 64, 72, 79);
         new Destruction(sprite, position);
     }
 }

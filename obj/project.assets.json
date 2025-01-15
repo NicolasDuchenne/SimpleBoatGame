@@ -132,11 +132,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
+      "projectUniqueName": "C:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
       "projectName": "SimpleBoatGame",
-      "projectPath": "c:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
+      "projectPath": "C:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
       "packagesPath": "C:\\Users\\nicol\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\obj\\",
+      "outputPath": "C:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -197,7 +197,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

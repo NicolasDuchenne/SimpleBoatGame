@@ -11,7 +11,7 @@ public class Level1:SceneGameplay
         base.Show();
         string jsonMatrix = @"
         [
-            [41, 0 , 0, 33],
+            [41, 0 , 0, 31],
             [0 , 0 , 0, 0 ],
             [0 , 0 , 0, 0 ],
             [0 , 1 , 0, 0 ]
@@ -19,7 +19,7 @@ public class Level1:SceneGameplay
 
         
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
-        gridMap = levelCreator.Create();
+        gridMap = levelCreator.Create(60);
         Score.Instance.InitScore(8, 4, 1);
         
     }

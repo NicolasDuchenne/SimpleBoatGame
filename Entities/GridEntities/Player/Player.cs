@@ -5,7 +5,7 @@ public class Player
 {
     public static Dictionary<string, object> Boat = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Boat.png")},
+        { "texture", Raylib.LoadTexture("ressources/images/png/Boat.png")}
     };
 
     public static void Create(int col , int row)

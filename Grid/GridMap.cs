@@ -116,7 +116,7 @@ public class Tile
     private bool isMousedOver = false;
 
     private Color MouseOverColor = new Color(128, 128, 128, 128);
-    private Color CanBeSendInpastColor = new Color(128,128,128, 50);
+    private Color CanBeSendInpastColor = new Color(255,255,255, 10);
 
     private Rectangle rect ;
 
@@ -172,19 +172,26 @@ public class Tile
     {
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
-        if ((PastGridEntity is null)&(GridEntity is not null) &(Raylib.CheckCollisionPointRec(mousePos, rect)))
+        bool mouseIsInRect = Raylib.CheckCollisionPointRec(mousePos, rect);
+        if ((PastGridEntity is null)&(GridEntity is not null) &(mouseIsInRect) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
         {
             if (CanBeSentInThepast&(GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
             {
                 isMousedOver = true;
+                GridEntity.Sprite.ActivateShader();
             }
                 
         }
-        if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
+        if ((GridEntity is not null) &(mouseIsInRect==false))
+        {
+            GridEntity.Sprite.DeactivateShader();
+        }
+        if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) )
         {
             maxTurnInPast = GameState.Instance.MaxTurnInPast;
             PastGridEntity = GridEntity;
             GridEntity.InThePast = true;
+            GridEntity.Sprite.ActivateShader();
             removeEntity(GridEntity.name);
             GameState.Instance.elemInPast ++;
             processPast = true;
@@ -210,6 +217,7 @@ public class Tile
                 if (resetPastEntity) 
                 {
                     PastGridEntity.InThePast = false;
+                    PastGridEntity.Sprite.DeactivateShader();
                     setEntity(PastGridEntity);
                     PastGridEntity = null;
                     turnInPast = 0;
@@ -256,12 +264,12 @@ public class Tile
         }
         if (isMousedOver)
         {
-            Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
+            //Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
         }
         if (PastGridEntity is not null)
         {
-            Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
-            Raylib.DrawText($"{Math.Ceiling(maxTurnInPast-turnInPast).ToString()}", (int)Position.X+Size/2, (int)Position.Y+Size/2, 12, Color);
+            //Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), MouseOverColor);
+            Raylib.DrawText($"{Math.Ceiling(maxTurnInPast-turnInPast).ToString()}", (int)(Position.X+3/4f*Size), (int)(Position.Y+Size/12f), 12, Color);
         }
         //Raylib.DrawRectangleLinesEx(new Rectangle(Position, Size, Size), 1, Color);
     }

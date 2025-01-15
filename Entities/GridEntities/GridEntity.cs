@@ -101,7 +101,6 @@ public class GridEntity: Entity
     {
         if (InThePast == false)
         {
-
             touchedPlayer = false;
             positionWasClamped = false;
             UpdateDirection(direction);
@@ -279,6 +278,10 @@ public class GridEntity: Entity
         {
             base.Update();
             ProcessMovement();
+        }
+        else
+        {
+            Sprite.Update();
         }
     }
 
