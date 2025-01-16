@@ -30,6 +30,7 @@ public class GridEntity: Entity
     public bool CanHurtPlayer {get; protected set;} = false;
     public bool IsPlayer {get; protected set;} = false;
     protected bool goesThroughEntities = false;
+    protected bool checkIfEntityHasMoved = true;
 
     public bool InThePast = false;
 
@@ -112,7 +113,6 @@ public class GridEntity: Entity
             (LastTriedColumn, LastTriedRow) = (Column, Row);
             if ((Column==baseColumn)&(Row==baseRow))
             {
-
                 positionWasClamped = true;
                 return false;
             }
@@ -126,7 +126,9 @@ public class GridEntity: Entity
                 {
                     bool hasMoved = false;
                     if (collidedEntity.IsPlayer)
-                    touchedPlayer = true;
+                    {
+                        touchedPlayer = true;
+                    }
                     if ((collidedEntity.CanBeMoved) & (CanMoveEntities))
                     {
                         hasMoved = collidedEntity.Move(Direction);
@@ -236,7 +238,6 @@ public class GridEntity: Entity
             // Check collision with entity in target tile
             if(LastTriedColumn!=Column | LastTriedRow!=Row)
             {
-
                 if (CheckCollision(LastTriedColumn, LastTriedRow))
                 {
                     if (CanHurt || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity.CanHurt)
@@ -253,19 +254,22 @@ public class GridEntity: Entity
         }
         else
         {
-
             //If we tried to move a inmovable object, we go back to the object position
             Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
             if (TargetPosition!=expectedPosition)
             {
-                // If the object left, we go to the last tried pos
-                if (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is null)
+                bool cond = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is not null & GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.CanHurtPlayer==true & name.Contains("player");
+                cond = cond || checkIfEntityHasMoved== false;
+                // If the object left, we go to the last tried pos or if it can kill the player
+                if (cond)
                 {
 
                     Vector2 direction = Vector2.Normalize(GetCenterPositionFromTile(LastTriedColumn, LastTriedRow) - GetCenterPositionFromTile(Column, Row));
                     Move(direction);
+                    //Moving = true;
+                    //TargetPosition = GetCenterPositionFromTile(LastTriedColumn, LastTriedRow);
                 }
-                // If the object is still here we go back to the last tried position
+                // If the object is still here we go back to the known position
                 else
                 {
                     Moving = true;

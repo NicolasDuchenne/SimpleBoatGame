@@ -13,8 +13,8 @@ public class Level4: SceneGameplay
         jsonMatrix = @"
         [
             [61, 0 , 0 , 61],
-            [34, 0 , 0 , 34],
-            [34, 1 , 0 , 34],
+            [0, 0 , 0 , 0],
+            [0, 1 , 0 , 0],
             [34, 34, 34, 34]
         ]";
         Score.Instance.InitScore(8, 4, 1);

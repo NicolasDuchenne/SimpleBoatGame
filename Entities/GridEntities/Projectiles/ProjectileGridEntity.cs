@@ -9,6 +9,8 @@ public class ProjectileGridEntity: GridEntity
         CanMoveEntities = false;
         CanBeHurt = true;
         CanHurt = true;
+        CanHurtPlayer = true;
+        checkIfEntityHasMoved = false;
     }
     public override void Update()
     {
@@ -16,7 +18,7 @@ public class ProjectileGridEntity: GridEntity
         if (Timers.Instance.HalfSecondTurn)
         {
 
-            Move(Direction);
+            Move(Direction, true);
             if (positionWasClamped)
             {
                 Destroy();

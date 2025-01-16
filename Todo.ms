@@ -6,4 +6,3 @@
 * refacto tiles call from column row
 * add gridmap to service locator
 * add score to service locator
-* debug ennemy shoot when they encounter another enemy
