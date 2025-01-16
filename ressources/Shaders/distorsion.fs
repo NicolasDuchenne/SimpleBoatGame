@@ -2,7 +2,6 @@
 
 uniform float time;           // Time for animating the distortion
 uniform sampler2D texture0;   // Input texture (the object or scene)
-uniform vec2 resolution;      // Screen resolution for scaling
 uniform float alpha;
 
 in vec2 fragTexCoord;         // Texture coordinates passed from the vertex shader

@@ -22,7 +22,6 @@ public class Sprite
     private Shader shader;
     private int timeLoc;
     private int texture0Loc;
-    private float alpha = 0;
     private int alphaLoc;
 
     private float time = 0.0f;

@@ -8,8 +8,7 @@ public class Level2:SceneGameplay
     }
     public override void Show()
     {
-        base.Show();
-        string jsonMatrix = @"
+        jsonMatrix = @"
         [
             [42, 0 , 33],
             [0 , 0 , 0 ],
@@ -17,9 +16,9 @@ public class Level2:SceneGameplay
             [0 , 1 , 0 ]
         ]";
         
-        LevelCreator levelCreator = new LevelCreator(jsonMatrix);
-        gridMap = levelCreator.Create(60, 2);
         Score.Instance.InitScore(5, 2, 1);
+        base.Show();
+        
         
     }
 

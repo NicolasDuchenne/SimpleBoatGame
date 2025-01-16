@@ -60,10 +60,10 @@ void main()
 
 
     // Apply thresholds to create large blue patches with small white stripes
-    float threshold = smoothstep(0, 0.04, combined); // Adjust to control stripe width
+    float threshold = smoothstep(0, 0.02, combined); // Adjust to control stripe width
 
-    vec3 lightBlue = vec3(0.8, 0.847, 0.902);
-    vec3 darkBlue = vec3(0, 138, 230)/255;
+    vec3 lightBlue = vec3(179, 218, 255)/255;
+    vec3 darkBlue = vec3(26, 144, 255)/255;
 
     // Interpolate between blue patches and white stripes
     vec3 finalColor = mix(lightBlue, darkBlue, threshold);

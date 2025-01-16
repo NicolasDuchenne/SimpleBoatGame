@@ -8,7 +8,7 @@ public class GridMap
     public int Size {get ; private set;}
     public Color Color {get; private set;} = Color.Black;
 
-    private int rangeSendInPast;
+    public int RangeSendInPast {get ; private set;}
 
     public Dictionary<int, Dictionary<int, Tile>> Tiles {get; private set;}
 
@@ -17,7 +17,7 @@ public class GridMap
 
     public GridMap(int columnNumber, int rowNumber, int size, int rangeSendInPast=1)
     {
-        this.rangeSendInPast = rangeSendInPast;
+        RangeSendInPast = rangeSendInPast;
         ColumnNumber = columnNumber;
         RowNumber = rowNumber;
         Size = size;
@@ -62,9 +62,9 @@ public class GridMap
     }
     private void SetSendToPastOnNeighbors(int i, int j)
     {
-        for (int col=-rangeSendInPast; col<=rangeSendInPast; col++)
+        for (int col=-RangeSendInPast; col<=RangeSendInPast; col++)
         {
-            for (int row = -rangeSendInPast; row<=rangeSendInPast; row++)
+            for (int row = -RangeSendInPast; row<=RangeSendInPast; row++)
             {
                 if(0<=i+col & i+col< GameState.Instance.GridMap.ColumnNumber & 0<=j+row&j + row < GameState.Instance.GridMap.RowNumber)
                 {
@@ -99,6 +99,7 @@ public class GridMap
             }
         }
         Raylib.DrawRectangleLinesEx(new Rectangle(Tiles[0][0].Position, ColumnNumber*Size, RowNumber*Size), 1, Color);
+        //Raylib.DrawRectangleRec(new Rectangle(Tiles[0][0].Position, ColumnNumber*Size, RowNumber*Size), Color.SkyBlue);
    
     }
 }
@@ -182,7 +183,7 @@ public class Tile
             }
                 
         }
-        if ((GridEntity is not null) &(mouseIsInRect==false))
+        if ((GridEntity is not null) &(mouseIsInRect==false|| CanBeSentInThepast==false) )
         {
             GridEntity.Sprite.DeactivateShader();
         }
@@ -260,7 +261,7 @@ public class Tile
     {
         if(CanBeSentInThepast)
         {
-            Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), CanBeSendInpastColor);
+            //Raylib.DrawRectangleRec(new Rectangle(Position, Size, Size), CanBeSendInpastColor);
         }
         if (isMousedOver)
         {

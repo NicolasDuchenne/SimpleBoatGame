@@ -9,17 +9,17 @@ public class Level4: SceneGameplay
     //needs to be debugged
     public override void Show()
     {
-        base.Show();
-        GameState.Instance.MaxElemInPast = 2;
-        string jsonMatrix = @"
+        
+        jsonMatrix = @"
         [
             [61, 0 , 0 , 61],
             [34, 0 , 0 , 34],
             [34, 1 , 0 , 34],
             [34, 34, 34, 34]
         ]";
-        LevelCreator levelCreator = new LevelCreator(jsonMatrix);
-        gridMap = levelCreator.Create();
+        Score.Instance.InitScore(8, 4, 1);
+        base.Show();
+        GameState.Instance.MaxElemInPast = 2;
         
     }
 }

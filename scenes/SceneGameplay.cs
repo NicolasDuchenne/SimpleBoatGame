@@ -2,8 +2,10 @@ using Raylib_cs;
 
 public class SceneGameplay : Scene
 {
-
+    protected int gridMapSize = 60;
+    protected int gridMapRangeSendInPast = 1;
     private float timer;
+    protected string jsonMatrix;
 
     private DeathScreen deathScreen;
 
@@ -23,6 +25,7 @@ public class SceneGameplay : Scene
         base.Draw();
         //Raylib.DrawRectangleRec(new Rectangle(0, 0, GameState.Instance.GameScreenWidth, GameState.Instance.GameScreenHeight), Color.DarkBlue);
         Entity.DrawAll();
+
         gridMap.Draw();
         deathScreen.Draw();
         winScreen.Draw();
@@ -50,7 +53,6 @@ public class SceneGameplay : Scene
         timer+=Raylib.GetFrameTime();
 #if DEBUG
         GameState.Instance.debugMagic.AddOption("timer", timer);
-        GameState.Instance.debugMagic.AddOption("Entities", Entity.ALL.Count);
 #endif
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
@@ -82,10 +84,13 @@ public class SceneGameplay : Scene
         GameState.Instance.elemInPast = 0;
         GameState.Instance.enemyNumber = 0;
         base.Show();
-        Entity.ALL.Clear();   
+        Entity.ClearEntity();   
         deathScreen = new DeathScreen(name);
         winScreen = new WinScreen(next_scene);
         GameState.Instance.MaxElemInPast = 1;
         Score.Instance.ResetScore();
+        LevelCreator levelCreator = new LevelCreator(jsonMatrix);
+        gridMap = levelCreator.Create(gridMapSize, gridMapRangeSendInPast);
+        
     }
 }

@@ -4,23 +4,21 @@ public class Level1:SceneGameplay
 {
     public Level1(string scene_name): base(scene_name)
     {
-        
+        gridMapSize = 60;
+        gridMapRangeSendInPast = 2;
     }
     public override void Show()
     {
-        base.Show();
-        string jsonMatrix = @"
+
+        jsonMatrix = @"
         [
             [41, 0 , 0, 31],
             [0 , 0 , 0, 0 ],
-            [0 , 0 , 0, 0 ],
+            [0 , 0 , 0, 31 ],
             [0 , 1 , 0, 0 ]
         ]";
-
-        
-        LevelCreator levelCreator = new LevelCreator(jsonMatrix);
-        gridMap = levelCreator.Create(60);
         Score.Instance.InitScore(8, 4, 1);
+        base.Show();
         
     }
 

@@ -19,13 +19,17 @@ public class PlayerBoat: GridEntity
 {
     Vector2 direction = new Vector2();
     Vector2 oldDirection = new Vector2();
-    public PlayerBoat(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, column,  row, direction, canBeSentInThePast)
+
+    protected Fog fog;
+    public PlayerBoat(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true): base(sprite, column,  row, direction, canBeSentInThePast,true, 2)
     {
         name += "player";
         CanMoveEntities = true;
         CanBeHurt = true;
         CanBeMoved = false;
         IsPlayer = true;
+        fog = new Fog(GameState.Instance.GridMap.Size*(2*GameState.Instance.GridMap.RangeSendInPast+1));
+        fog.SetPosition(Position);
     }
 
     public override void Update()
@@ -74,6 +78,11 @@ public class PlayerBoat: GridEntity
         
             
         base.Update();
+        fog.Update();
+        fog.SetPositionWithLerp(Position);
+    
+
+        
     }
 
     public override void Hit()
@@ -84,4 +93,11 @@ public class PlayerBoat: GridEntity
             Destroy();
         }
     }
+    public override void Draw(Color? color = null)
+    {
+        base.Draw(color);
+        fog.Draw();
+    }
+
+
 }

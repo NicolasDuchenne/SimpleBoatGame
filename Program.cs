@@ -24,7 +24,7 @@ public static class RaylibGame
         int gameScreenWidth = 960;
         int gameScreenHeight = 540;
         
-        SceneManagerService scenesManager = new SceneManagerService();
+        //SceneManagerService scenesManager = new SceneManagerService();
 
         InitWindow(gameScreenWidth, gameScreenHeight, "Premier programme Raylib");
         Raylib.SetWindowState(ConfigFlags.ResizableWindow);
@@ -58,23 +58,23 @@ public static class RaylibGame
         gameState.changeScene("1");
         Water water = new Water();
 
-        Services.Get<ISceneManagerService>().Load<TestSceneService>();
+        //Services.Get<ISceneManagerService>().Load<TestSceneService>();
 
         while (!WindowShouldClose() & gameState.finishGame == false)
         {
             gameState.Update();
-            scenesManager.Update();
+            //scenesManager.Update();
             
             water.Update();
             
             BeginDrawing();
             ClearBackground(Color.White);
             Raylib.BeginTextureMode(target); // dessine dans la target
-            ClearBackground(Color.LightGray);
+            ClearBackground(Color.SkyBlue);
 
             water.Draw();
             gameState.Draw();
-            scenesManager.Draw();
+            //scenesManager.Draw();
             Raylib.EndTextureMode();
             Rectangle sourceRect = new Rectangle(0, 0, target.Texture.Width, -target.Texture.Height); // Dans OpenGl, les axe des texturesy sont inversé, donc on mets le -
             Rectangle targetRect = new Rectangle(gameState.XOffset, gameState.YOffset, gameState.ResizedGameWidth, gameState.ResizedGameHeight);

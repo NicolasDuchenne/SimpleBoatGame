@@ -5,7 +5,8 @@ using Raylib_cs;
 public class Entity
 {
     public string name {get; protected set;}
-    public static List<Entity> ALL = new List<Entity>();
+    public static List<Entity> ALL1 = new List<Entity>();
+    public static List<Entity> ALL2 = new List<Entity>();
     protected static int entityNumber = 0;
     public Sprite Sprite {get; private set;}
     public Vector2 Position;
@@ -21,14 +22,22 @@ public class Entity
     public bool Destroyed {get; protected set;} = false;
     public bool Debug = false;
     public string DebugLabel = "";
-    public Entity(Sprite sprite, Vector2 position)
+    public Entity(Sprite sprite, Vector2 position, int layer = 1)
     {
         name = entityNumber.ToString() + "_";
         Sprite = sprite;
         Position = position;
         Velocity = Vector2.Zero;
         Box = new Rectangle(Position.X, Position.Y, Sprite.Width, Sprite.Height);
-        ALL.Add(this);
+        if (layer == 1)
+        {
+            ALL1.Add(this);
+        }
+        else
+        {
+            ALL2.Add(this);
+        }
+        
         entityNumber++;
     }
 
@@ -68,22 +77,32 @@ public class Entity
         }
 #endif
     }
-
     public static void UpdateAll()
     {
+        UpdateAllLayer(ALL1);
+        UpdateAllLayer(ALL2);
+    }
 
-        for (int i=ALL.Count-1; i>=0; i--)
+    public static void UpdateAllLayer(List<Entity> all)
+    {
+
+        for (int i=all.Count-1; i>=0; i--)
         {
-            ALL[i].Update();
-            if (ALL[i].Destroyed)
+            all[i].Update();
+            if (all[i].Destroyed)
             {
-                ALL.RemoveAt(i);
+                all.RemoveAt(i);
             }
         }
     }
     public static void DrawAll()
     {
-        foreach (Entity entity in ALL)
+        DrawAllLayer(ALL1);
+        DrawAllLayer(ALL2);
+    }
+    public static void DrawAllLayer(List<Entity> all)
+    {
+        foreach (Entity entity in all)
         {
             entity.Draw();
         }
@@ -91,10 +110,19 @@ public class Entity
 
     public static void ToggleDebug()
     {
-        foreach(Entity entity in ALL)
+        foreach(Entity entity in ALL1)
         {
             entity.Debug = !entity.Debug;
         }
+        foreach(Entity entity in ALL2)
+        {
+            entity.Debug = !entity.Debug;
+        }
+    }
+    public static void ClearEntity()
+    {
+        ALL1.Clear();
+        ALL2.Clear();
     }
 
 }

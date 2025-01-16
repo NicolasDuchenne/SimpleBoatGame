@@ -45,7 +45,7 @@ public class GridEntity: Entity
     public bool touchedPlayer = false;
     private float maxPixelMovePerFrame = 4;
     
-    public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true, bool setEntityAtSpawn = true): base(sprite, GetCenterPositionFromTile(column, row))
+    public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true, bool setEntityAtSpawn = true, int layer=1): base(sprite, GetCenterPositionFromTile(column, row), layer)
     {
         if (direction==new Vector2())
             direction = new Vector2(1, 0);
@@ -147,7 +147,10 @@ public class GridEntity: Entity
             }
             if (removeCurrentEntity)
             {
-                GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity(GameState.Instance.GridMap.Tiles[baseColumn][baseRow].GridEntity.name);
+                if (GameState.Instance.GridMap.Tiles[baseColumn][baseRow].GridEntity is not null)
+                {
+                    GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity(GameState.Instance.GridMap.Tiles[baseColumn][baseRow].GridEntity.name);
+                }
             }
             if (goesThroughEntities == false)
             {
