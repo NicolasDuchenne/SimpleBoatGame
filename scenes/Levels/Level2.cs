@@ -16,7 +16,7 @@ public class Level2:SceneGameplay
             [0 , 1 , 0 ]
         ]";
         
-        Score.Instance.InitScore(5, 2, 1);
+        Score.Instance.InitScore(4, 2, 1);
         base.Show();
         
         

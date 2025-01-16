@@ -6,3 +6,5 @@
 * refacto tiles call from column row
 * add gridmap to service locator
 * add score to service locator
+* fix bug when explosive is push toward a missile, missile does not explode
+* fix bug where score does not update even though the score was improved

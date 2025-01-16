@@ -5,7 +5,7 @@ public class Level1:SceneGameplay
     public Level1(string scene_name): base(scene_name)
     {
         gridMapSize = 60;
-        gridMapRangeSendInPast = 2;
+        gridMapRangeSendInPast = 1;
     }
     public override void Show()
     {
@@ -14,10 +14,10 @@ public class Level1:SceneGameplay
         [
             [41, 0 , 0, 31],
             [0 , 0 , 0, 0 ],
-            [0 , 0 , 0, 31 ],
+            [0 , 0 , 0, 0 ],
             [0 , 1 , 0, 0 ]
         ]";
-        Score.Instance.InitScore(8, 4, 1);
+        Score.Instance.InitScore(4, 3, 1);
         base.Show();
         
     }

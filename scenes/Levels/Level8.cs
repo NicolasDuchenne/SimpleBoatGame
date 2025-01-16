@@ -1,8 +1,8 @@
 using System.Numerics;
 using Raylib_cs;
-public class Level4: SceneGameplay
+public class Level8: SceneGameplay
 {
-    public Level4(string scene_name): base(scene_name)
+    public Level8(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
         
@@ -13,13 +13,13 @@ public class Level4: SceneGameplay
         
         jsonMatrix = @"
         [
-            [41, 0 , 0 , 0 , 0 , 0 ],
+            [62, 0 , 0 , 0 , 0 , 0 ],
             [0 , 0 , 0 , 0 , 0 , 0 ],
-            [34, 33, 34, 34, 34, 34],
-            [0 , 21, 0 , 0 , 0 , 0 ],
+            [34, 0 , 34, 34, 34, 34],
+            [0 , 24, 0 , 0 , 0 , 0 ],
             [0 , 1 , 0 , 0 , 0 , 0 ]
         ]";
-        Score.Instance.InitScore(5, 6, 2);
+        Score.Instance.InitScore(10, 4, 1);
         base.Show();
         GameState.Instance.MaxElemInPast = 1;
         

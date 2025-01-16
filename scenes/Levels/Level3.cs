@@ -14,7 +14,7 @@ public class Level3:SceneGameplay
             [0 , 0 , 0 ],
             [0 , 1 , 0 ]
         ]";
-        Score.Instance.InitScore(8, 4, 1);
+        Score.Instance.InitScore(6, 2, 1);
         base.Show();
         
     }

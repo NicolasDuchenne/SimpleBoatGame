@@ -34,7 +34,7 @@ public class Enemies
         { "fps", 6 },
         { "width", 32 },
         { "height", 32 },
-        {"shootTurn", 0}
+        {"shootTurn", 2}
     };
 
     public static Dictionary<string, object> Baleine = new Dictionary<string, object>
