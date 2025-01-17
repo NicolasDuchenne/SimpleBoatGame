@@ -16,7 +16,7 @@ public class EnemyGridEntity: GridEntity
 
 
 
-    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true, int shootTurn = 0): base(sprite, column,  row, direction, canBeSentInThePast)
+    public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true, int shootTurn = 0, int shootCounter = 0): base(sprite, column,  row, direction, canBeSentInThePast)
     {
         name += "enemy";
         CanBeMoved = false;
@@ -33,6 +33,7 @@ public class EnemyGridEntity: GridEntity
             Flip=true;
         }
         this.shootTurn = shootTurn;
+        this.shootCounter = shootCounter;
     }
 
     private void Shoot()
@@ -95,7 +96,7 @@ public class EnemyGridEntity: GridEntity
                 if (shootTurn >0)
                 {
                     shootCounter ++;
-                    if (shootCounter == shootTurn)
+                    if (shootCounter >= shootTurn)
                     {
                         shootCounter = 0;
                         willShoot = true;

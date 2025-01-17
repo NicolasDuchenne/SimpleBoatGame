@@ -14,9 +14,9 @@ public class Level9: SceneGameplay
         jsonMatrix = @"
         [
             [52, 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 52 ],
+            [0 , 0 , 0 , 0 , 0 , 51],
             [0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 24, 0 , 0 , 0 , 0 ],
+            [0 , 23, 0 , 0 , 0 , 0 ],
             [0 , 1 , 0 , 0 , 0 , 0 ]
         ]";
         Score.Instance.InitScore(8, 7, 0);

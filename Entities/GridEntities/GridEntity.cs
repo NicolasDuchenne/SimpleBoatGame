@@ -258,9 +258,10 @@ public class GridEntity: Entity
             Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
             if (TargetPosition!=expectedPosition)
             {
-                bool cond = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is not null & GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.CanHurtPlayer==true & name.Contains("player");
+                bool cond = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.CanHurtPlayer==true & name.Contains("player");
+                cond = cond || (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.checkIfEntityHasMoved==false);
                 cond = cond || checkIfEntityHasMoved== false;
-                // If the object left, we go to the last tried pos or if it can kill the player
+                // If the object left or if it can kill you, we go to the last tried pos
                 if (cond)
                 {
 
@@ -269,7 +270,7 @@ public class GridEntity: Entity
                     //Moving = true;
                     //TargetPosition = GetCenterPositionFromTile(LastTriedColumn, LastTriedRow);
                 }
-                // If the object is still here we go back to the known position
+                // If the object is still here we go back to the last known position
                 else
                 {
                     Moving = true;

@@ -17,6 +17,7 @@ public static class RaylibGame
     static Level8 Level8 = new Level8("8");
     static Level9 Level9 = new Level9("9");
     static Level10 Level10 = new Level10("10");
+    static Level11 Level11 = new Level11("11");
     
 
     public static int Main()
@@ -52,7 +53,8 @@ public static class RaylibGame
         gameState.RegisterScene(Level7, "8");
         gameState.RegisterScene(Level8, "9");
         gameState.RegisterScene(Level9, "10");
-        gameState.RegisterScene(Level10, "menu");
+        gameState.RegisterScene(Level10, "11");
+        gameState.RegisterScene(Level11, "menu");
 
         Save.Instance.LoadSave();
         gameState.changeScene("menu");

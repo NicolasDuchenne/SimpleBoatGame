@@ -51,10 +51,10 @@ public class Enemies
 
     
 
-    public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true)
+    public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true, int shootCounter = 0)
     {
         Sprite sprite = Sprite.SpriteFromConfig(config);
-        new EnemyGridEntity(sprite, col, row, direction, canBeSentInThePast, (int)config["shootTurn"]);
+        new EnemyGridEntity(sprite, col, row, direction, canBeSentInThePast, (int)config["shootTurn"], shootCounter);
     }
 
 }
