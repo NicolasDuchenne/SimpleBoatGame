@@ -34,8 +34,18 @@ public class PlayerBoat: GridEntity
 
     public override void Update()
     {
+        if (GameState.Instance.levelFinished == false)
+        {
+            UpdateMovement();
+            base.Update();
+            fog.Update();
+            fog.SetPositionWithLerp(Position);
+        }
         
-        if ((Raylib.IsKeyDown(KeyboardKey.Right)) ||(Raylib.IsKeyDown(KeyboardKey.D)))
+    }
+    private void UpdateMovement()
+    {
+                if ((Raylib.IsKeyDown(KeyboardKey.Right)) ||(Raylib.IsKeyDown(KeyboardKey.D)))
         {
             direction = new Vector2(1, 0);
         }
@@ -75,14 +85,6 @@ public class PlayerBoat: GridEntity
             oldDirection=direction;
             direction = new Vector2();
         }
-        
-            
-        base.Update();
-        fog.Update();
-        fog.SetPositionWithLerp(Position);
-    
-
-        
     }
 
     public override void Hit()

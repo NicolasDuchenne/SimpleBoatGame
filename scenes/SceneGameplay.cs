@@ -86,7 +86,7 @@ public class SceneGameplay : Scene
         base.Show();
         Entity.ClearEntity();   
         deathScreen = new DeathScreen(name);
-        winScreen = new WinScreen(next_scene);
+        winScreen = new WinScreen(next_scene, name);
         GameState.Instance.MaxElemInPast = 1;
         Score.Instance.ResetScore();
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);

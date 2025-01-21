@@ -174,7 +174,7 @@ public class Tile
         isMousedOver = false;
         Vector2 mousePos = GameState.Instance.Mouse.MousePos;
         bool mouseIsInRect = Raylib.CheckCollisionPointRec(mousePos, rect);
-        if ((PastGridEntity is null)&(GridEntity is not null) &(mouseIsInRect) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
+        if ((GameState.Instance.levelFinished==false)&(PastGridEntity is null)&(GridEntity is not null) &(mouseIsInRect) & (GameState.Instance.elemInPast < GameState.Instance.MaxElemInPast))
         {
             if (CanBeSentInThepast&(GridEntity.CanBeSentInThepast) & (GridEntity.Moving==false))
             {

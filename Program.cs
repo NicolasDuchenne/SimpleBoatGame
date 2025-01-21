@@ -57,7 +57,7 @@ public static class RaylibGame
         gameState.RegisterScene(Level11, "menu");
 
         Save.Instance.LoadSave();
-        gameState.changeScene("menu");
+        gameState.changeScene("1");
         Water water = new Water();
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();
