@@ -25,6 +25,9 @@ public class Save
             Console.WriteLine(levelScore.Value.Timer);
             Console.WriteLine(levelScore.Value.Moves);
             Console.WriteLine(levelScore.Value.SendToPast);
+            Console.WriteLine(levelScore.Value.MaxTimer);
+            Console.WriteLine(levelScore.Value.MaxMoves);
+            Console.WriteLine(levelScore.Value.MaxSendToPast);
         }
     }
     public void ResetSave()
@@ -56,7 +59,7 @@ public class Save
         {
             GameState.Instance.maxCurrentLevel = saveFile.GetOptionInt("maxCurrentLevel");
         }
-        //PrintSave();
+        PrintSave();
     }
     public void SaveGame()
     {

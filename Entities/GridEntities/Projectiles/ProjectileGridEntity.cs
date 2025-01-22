@@ -15,16 +15,14 @@ public class ProjectileGridEntity: GridEntity
     public override void Update()
     {
         base.Update();
-        if (Timers.Instance.HalfSecondTurn)
+        if (Timers.Instance.OneSecondTurn)
         {
-
             Move(Direction, true);
             if (positionWasClamped)
             {
                 Destroy();
                 GameState.Instance.GridMap.Tiles[Column][Row].removeEntity(name);    
-            }
-                
+            }   
         }
     }
     protected override float GetAngleFromDirection(Vector2 direction)

@@ -32,9 +32,9 @@ public class Score
     public Sprite StarPast {get; private set;}
 
     
-    private float maxTimer = 10;
-    private int maxMoves = 4;
-    private int maxSendToPast = 1;
+    public float MaxTimer {get; private set;}= 10;
+    public int MaxMoves {get; private set;}= 4;
+    public int MaxSendToPast {get; private set;}= 1;
 
     private Vector2 scorePos = new Vector2(GameState.Instance.GameScreenWidth*0.5f-100, GameState.Instance.GameScreenHeight*0.30f);
 
@@ -51,7 +51,7 @@ public class Score
 
     public void UpdateStars()
     {
-        if (Timer >Instance.maxTimer)
+        if (Timer >MaxTimer)
         {
             StarTimer = starFailed;
             hasTimerStar = false;
@@ -61,7 +61,7 @@ public class Score
             StarTimer = star;
             hasTimerStar = true;
         }
-        if (SendToPast >Instance.maxSendToPast)
+        if (SendToPast >MaxSendToPast)
         {
             StarPast = starFailed;
             hasPastStar = false;
@@ -71,7 +71,7 @@ public class Score
             StarPast = star;
             hasPastStar = true;
         }
-        if (Moves >Instance.maxMoves)
+        if (Moves >MaxMoves)
         {
             StarMoves = starFailed;
             hasMovesStar = false;
@@ -91,10 +91,9 @@ public class Score
 
     public void InitScore(float maxTimer, int maxMoves, int maxSendToPast)
     {
-        
-        this.maxTimer = maxTimer;
-        this.maxMoves = maxMoves;
-        this.maxSendToPast = maxSendToPast;
+        MaxTimer = maxTimer;
+        MaxMoves = maxMoves;
+        MaxSendToPast = maxSendToPast;
     }
 
 
@@ -103,11 +102,11 @@ public class Score
         Raylib.DrawRectangle((int)scorePos.X-20, (int)scorePos.Y-10, 240, 120, Color.White);
         Raylib.DrawRectangleLines((int)scorePos.X-20, (int)scorePos.Y-10, 240, 120, Color.Black);
         Raylib.DrawTextEx(GameState.Instance.customFont, $"You Won", scorePos + new Vector2(50, 0) , GameState.Instance.customFont.BaseSize,1, Color.Black);
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"timer: {Math.Round(Timer,1)}/{Instance.maxTimer}", scorePos + new Vector2(0, 1*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"timer: {Math.Round(Timer,1)}/{MaxTimer}", scorePos + new Vector2(0, 1*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
         StarTimer.Draw(scorePos + new Vector2(200, 1*(GameState.Instance.customFont.BaseSize+5)), 0, Color.White, false);
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"moves: {Moves}/{Instance.maxMoves}", scorePos +new Vector2(0, 2*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"moves: {Moves}/{MaxMoves}", scorePos +new Vector2(0, 2*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
         StarMoves.Draw(scorePos +new Vector2(200, 2*(GameState.Instance.customFont.BaseSize+5)), 0, Color.White, false);
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"power use: {SendToPast}/{Instance.maxSendToPast}",scorePos +new Vector2(0, 3*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"power use: {SendToPast}/{MaxSendToPast}",scorePos +new Vector2(0, 3*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
         StarPast.Draw(scorePos +new Vector2(200, 3*(GameState.Instance.customFont.BaseSize+5)), 0, Color.White, false);
     }
 
@@ -122,23 +121,37 @@ public class Score
     }
     private float ComputeMeanScore()
     {
-        float meanScoreTimer = Timer/Instance.maxTimer;
-        float meanScoreMoves = Moves/Instance.maxMoves;
-        float meanScorePast = SendToPast/Instance.maxSendToPast;
+        float meanScoreTimer = Timer/MaxTimer;
+        float meanScoreMoves = Moves/MaxMoves;
+        float meanScorePast = SendToPast/MaxSendToPast;
         float meanScore  = (meanScoreTimer + meanScoreMoves + meanScorePast)/3;
         return meanScore;
     }
 
-    public void updateBestScore()
+    private int ComputeNumberOfStars()
     {
-        if (Instance.ComputeMeanScore() < ComputeMeanScore())
+        int numberOfStars = 0;
+        numberOfStars += hasTimerStar ? 1 : 0;
+        numberOfStars += hasMovesStar ? 1 : 0;
+        numberOfStars += hasPastStar ? 1 : 0;
+        return numberOfStars;
+    }
+
+    public void updateBestScore(Score score)
+    {
+        int scoreNumberOfStars = score.ComputeNumberOfStars();
+        int numberOfStars = ComputeNumberOfStars();
+        bool hasMoreStars = scoreNumberOfStars>numberOfStars;
+        bool hasSameNumberOfStars =  scoreNumberOfStars==numberOfStars;
+        // Replace best score if you get more star of if you get the same number of star with a better mean score
+        if (hasMoreStars || (hasSameNumberOfStars & score.ComputeMeanScore() < ComputeMeanScore()))
         {
-            Timer = Instance.Timer;
-            hasTimerStar = Instance.hasTimerStar;       
-            Moves = Instance.Moves;
-            hasMovesStar = Instance.hasMovesStar;
-            SendToPast = Instance.SendToPast;
-            hasPastStar = Instance.hasPastStar;
+            Timer = score.Timer;
+            hasTimerStar = score.hasTimerStar;       
+            Moves = score.Moves;
+            hasMovesStar = score.hasMovesStar;
+            SendToPast = score.SendToPast;
+            hasPastStar = score.hasPastStar;
         }
         UpdateStars();
     }

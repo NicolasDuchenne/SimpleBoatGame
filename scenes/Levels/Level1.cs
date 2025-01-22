@@ -2,14 +2,19 @@ using System.Numerics;
 using Raylib_cs;
 public class Level1:SceneGameplay
 {
+
     public Level1(string scene_name): base(scene_name)
     {
         gridMapSize = 60;
         gridMapRangeSendInPast = 1;
+        maxTimer = 4;
+        maxMoves = 3;
+        maxSendToPast = 1;
+        InitLevelScore();
+        
     }
     public override void Show()
     {
-
         jsonMatrix = @"
         [
             [41, 0 , 0, 31],
@@ -17,9 +22,7 @@ public class Level1:SceneGameplay
             [0 , 0 , 0, 0 ],
             [0 , 1 , 0, 0 ]
         ]";
-        Score.Instance.InitScore(4, 3, 1);
         base.Show();
-        
     }
 
     public override void Draw()

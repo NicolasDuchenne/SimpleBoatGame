@@ -3,7 +3,10 @@ public class Level3:SceneGameplay
 {
     public Level3(string scene_name): base(scene_name)
     {
-        
+        maxTimer = 6;
+        maxMoves = 2;
+        maxSendToPast = 1;
+        InitLevelScore();
     }
     public override void Show()
     {
@@ -14,8 +17,6 @@ public class Level3:SceneGameplay
             [0 , 0 , 0 ],
             [0 , 1 , 0 ]
         ]";
-        Score.Instance.InitScore(6, 2, 1);
-        base.Show();
-        
+        base.Show();    
     }
 }

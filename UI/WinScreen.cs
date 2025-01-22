@@ -29,7 +29,7 @@ public class WinScreen
             if (score_updated == false)
             {
                 score_updated = true;
-                Save.Instance.levelsScore[level_name].updateBestScore();
+                Save.Instance.levelsScore[level_name].updateBestScore(Score.Instance);
                 if(int.Parse(level_name) == GameState.Instance.maxCurrentLevel)
                 {
                     GameState.Instance.maxCurrentLevel ++;

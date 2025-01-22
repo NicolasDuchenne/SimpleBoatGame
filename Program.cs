@@ -56,7 +56,7 @@ public static class RaylibGame
         gameState.RegisterScene(Level10, "11");
         gameState.RegisterScene(Level11, "menu");
 
-        Save.Instance.LoadSave();
+        Save.Instance.LoadSave(); // Must always be after scene creation for the score system to work
         gameState.changeScene("1");
         Water water = new Water();
 

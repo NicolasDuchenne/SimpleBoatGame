@@ -5,6 +5,10 @@ public class SceneGameplay : Scene
     protected int gridMapSize = 60;
     protected int gridMapRangeSendInPast = 1;
     private float timer;
+    protected float maxTimer= 10;
+    protected int maxMoves= 4;
+    protected int maxSendToPast = 1;
+    protected int maxElemInPast = 1;
     protected string jsonMatrix;
 
     private DeathScreen deathScreen;
@@ -18,6 +22,7 @@ public class SceneGameplay : Scene
     {
         UI = new UI(name);
         Save.Instance.levelsScore[name] = new Score();
+
     }
 
     public override void Draw()
@@ -44,6 +49,11 @@ public class SceneGameplay : Scene
         }
         //float zoomChange = Raylib.GetMouseWheelMove();
         //GameState.Instance.MaxTurnInPast +=(int)zoomChange;
+    }
+
+    protected void InitLevelScore()
+    {
+         Save.Instance.levelsScore[name].InitScore(maxTimer, maxMoves, maxSendToPast);
     }
 
     public override void Update()
@@ -91,6 +101,8 @@ public class SceneGameplay : Scene
         Score.Instance.ResetScore();
         LevelCreator levelCreator = new LevelCreator(jsonMatrix);
         gridMap = levelCreator.Create(gridMapSize, gridMapRangeSendInPast);
+        Score.Instance.InitScore(maxTimer, maxMoves, maxSendToPast);
+        GameState.Instance.MaxElemInPast = maxElemInPast;
         
     }
 }

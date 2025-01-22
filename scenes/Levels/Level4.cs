@@ -5,6 +5,11 @@ public class Level4: SceneGameplay
     public Level4(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
+
+        maxTimer = 5;
+        maxMoves = 6;
+        maxSendToPast = 2;
+        InitLevelScore();
         
     }
     //needs to be debugged
@@ -19,9 +24,6 @@ public class Level4: SceneGameplay
             [0 , 21, 0 , 0 , 0 , 0 ],
             [0 , 1 , 0 , 0 , 0 , 0 ]
         ]";
-        Score.Instance.InitScore(5, 6, 2);
-        base.Show();
-        GameState.Instance.MaxElemInPast = 1;
-        
+        base.Show();    
     }
 }

@@ -89,9 +89,8 @@ public class EnemyGridEntity: GridEntity
             if ((Position == TargetPosition) & (willShoot))
             {
                 Shoot();
-                willShoot = false;
             }
-            if (Timers.Instance.HalfSecondTurn)
+            if (Timers.Instance.OneSecondTurn)
             {
                 if (shootTurn >0)
                 {

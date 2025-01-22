@@ -6,6 +6,11 @@ public class Level11: SceneGameplay
     {
         gridMapSize=40;
         gridMapRangeSendInPast = 2;
+        maxElemInPast = 2;
+        maxTimer = 13;
+        maxMoves = 17;
+        maxSendToPast = 4;
+        InitLevelScore();
         
     }
     //needs to be debugged
@@ -26,9 +31,6 @@ public class Level11: SceneGameplay
             [32, 0 , 32, 32, 32, 32, 32, 32, 32],
             [32, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 ]
         ]";
-        Score.Instance.InitScore(13, 17, 4);
-        base.Show();
-        GameState.Instance.MaxElemInPast = 2;
-        
+        base.Show();       
     }
 }

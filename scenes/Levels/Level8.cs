@@ -5,6 +5,10 @@ public class Level8: SceneGameplay
     public Level8(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
+        maxTimer = 10;
+        maxMoves = 4;
+        maxSendToPast = 1;
+        InitLevelScore();
         
     }
     //needs to be debugged
@@ -19,9 +23,7 @@ public class Level8: SceneGameplay
             [0 , 24, 0 , 0 , 0 , 0 ],
             [0 , 1 , 0 , 0 , 0 , 0 ]
         ]";
-        Score.Instance.InitScore(10, 4, 1);
         base.Show();
-        GameState.Instance.MaxElemInPast = 1;
         
     }
 }

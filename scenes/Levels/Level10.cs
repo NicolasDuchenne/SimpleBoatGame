@@ -5,6 +5,10 @@ public class Level10: SceneGameplay
     public Level10(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
+        maxTimer = 15;
+        maxMoves = 10;
+        maxSendToPast = 2;
+        InitLevelScore();
         
     }
     //needs to be debugged
@@ -19,9 +23,6 @@ public class Level10: SceneGameplay
             [0 , 24, 0 , 0 , 0 , 0 ],
             [0 , 1 , 0 , 0 , 0 , 0 ]
         ]";
-        Score.Instance.InitScore(15, 10, 2);
-        base.Show();
-        GameState.Instance.MaxElemInPast = 1;
-        
+        base.Show();   
     }
 }
