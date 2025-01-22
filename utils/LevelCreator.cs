@@ -107,18 +107,6 @@ class LevelCreator
                     case 54:
                         Enemies.Create(Enemies.Tortue, j, i, new Vector2(0,1), false);
                         break;
-                    case 55:
-                        Enemies.Create(Enemies.Tortue, j, i, new Vector2(1,0), true, 3);
-                        break;
-                    case 56:
-                        Enemies.Create(Enemies.Tortue, j, i, new Vector2(1,0), false, 3);
-                        break;
-                    case 57:
-                        Enemies.Create(Enemies.Tortue, j, i, new Vector2(0,1), true, 3);
-                        break;
-                    case 58:
-                        Enemies.Create(Enemies.Tortue, j, i, new Vector2(0,1), false, 3);
-                        break;
 
                     case 61:
                         Enemies.Create(Enemies.Baleine, j, i, new Vector2(1,0));

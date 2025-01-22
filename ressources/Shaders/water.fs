@@ -42,7 +42,7 @@ void main()
     float noise1 = perlinNoise(uv * 3.0 + vec2(time * 0.03, time * 0.05));
 
     // Second Perlin noise for smaller details
-    float noise2 = perlinNoise(uv * 2.0 + vec2(time * 0.02, time * 0.01));
+    float noise2 = perlinNoise(24342+uv * 3.0 + vec2(time * 0.02, time * 0.01));
 
     // Combine the two Perlin noise patterns by multiplying them
     float combinedNoise = noise1 * noise2*100;
@@ -56,6 +56,7 @@ void main()
     //finalValue = finalValue + wave1 + wave2;
     // Enhance visibility
     float combined = finalValue;
+    combined = combinedNoise;
     combined = pow(abs(combined), 2) * 2.5; 
 
 

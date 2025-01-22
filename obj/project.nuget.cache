@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BCcdp4wGiKo=",
+  "dgSpecHash": "pHNHSqnMQfM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
+  "projectFilePath": "c:\\Users\\nicol\\Documents\\GamingCampus\\Module2\\SimpleBoatGame\\SimpleBoatGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicol\\.nuget\\packages\\raylib-cs\\6.1.1\\raylib-cs.6.1.1.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"

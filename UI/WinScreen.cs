@@ -15,8 +15,8 @@ public class WinScreen
         score_updated = false;
         this.nextLevel = nextLevel;
         this.currentLevel = currentLevel;
-        changeLevel = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-2*buttonWidth) * 0.5 -20), (int)((GameState.Instance.GameScreenHeight+buttonHeight) * 0.5), buttonWidth, buttonHeight), $"Go to Level {nextLevel}", Color.White);
-        restartLevel = new Button(new Rectangle((int)(GameState.Instance.GameScreenWidth * 0.5+20), (int)((GameState.Instance.GameScreenHeight+buttonHeight) * 0.5), buttonWidth, buttonHeight), $"Restart level", Color.White);
+        changeLevel = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-2*buttonWidth) * 0.5 -20), (int)((GameState.Instance.GameScreenHeight+buttonHeight) * 0.5), buttonWidth, buttonHeight), $"Go to Level {nextLevel}", Color.White, 10, true);
+        restartLevel = new Button(new Rectangle((int)(GameState.Instance.GameScreenWidth * 0.5+20), (int)((GameState.Instance.GameScreenHeight+buttonHeight) * 0.5), buttonWidth, buttonHeight), $"Restart level", Color.White, 10, true);
         buttonsList.AddButton(changeLevel);
         buttonsList.AddButton(restartLevel);
        
@@ -30,7 +30,7 @@ public class WinScreen
             {
                 score_updated = true;
                 Save.Instance.levelsScore[level_name].updateBestScore(Score.Instance);
-                if(int.Parse(level_name) == GameState.Instance.maxCurrentLevel)
+                if(int.Parse(level_name) == GameState.Instance.maxCurrentLevel & GameState.Instance.maxCurrentLevel < Save.Instance.levelsScore.Count())
                 {
                     GameState.Instance.maxCurrentLevel ++;
                 }

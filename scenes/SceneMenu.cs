@@ -12,11 +12,11 @@ public class SceneMenu : Scene
     {
         int buttonWidth = 120;
         int buttonHeight = 20;
-        int buttonSpace = 5;
-        resumeButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Start",Color.White);
-        choseButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Chose Level",Color.White);
-        optionsButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Options", Color.White);
-        quitButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+4*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Quit", Color.White);
+        int buttonSpace = 10;
+        resumeButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+1*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Start",Color.White, 10, true);
+        choseButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+2*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Chose Level",Color.White, 10, true);
+        optionsButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+3*(buttonHeight + buttonSpace), buttonWidth, buttonHeight),  "Options", Color.White, 10, true);
+        quitButton = new Button(new Rectangle((int)((GameState.Instance.GameScreenWidth-buttonWidth) * 0.5), 40+4*(buttonHeight + buttonSpace), buttonWidth, buttonHeight), "Quit", Color.White, 10, true);
         
         buttonsList.AddButton(resumeButton);
         buttonsList.AddButton(choseButton);
@@ -59,5 +59,6 @@ public class SceneMenu : Scene
     public override void Show()
     { 
         resumeButton.Text = $"Start Level {GameState.Instance.maxCurrentLevel}";
+        resumeButton.CenterText();
     }
 }

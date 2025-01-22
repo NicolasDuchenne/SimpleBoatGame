@@ -7,11 +7,11 @@ public class SceneMenuLevel : Scene
     Button backButton ;
     int buttonWidth = 200;
     int buttonHeight = 40;
-    int buttonSpace = 5;
+    int buttonSpace = 10;
 
     public SceneMenuLevel(string scene_name): base(scene_name)
     {
-        backButton = new Button(new Rectangle(GameState.Instance.GameScreenWidth-110, 10, 100, 20),"Retour", Color.White);
+        backButton = new Button(new Rectangle(GameState.Instance.GameScreenWidth-110, 10, 100, 20),"Retour", Color.White, 10, true);
     }
 
     public override void Draw()

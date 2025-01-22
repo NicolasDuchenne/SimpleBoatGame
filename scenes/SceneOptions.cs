@@ -5,7 +5,7 @@ public class SceneOptions : Scene
 {
     int buttonWidth = 120;
     int buttonHeight = 20;
-    int buttonSpace = 5;
+    int buttonSpace = 10;
     Button backButton ;
     Button okButton;
     Button deleteSaveButton;
@@ -30,9 +30,9 @@ public class SceneOptions : Scene
 
     public SceneOptions(string scene_name): base(scene_name)
     {
-        backButton = new Button(new Rectangle(10, 65, buttonWidth, buttonHeight), "Retour", Color.White);
-        okButton = new Button(new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), "Save options", Color.White);
-        deleteSaveButton = new Button(new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), "Delete Save", Color.White);
+        backButton = new Button(new Rectangle(10, 65, buttonWidth, buttonHeight), "Retour", Color.White, 10, true);
+        okButton = new Button(new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), "Save options", Color.White, 10, true);
+        deleteSaveButton = new Button(new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), "Delete Save", Color.White, 10, true);
             
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
