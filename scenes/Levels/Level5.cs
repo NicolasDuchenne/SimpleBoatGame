@@ -4,7 +4,7 @@ public class Level5: SceneGameplay
 {
     public Level5(string scene_name): base(scene_name)
     {
-        gridMapRangeSendInPast = 1;
+        gridMapRangeSendInPast = 2;
         maxElemInPast = 2;
         maxTimer = 6;
         maxMoves = 6;

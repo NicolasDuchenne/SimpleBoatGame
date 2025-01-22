@@ -258,8 +258,9 @@ public class GridEntity: Entity
             Vector2 expectedPosition = GetCenterPositionFromTile(Column, Row);
             if (TargetPosition!=expectedPosition)
             {
-                bool cond = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.CanHurtPlayer==true & name.Contains("player");
-                cond = cond || (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.checkIfEntityHasMoved==false);
+                bool cond = GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity is null;
+                cond = cond || GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.CanHurtPlayer==true & name.Contains("player");
+                cond = cond || (GameState.Instance.GridMap.Tiles[LastTriedColumn][LastTriedRow].GridEntity?.checkIfEntityHasMoved==false); // projectiles dont check if entity has moved
                 cond = cond || checkIfEntityHasMoved== false;
                 // If the object left or if it can kill you, we go to the last tried pos
                 if (cond)
