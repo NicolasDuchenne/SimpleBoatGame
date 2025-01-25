@@ -1,4 +1,4 @@
-* améliorer l'UI avec des icones qui décrivent l'action quand on apsse dessus
+* améliorer l'UI avec des icones qui décrivent l'action quand on passe dessus
 * refacto tiles call from column row
 * add gridmap to service locator
 * add score to service locator

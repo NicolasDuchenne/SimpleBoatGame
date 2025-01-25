@@ -14,6 +14,11 @@ public static class LevelRegister
     static Level9 Level9 = new Level9("9");
     static Level10 Level10 = new Level10("10");
     static Level11 Level11 = new Level11("11");
+    static Level12 Level12 = new Level12("12");
+    static Level12 Level13 = new Level12("13");
+    static Level12 Level14 = new Level12("14");
+    static Level12 Level15 = new Level12("15");
+    static Level12 Level16 = new Level12("16");
 
     public static void Register()
     {
@@ -31,7 +36,12 @@ public static class LevelRegister
         gameState.RegisterScene(Level8, "9");
         gameState.RegisterScene(Level9, "10");
         gameState.RegisterScene(Level10, "11");
-        gameState.RegisterScene(Level11, "menu");
+        gameState.RegisterScene(Level11, "12");
+        gameState.RegisterScene(Level12, "13");
+        gameState.RegisterScene(Level13, "14");
+        gameState.RegisterScene(Level14, "15");
+        gameState.RegisterScene(Level15, "16");
+        gameState.RegisterScene(Level16, "menu");
         Save.Instance.LoadSave(); // Must always be after scene creation for the score system to work
     }
 }

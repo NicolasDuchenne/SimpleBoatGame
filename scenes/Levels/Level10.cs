@@ -5,9 +5,9 @@ public class Level10: SceneGameplay
     public Level10(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
-        maxTimer = 15;
-        maxMoves = 10;
-        maxSendToPast = 2;
+        maxTimer = 10;
+        maxMoves = 3;
+        maxSendToPast = 0;
         InitLevelScore();
         
     }

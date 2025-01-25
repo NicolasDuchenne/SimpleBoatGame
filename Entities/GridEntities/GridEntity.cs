@@ -132,14 +132,18 @@ public class GridEntity: Entity
                     if ((collidedEntity.CanBeMoved) & (CanMoveEntities))
                     {
                         hasMoved = collidedEntity.Move(Direction);
-                    }
+                    } 
                     if (hasMoved == false)
                     {
-
                         Column = baseColumn;
                         Row = baseRow;
+                        if (collidedEntity.checkIfEntityHasMoved == false) // This way enemies that go towards projectiles will not go back
+                        {
+                            return true;
+                        }
                         return false;
                     }  
+
                 }
                 else
                 {
