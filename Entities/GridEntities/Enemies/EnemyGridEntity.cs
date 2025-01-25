@@ -38,6 +38,7 @@ public class EnemyGridEntity: GridEntity
 
     private void Shoot()
     {
+
         Vector2 shootingPosition = Position;
         if (Direction == directions[0] || Direction == directions[1])
         {
@@ -84,7 +85,7 @@ public class EnemyGridEntity: GridEntity
 
     public override void Update()
     {
-        if (InThePast == false & GameState.Instance.levelFinished==false)
+        if (InThePast == false)
         {
             if ((Position == TargetPosition) & (willShoot))
             {
@@ -111,8 +112,6 @@ public class EnemyGridEntity: GridEntity
                 }
                 
             }
-                
-            
         }
         base.Update();
         

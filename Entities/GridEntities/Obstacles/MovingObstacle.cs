@@ -2,16 +2,18 @@ using System.Numerics;
 using Raylib_cs;
 public class MovingObstacles
 {
+    private static Texture2D barilExplosiveTexture =  Raylib.LoadTexture("ressources/images/png/BarilExplosive.png");
+    private static Texture2D barilTexture =  Raylib.LoadTexture("ressources/images/png/Baril.png");
     public static Dictionary<string, object> BarilExplosive = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/BarilExplosive.png")},
+        { "texture", barilExplosiveTexture},
         { "explosive", true}
 
     };
 
     public static Dictionary<string, object> Baril = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Baril.png")},
+        { "texture", barilTexture},
         { "explosive", false}
     };
 

@@ -155,7 +155,7 @@ public class GridEntity: Entity
             {
                 if (GameState.Instance.GridMap.Tiles[baseColumn][baseRow].GridEntity is not null)
                 {
-                    GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity(GameState.Instance.GridMap.Tiles[baseColumn][baseRow].GridEntity.name);
+                    GameState.Instance.GridMap.Tiles[baseColumn][baseRow].removeEntity(name);
                 }
             }
             if (goesThroughEntities == false)
@@ -177,7 +177,7 @@ public class GridEntity: Entity
         if (Destroyed == false)
         {
             base.Destroy();
-            Destructions.Create(Position);
+            DestructionAnimations.Create(Position);
         } 
     }
 

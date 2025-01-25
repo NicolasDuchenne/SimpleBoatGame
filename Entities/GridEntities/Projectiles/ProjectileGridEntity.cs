@@ -14,19 +14,15 @@ public class ProjectileGridEntity: GridEntity
     }
     public override void Update()
     {
-        
-        if (GameState.Instance.levelFinished == false)
-        {    
-            if (Timers.Instance.OneSecondTurn)
+        if (Timers.Instance.OneSecondTurn & GameState.Instance.levelFinished==false)
+        {
+            Move(Direction, true);
+            if (positionWasClamped)
             {
-                Move(Direction, true);
-                if (positionWasClamped)
-                {
-                    Destroy();
-                    GameState.Instance.GridMap.Tiles[Column][Row].removeEntity(name);    
-                }   
-            }
-        
+                Destroy();
+
+                GameState.Instance.GridMap.Tiles[Column][Row].removeEntity(name);    
+            }   
         }
         base.Update();
     }
@@ -52,5 +48,9 @@ public class ProjectileGridEntity: GridEntity
             return 0f;  
         } 
         return 0f; // Default
+    }
+    public override void Destroy()
+    {
+        base.Destroy();
     }
 }

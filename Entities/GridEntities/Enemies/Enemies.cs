@@ -2,22 +2,20 @@ using System.Numerics;
 using Raylib_cs;
 public class Enemies
 {
+    private static Texture2D tortueTexture =  Raylib.LoadTexture("ressources/images/png/Tortue.png");
+    private static Texture2D fregateTexture =  Raylib.LoadTexture("ressources/images/png/Fregate.png");
+    private static Texture2D flamandTexture =  Raylib.LoadTexture("ressources/images/png/FlamandRose.png");
+    private static Texture2D baleineTexture =  Raylib.LoadTexture("ressources/images/png/Baleine32.png");
+    private static Texture2D pieuvreTexture =  Raylib.LoadTexture("ressources/images/png/Pieuvre.png");
     public static Dictionary<string, object> Tortue = new Dictionary<string, object>
     {
-        // { "texture", Raylib.LoadTexture("ressources/images/png/Fregate.png")},
-        // { "nCol", 1 },
-        // { "nRow", 6 },
-        // { "fps", 6 },
-        // { "width", 32 },
-        // { "height", 32 },
-        // {"shootTurn", 3}
-        { "texture", Raylib.LoadTexture("ressources/images/png/Tortue.png")},
+        { "texture", tortueTexture},
         {"shootTurn", 3}
     };
 
     public static Dictionary<string, object> Fregate = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Fregate.png")},
+        { "texture", fregateTexture},
         { "nCol", 1 },
         { "nRow", 6 },
         { "fps", 6 },
@@ -28,7 +26,7 @@ public class Enemies
 
     public static Dictionary<string, object> FlamandRose = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/FlamandRose.png")},
+        { "texture", flamandTexture},
         { "nCol", 1 },
         { "nRow", 6 },
         { "fps", 6 },
@@ -39,13 +37,13 @@ public class Enemies
 
     public static Dictionary<string, object> Baleine = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Baleine32.png")},
+        { "texture", baleineTexture},
         {"shootTurn", 1}
     };
 
     public static Dictionary<string, object> Pieuvre = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Pieuvre.png")},
+        { "texture", pieuvreTexture},
         {"shootTurn", 0}
     };
 

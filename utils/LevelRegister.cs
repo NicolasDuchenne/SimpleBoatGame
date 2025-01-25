@@ -15,10 +15,10 @@ public static class LevelRegister
     static Level10 Level10 = new Level10("10");
     static Level11 Level11 = new Level11("11");
     static Level12 Level12 = new Level12("12");
-    static Level12 Level13 = new Level12("13");
-    static Level12 Level14 = new Level12("14");
-    static Level12 Level15 = new Level12("15");
-    static Level12 Level16 = new Level12("16");
+    static Level13 Level13 = new Level13("13");
+    static Level14 Level14 = new Level14("14");
+    static Level15 Level15 = new Level15("15");
+    static Level16 Level16 = new Level16("16");
 
     public static void Register()
     {

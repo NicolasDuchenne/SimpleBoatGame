@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 using Raylib_cs;
 
@@ -29,7 +30,7 @@ public class GridMap
             Tiles[i] = new Dictionary<int, Tile>();
             for (int j=0; j<RowNumber; j++)
             {
-                Tiles[i][j] = new Tile(new Vector2((i+columnOffset)*Size, (j+rowOffset)*Size), Size, Color);
+                Tiles[i][j] = new Tile(new Vector2((i+columnOffset)*Size, (j+rowOffset)*Size), Size, Color, i, j);
             }
         }
     }
@@ -77,6 +78,7 @@ public class GridMap
 
     public void Update()
     {
+        
         ResetSendToPast();
         SetSendToPast();
         for (int i = 0; i<ColumnNumber; i++)
@@ -106,6 +108,8 @@ public class GridMap
 
 public class Tile
 {
+    public int Column {get; private set;}
+    public int Row {get; private set;}
     public Vector2 Position {get; private set;}
     public int Size {get; private set;}
     public Vector2 CenterPosition {get; private set;}
@@ -129,8 +133,10 @@ public class Tile
     public bool CanBeSentInThepast=false;
 
 
-    public Tile(Vector2 position, int size, Color color)
+    public Tile(Vector2 position, int size, Color color, int column, int row)
     {
+        Column = column;
+        Row = row;
         Position = position;
         Size = size;
         CenterPosition = Position + new Vector2(size/2, size/2);
@@ -140,6 +146,7 @@ public class Tile
 
     public void setEntity(GridEntity gridEntity)
     {
+
         if (GridEntity is not null) 
         {
             if ((GridEntity.CanBeHurt==false) & (gridEntity.CanBeHurt==false))
