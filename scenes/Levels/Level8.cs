@@ -5,23 +5,23 @@ public class Level8: SceneGameplay
     public Level8(string scene_name): base(scene_name)
     {
         gridMapRangeSendInPast = 2;
-        maxTimer = 10;
-        maxMoves = 4;
-        maxSendToPast = 1;
+        maxTimer = 7;
+        maxMoves = 8;
+        maxSendToPast = 0;
         InitLevelScore();
         
     }
     //needs to be debugged
     public override void Show()
     {
-        
         jsonMatrix = @"
         [
-            [62, 0 , 0 , 0 , 0 , 0 ],
+            [51, 0 , 0 , 0 , 0 , 0 ],
             [0 , 0 , 0 , 0 , 0 , 0 ],
-            [34, 0 , 34, 34, 34, 34],
-            [0 , 24, 0 , 0 , 0 , 0 ],
-            [0 , 1 , 0 , 0 , 0 , 0 ]
+            [51, 0 , 0 , 0 , 0 , 0 ],
+            [0 , 0 , 0 , 0 , 0 , 0 ],
+            [0 , 0 , 23, 0 , 0 , 0 ],
+            [0 , 0 , 1 , 0 , 0 , 0 ]
         ]";
         base.Show();
         
