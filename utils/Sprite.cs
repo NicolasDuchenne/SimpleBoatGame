@@ -85,7 +85,7 @@ public class Sprite
         {
             sprite = new Sprite(
                 (Texture2D)config["texture"],
-                (Shader)config["shader"],
+                (Shader?)config["shader"],
                 (int)config["nCol"],
                 (int)config["nRow"], 
                 (int)config["fps"], 
@@ -95,7 +95,7 @@ public class Sprite
         }
         else
         {
-            sprite = new Sprite((Texture2D)config["texture"], (Shader)config["shader"]);
+            sprite = new Sprite((Texture2D)config["texture"], (Shader?)config["shader"]);
         }
         return sprite;
     }

@@ -2,9 +2,10 @@ using System.Numerics;
 using Raylib_cs;
 public class Obstacles
 {
+    private static Texture2D obstacleTexture =  Raylib.LoadTexture("ressources/images/png/Obstacle.png");
     public static Dictionary<string, object> Obstacle = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Obstacle.png")},
+        { "texture", obstacleTexture},
         { "shader", DistortionShader.shader},
     };
 
@@ -18,15 +19,18 @@ public class Obstacles
 
 public class DestroyableObstacles
 {
+    private static Texture2D piquesTexture =  Raylib.LoadTexture("ressources/images/png/Piques.png");
+    private static Texture2D explosivePiquesTexture =  Raylib.LoadTexture("ressources/images/png/ExplosivePiques.png");
+    
     public static Dictionary<string, object> Obstacle = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/Piques.png")},
+        { "texture", piquesTexture},
         { "shader", DistortionShader.shader},
         { "explosive", false}
     };
     public static Dictionary<string, object> ExplosiveObstacle = new Dictionary<string, object>
     {
-        { "texture", Raylib.LoadTexture("ressources/images/png/ExplosivePiques.png")},
+        { "texture", explosivePiquesTexture},
         { "shader", DistortionShader.shader},
         { "explosive", true}
     };
