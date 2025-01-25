@@ -10,12 +10,14 @@ public class Enemies
     public static Dictionary<string, object> Tortue = new Dictionary<string, object>
     {
         { "texture", tortueTexture},
+        { "shader", DistortionShader.shader},
         {"shootTurn", 3}
     };
 
     public static Dictionary<string, object> Fregate = new Dictionary<string, object>
     {
         { "texture", fregateTexture},
+        { "shader", DistortionShader.shader},
         { "nCol", 1 },
         { "nRow", 6 },
         { "fps", 6 },
@@ -27,6 +29,7 @@ public class Enemies
     public static Dictionary<string, object> FlamandRose = new Dictionary<string, object>
     {
         { "texture", flamandTexture},
+        { "shader", DistortionShader.shader},
         { "nCol", 1 },
         { "nRow", 6 },
         { "fps", 6 },
@@ -38,12 +41,14 @@ public class Enemies
     public static Dictionary<string, object> Baleine = new Dictionary<string, object>
     {
         { "texture", baleineTexture},
+        { "shader", DistortionShader.shader},
         {"shootTurn", 1}
     };
 
     public static Dictionary<string, object> Pieuvre = new Dictionary<string, object>
     {
         { "texture", pieuvreTexture},
+        { "shader", DistortionShader.shader},
         {"shootTurn", 0}
     };
 

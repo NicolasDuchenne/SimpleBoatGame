@@ -6,6 +6,7 @@ public class Projectiles
     public static Dictionary<string, object> Missile = new Dictionary<string, object>
     {
         { "texture", missileTexture},
+        { "shader", DistortionShader.shader},
     };
 
     public static ProjectileGridEntity Create(Dictionary<string, object> config, int col , int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true)

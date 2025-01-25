@@ -5,6 +5,7 @@ public class Obstacles
     public static Dictionary<string, object> Obstacle = new Dictionary<string, object>
     {
         { "texture", Raylib.LoadTexture("ressources/images/png/Obstacle.png")},
+        { "shader", DistortionShader.shader},
     };
 
     public static void Create(Dictionary<string, object> config, int col , int row, Vector2 direction=new Vector2(), bool canBeSentInThePast=true)
@@ -20,11 +21,13 @@ public class DestroyableObstacles
     public static Dictionary<string, object> Obstacle = new Dictionary<string, object>
     {
         { "texture", Raylib.LoadTexture("ressources/images/png/Piques.png")},
+        { "shader", DistortionShader.shader},
         { "explosive", false}
     };
     public static Dictionary<string, object> ExplosiveObstacle = new Dictionary<string, object>
     {
         { "texture", Raylib.LoadTexture("ressources/images/png/ExplosivePiques.png")},
+        { "shader", DistortionShader.shader},
         { "explosive", true}
     };
 

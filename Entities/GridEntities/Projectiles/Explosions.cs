@@ -8,6 +8,7 @@ public class Explosions
     public static Dictionary<string, object> Baril = new Dictionary<string, object>
     {
         { "texture", explosionTexture},
+        { "shader", null},
     };
 
     public static Explosion Create(Dictionary<string, object> config, int col , int row, Vector2 direction = new Vector2())

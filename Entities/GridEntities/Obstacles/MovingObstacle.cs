@@ -7,6 +7,7 @@ public class MovingObstacles
     public static Dictionary<string, object> BarilExplosive = new Dictionary<string, object>
     {
         { "texture", barilExplosiveTexture},
+        { "shader", DistortionShader.shader},
         { "explosive", true}
 
     };
@@ -14,6 +15,7 @@ public class MovingObstacles
     public static Dictionary<string, object> Baril = new Dictionary<string, object>
     {
         { "texture", barilTexture},
+        { "shader", DistortionShader.shader},
         { "explosive", false}
     };
 

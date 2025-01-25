@@ -26,7 +26,7 @@ public class Sprite
 
     private float time = 0.0f;
 
-    public Sprite(Texture2D texture,string? shaderLoc = null, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null, int? startFrame = null, int? endFrame = null)
+    public Sprite(Texture2D texture,Shader? shader = null, int nCol = 1, int nRow = 1, int fps = 1, int? width = null, int? height = null, int? startFrame = null, int? endFrame = null)
     {
   
         Texture = texture;
@@ -40,7 +40,7 @@ public class Sprite
         else
             Height = (int)height;
         InitFrames(nRow, nCol, startFrame, endFrame);
-        InitShader(shaderLoc);
+        InitShader(shader);
     }
 
     public void InitFrames(int nRow, int nCol, int? startFrame, int? endFrame)
@@ -61,16 +61,16 @@ public class Sprite
 
     }
 
-    public void InitShader(string? shaderLoc)
+    public void InitShader(Shader? shaderConfig)
     {
-        if (shaderLoc is null)
+        if (shaderConfig is null)
         {
             hasShader = false;
         }
         else
         {
+            shader = (Shader)shaderConfig;
             hasShader = true;
-            shader = Raylib.LoadShader(null, shaderLoc);
             timeLoc = Raylib.GetShaderLocation(shader, "time");
             texture0Loc = Raylib.GetShaderLocation(shader, "texture0");
             alphaLoc = Raylib.GetShaderLocation(shader, "alpha");
@@ -81,16 +81,11 @@ public class Sprite
     public static Sprite SpriteFromConfig(Dictionary<string, object> config)
     {
         Sprite sprite;
-        string? shaderLoc = "ressources/Shaders/distorsion.fs";
-        if (config.ContainsKey("shaderLoc"))
-        {
-            shaderLoc = (string)config["shaderLoc"];
-        }
         if (config.ContainsKey("width"))
         {
             sprite = new Sprite(
                 (Texture2D)config["texture"],
-                shaderLoc,
+                (Shader)config["shader"],
                 (int)config["nCol"],
                 (int)config["nRow"], 
                 (int)config["fps"], 
@@ -100,7 +95,7 @@ public class Sprite
         }
         else
         {
-            sprite = new Sprite((Texture2D)config["texture"], shaderLoc);
+            sprite = new Sprite((Texture2D)config["texture"], (Shader)config["shader"]);
         }
         return sprite;
     }
@@ -153,7 +148,6 @@ public class Sprite
             Raylib.SetShaderValue(shader, alphaLoc, new float[] { color.A/255.0f }, ShaderUniformDataType.Float);//I send the alpha because the sahder did not getting automatically
             Raylib.BeginShaderMode(shader);
         }
-            
         DrawCentre(Texture, position, angle, color, flip);
         if (shaderActivated)
         {

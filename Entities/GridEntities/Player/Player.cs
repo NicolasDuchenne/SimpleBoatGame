@@ -6,7 +6,8 @@ public class Player
     private static Texture2D boatTexture = Raylib.LoadTexture("ressources/images/png/Boat.png");
     public static Dictionary<string, object> Boat = new Dictionary<string, object>
     {
-        { "texture", boatTexture}
+        { "texture", boatTexture},
+        { "shader", DistortionShader.shader}
     };
 
     public static void Create(int col , int row)
