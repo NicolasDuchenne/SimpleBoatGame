@@ -8,4 +8,3 @@
 * add sounds
 * improve buttons look
 * ajouter instruction level 3
-* stop every grid entity after you win

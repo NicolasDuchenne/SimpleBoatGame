@@ -156,9 +156,12 @@ public class Tile
                 {
                     gridEntity.Hit();
                 }
-                if ((GridEntity.Destroyed) & (gridEntity.Destroyed))
+                if (GridEntity.Destroyed)
                 {
                     removeEntity(GridEntity.name);
+                }
+                if (gridEntity.Destroyed)
+                {
                     removeEntity(gridEntity.name);
                 }
             }

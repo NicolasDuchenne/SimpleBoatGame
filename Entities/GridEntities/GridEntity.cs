@@ -137,7 +137,7 @@ public class GridEntity: Entity
                     {
                         Column = baseColumn;
                         Row = baseRow;
-                        if (collidedEntity.checkIfEntityHasMoved == false) // This way enemies that go towards projectiles will not go back
+                        if (collidedEntity.checkIfEntityHasMoved == false & CanBeMoved==false) // This way enemies that go towards projectiles will not go back
                         {
                             return true;
                         }

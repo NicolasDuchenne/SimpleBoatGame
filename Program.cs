@@ -29,7 +29,7 @@ public static class RaylibGame
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
         LevelRegister.Register();
-        gameState.changeScene("12");
+        gameState.changeScene("7");
         Water water = new Water();
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();

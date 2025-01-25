@@ -84,7 +84,7 @@ public class EnemyGridEntity: GridEntity
 
     public override void Update()
     {
-        if (InThePast == false)
+        if (InThePast == false & GameState.Instance.levelFinished==false)
         {
             if ((Position == TargetPosition) & (willShoot))
             {
@@ -103,12 +103,11 @@ public class EnemyGridEntity: GridEntity
                 }
                 
                 bool hasMoved = Move(Direction);
-                Console.WriteLine(hasMoved);
                 if ((hasMoved == false) & (InThePast == false) &(touchedPlayer==false))
                 {
                     changeDirection = true;
                     Direction = new Vector2(-Direction.X, -Direction.Y);
-                    //Move(Direction);
+                    Move(Direction);
                 }
                 
             }

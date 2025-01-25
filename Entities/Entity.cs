@@ -85,7 +85,6 @@ public class Entity
 
     public static void UpdateAllLayer(List<Entity> all)
     {
-
         for (int i=all.Count-1; i>=0; i--)
         {
             all[i].Update();
