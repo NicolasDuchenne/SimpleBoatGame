@@ -30,8 +30,7 @@ public static class RaylibGame
 
         LevelRegister.Register();
         gameState.changeScene("13");
-        Water water = new Water();
-        Musics music = new Musics(Musics.ambianceSeaPath);
+        
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();
 
@@ -40,21 +39,19 @@ public static class RaylibGame
             gameState.Update();
             //scenesManager.Update();
             
-            water.Update();
-            music.Update();
+            
             
             BeginDrawing();
             ClearBackground(Color.White);
             Raylib.BeginTextureMode(target); // dessine dans la target
             ClearBackground(Color.SkyBlue);
 
-            water.Draw();
             gameState.Draw();
             //scenesManager.Draw();
             Raylib.EndTextureMode();
             Rectangle sourceRect = new Rectangle(0, 0, target.Texture.Width, -target.Texture.Height); // Dans OpenGl, les axe des texturesy sont inversé, donc on mets le -
             Rectangle targetRect = new Rectangle(gameState.XOffset, gameState.YOffset, gameState.ResizedGameWidth, gameState.ResizedGameHeight);
-            Raylib.DrawTexturePro(target.Texture, sourceRect, targetRect, new Vector2(), 0, Color.White);
+            Raylib.DrawTexturePro(target.Texture, sourceRect, targetRect, new Vector2(), 0, Color.White); // Dessine la target sur le full screen
             EndDrawing();
         }
 
