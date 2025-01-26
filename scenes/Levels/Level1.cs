@@ -2,7 +2,7 @@ using System.Numerics;
 using Raylib_cs;
 public class Level1:SceneGameplay
 {
-
+    private Button tutorialButton;
     public Level1(string scene_name): base(scene_name)
     {
         gridMapSize = 60;
@@ -11,6 +11,13 @@ public class Level1:SceneGameplay
         maxMoves = 3;
         maxSendToPast = 1;
         InitLevelScore();
+        tutorialButton = new Button(
+            new Rectangle(50, 200, 250, 50),
+            $"Left Click on valid entity to send it to\nanother dimension when close enough",
+            Color.White,
+            10,
+            true);
+   
         
     }
     public override void Show()
@@ -28,6 +35,6 @@ public class Level1:SceneGameplay
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"Left Click on valid entity to send it to the futur when close enough", new Vector2(200, 80), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        tutorialButton.Draw();
     }
 }

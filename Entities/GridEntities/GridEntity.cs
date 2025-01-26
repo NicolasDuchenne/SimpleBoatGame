@@ -45,6 +45,8 @@ public class GridEntity: Entity
     public bool positionWasClamped = false;
     public bool touchedPlayer = false;
     private float maxPixelMovePerFrame = 4;
+    private Color pastColor = new Color(255, 255, 255, 60);
+    private Color cannotBeSentInThePastColor = Color.SkyBlue;
     
     public GridEntity(Sprite sprite, int column, int row, Vector2 direction=new Vector2(), bool canBeSentInThePast = true, bool setEntityAtSpawn = true, int layer=1): base(sprite, GetCenterPositionFromTile(column, row), layer)
     {
@@ -303,11 +305,11 @@ public class GridEntity: Entity
         Color? drawColor = color;
         if (InThePast)
         {
-            drawColor = new Color(255, 255, 255, 60);
+            drawColor = pastColor;
         }
         else if (CanBeSentInThepast == false)
         {
-            drawColor = Color.SkyBlue;
+            drawColor = cannotBeSentInThePastColor;
         }
 
         base.Draw(drawColor);

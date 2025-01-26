@@ -2,18 +2,32 @@ using System.Numerics;
 using Raylib_cs;
 public class Level2:SceneGameplay
 {
+    private Button tutorialButton;
+    private Button tutorialButton2;
     public Level2(string scene_name): base(scene_name)
     {
         maxTimer = 4;
         maxMoves = 2;
         maxSendToPast = 1;
         InitLevelScore();
+        tutorialButton = new Button(
+            new Rectangle(50, 150, 270, 50),
+            $"Press Ctr Left or Alt Right to reduce the\nnumber of turn for send in another dimension",
+            Color.White,
+            10,
+            true);
+        tutorialButton2 = new Button(
+            new Rectangle(50, 210, 270, 50),
+            $"Press Shift Right or Shift Left to increase the\nnumberof turn for send in another dimension",
+            Color.White,
+            10,
+            true);
     }
     public override void Show()
     {
         jsonMatrix = @"
         [
-            [42, 0 , 33],
+            [41, 0 , 33],
             [0 , 0 , 0 ],
             [0 , 0 , 0 ],
             [0 , 1 , 0 ]
@@ -24,8 +38,7 @@ public class Level2:SceneGameplay
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"Press Ctr Left or Alt Right to reduce number of turn for send in Past", new Vector2(200, 80), GameState.Instance.customFont.BaseSize,1, Color.Black);
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"Press Shift Right or Shift Left to increase number of turn for send in Past", new Vector2(200, 110), GameState.Instance.customFont.BaseSize,1, Color.Black);
-    
+        tutorialButton.Draw();
+        tutorialButton2.Draw();
     }
 }
