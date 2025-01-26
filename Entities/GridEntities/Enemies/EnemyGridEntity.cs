@@ -14,6 +14,8 @@ public class EnemyGridEntity: GridEntity
     private int ShootingColumn = 0;
     private int ShootingRow = 0;
 
+    
+
 
 
     public EnemyGridEntity(Sprite sprite, int column, int row, Vector2 direction = new Vector2(), bool canBeSentInThePast=true, int shootTurn = 0, int shootCounter = 0): base(sprite, column,  row, direction, canBeSentInThePast)
@@ -74,6 +76,7 @@ public class EnemyGridEntity: GridEntity
         }
         if (ShootingColumn < GameState.Instance.GridMap.ColumnNumber & ShootingRow < GameState.Instance.GridMap.RowNumber)
         {
+            Sounds.shootingSound.Play();
             ProjectileGridEntity projectile =Projectiles.Create(Projectiles.Missile, Column, Row, shootingDirection);
             projectile.Position = shootingPosition;
             projectile.Move(shootingDirection, false);

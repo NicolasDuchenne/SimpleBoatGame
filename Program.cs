@@ -31,6 +31,7 @@ public static class RaylibGame
         LevelRegister.Register();
         gameState.changeScene("13");
         Water water = new Water();
+        Musics music = new Musics(Musics.ambianceSeaPath);
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();
 
@@ -40,6 +41,7 @@ public static class RaylibGame
             //scenesManager.Update();
             
             water.Update();
+            music.Update();
             
             BeginDrawing();
             ClearBackground(Color.White);

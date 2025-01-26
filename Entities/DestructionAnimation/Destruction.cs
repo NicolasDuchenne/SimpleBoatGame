@@ -13,9 +13,11 @@ public class DestructionAnimations
 }
 public class DestructionAnimation: Entity
 {
+    
     public DestructionAnimation(Sprite sprite, Vector2 position): base(sprite, position)
     {
         name = "destruction";
+        Sounds.explosionSound.Play();
     }
     public override void Update()
     {

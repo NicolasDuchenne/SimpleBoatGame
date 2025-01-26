@@ -4,6 +4,5 @@
 * add score to service locator
 * add level with vertical movements
 * create click button for full screen
-* add sounds
 * improve buttons look
 * ajouter instruction level 3
