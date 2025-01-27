@@ -29,7 +29,7 @@ public static class RaylibGame
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
         LevelRegister.Register();
-        gameState.changeScene("13");
+        gameState.changeScene("1");
         
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();
@@ -38,8 +38,6 @@ public static class RaylibGame
         {
             gameState.Update();
             //scenesManager.Update();
-            
-            
             
             BeginDrawing();
             ClearBackground(Color.White);

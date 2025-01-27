@@ -51,7 +51,7 @@ public class Score
 
     public void UpdateStars()
     {
-        if (Timer >MaxTimer)
+        if (Math.Round(Timer,1) > MaxTimer)
         {
             StarTimer = starFailed;
             hasTimerStar = false;
@@ -102,7 +102,7 @@ public class Score
         Raylib.DrawRectangle((int)scorePos.X-20, (int)scorePos.Y-10, 240, 120, Color.White);
         Raylib.DrawRectangleLines((int)scorePos.X-20, (int)scorePos.Y-10, 240, 120, Color.Black);
         Raylib.DrawTextEx(GameState.Instance.customFont, $"You Won", scorePos + new Vector2(50, 0) , GameState.Instance.customFont.BaseSize,1, Color.Black);
-        Raylib.DrawTextEx(GameState.Instance.customFont, $"timer: {Math.Round(Timer,1)}/{MaxTimer}", scorePos + new Vector2(0, 1*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
+        Raylib.DrawTextEx(GameState.Instance.customFont, $"timer: {Math.Round(Timer,2)}/{MaxTimer}", scorePos + new Vector2(0, 1*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
         StarTimer.Draw(scorePos + new Vector2(200, 1*(GameState.Instance.customFont.BaseSize+5)), 0, Color.White, false);
         Raylib.DrawTextEx(GameState.Instance.customFont, $"moves: {Moves}/{MaxMoves}", scorePos +new Vector2(0, 2*(GameState.Instance.customFont.BaseSize+5)), GameState.Instance.customFont.BaseSize,1, Color.Black);
         StarMoves.Draw(scorePos +new Vector2(200, 2*(GameState.Instance.customFont.BaseSize+5)), 0, Color.White, false);

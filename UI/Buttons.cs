@@ -16,16 +16,23 @@ public class Button
     private Color shadowColor = Color.DarkBlue;
     private Color hoveredColor = Color.LightGray;
     private Color clickedColor = Color.DarkGray;
+    private bool textCentered;
 
     public Button(Rectangle rect, string text,Color color, int textSize= 10, bool textCentered = false)
     {
         Rect = rect;
-        Text = text;
+        this.textCentered = textCentered;
         this.textSize = textSize;
         Color = color;
         OriginalColor = Color;
         shadowBounds = new Rectangle(Rect.X + shadowOffset, Rect.Y + shadowOffset, Rect.Width, Rect.Height);
+        UpdateText(text);
         
+        
+    }
+    public void UpdateText(string text)
+    {
+        Text = text;
         if(textCentered)
         {
             CenterText();
@@ -34,7 +41,6 @@ public class Button
         {
             textPosition = new Vector2((int)Rect.X +10, (int)(Rect.Y+(Rect.Size.Y - textSize)/2));
         }
-        
     }
 
     public void CenterText()

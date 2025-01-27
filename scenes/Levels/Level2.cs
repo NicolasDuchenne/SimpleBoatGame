@@ -18,7 +18,7 @@ public class Level2:SceneGameplay
             true);
         tutorialButton2 = new Button(
             new Rectangle(50, 210, 270, 50),
-            $"Press Shift Right or Shift Left to increase the\nnumberof turn for send in another dimension",
+            $"Press Shift Right or Shift Left to increase the\nnumber of turn for send in another dimension",
             Color.White,
             10,
             true);
