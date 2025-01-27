@@ -7,8 +7,11 @@ public class Power
     public Sprite Sprite {get; private set;}
     public Color Color {get; private set;}
     private Vector2 position;
+    private Vector2 circlePosition;
     private bool isHovered = false;
     private Button buttonHelp;
+    private Button buttonHelpNumberOfPower;
+    private bool isHoveredNumberOfPower=false;
     private int powerUse=0;
     private int maxPowerUse;
     private string powerUseLeft;
@@ -19,9 +22,12 @@ public class Power
     private Vector2 turnInPastLength;
     private int turnInPastFontSize=20;
     private string helpText ;
-    public Power(Vector2 position, int size, Sprite sprite, string helpText, Vector2 helpSize, int maxPowerUse, Color? color = null)
+    private string numberOfPowerUseText;
+    private float circleRadius;
+    public Power(Vector2 position, int size, Sprite sprite, Vector2 helpSize, Color? color = null)
     {
         this.position = position;
+        circlePosition = new Vector2(position.X, position.Y-size);
         size = Math.Max(size, Math.Max(sprite.Width, sprite.Height));
         this.size = size;
         Rect = new Rectangle(new Vector2(position.X-size*0.5f, position.Y-size*0.5f), new Vector2(size, size));
@@ -30,7 +36,8 @@ public class Power
             Color = Color.White;
         else
             Color = (Color)color;
-        this.helpText = helpText;
+        helpText = "Send Entity to another Dimension";
+        numberOfPowerUseText = "You can send ";
         buttonHelp = new Button(
             new Rectangle(position + new Vector2(powerUseFontSize, -size-helpSize.Y), helpSize.X, helpSize.Y),
             helpText,
@@ -38,6 +45,15 @@ public class Power
             10,
             true
         );
+
+        buttonHelpNumberOfPower = new Button(
+            new Rectangle(position + new Vector2(powerUseFontSize, -size-helpSize.Y), helpSize.X, helpSize.Y),
+            numberOfPowerUseText,
+            Color,
+            10,
+            true
+        );
+        circleRadius=powerUseFontSize*0.7f;
     }
 
     public void Update()
@@ -54,7 +70,13 @@ public class Power
         {
             isHovered = true;
         }
+        isHoveredNumberOfPower = false;
+        if(Raylib.CheckCollisionPointCircle(GameState.Instance.Mouse.MousePos,circlePosition,circleRadius))
+        {
+            isHoveredNumberOfPower = true;
+        }
         buttonHelp.UpdateText(helpText + $" for {turnInPast} turns");
+        buttonHelpNumberOfPower.UpdateText(numberOfPowerUseText + $"{powerUseLeft} entity to another dimension");
         
     }
     public void Draw()
@@ -62,7 +84,7 @@ public class Power
         Raylib.DrawRectangleRec(Rect, Color);
         Raylib.DrawRectangleLinesEx(Rect,1, Color.Black);
         Sprite.Draw(position,0, Color.White, false);
-        Raylib.DrawCircle((int)position.X, (int)position.Y-size, powerUseFontSize*0.7f, Color.White);
+        Raylib.DrawCircle((int)circlePosition.X, (int)circlePosition.Y, circleRadius, Color);
         Raylib.DrawText($"{powerUseLeft}", (int)(position.X-powerUseLeftLength.X*0.5f), (int)(position.Y-size-powerUseLeftLength.Y*0.5f), powerUseFontSize, Color.Black);
         if (powerUse == maxPowerUse)
         {
@@ -71,6 +93,10 @@ public class Power
         if (isHovered)
         {
             buttonHelp.Draw();
+        }
+        if (isHoveredNumberOfPower)
+        {
+            buttonHelpNumberOfPower.Draw();
         }
         Raylib.DrawText($"{turnInPast}", (int)(position.X-turnInPastLength.X*0.5f), (int)(position.Y-turnInPastLength.Y*0.45f), turnInPastFontSize, Color.Black);
         

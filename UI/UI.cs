@@ -12,9 +12,7 @@ public class UI
             new Vector2(100, GameState.Instance.GameScreenHeight-powerSize*0.5f-10),
             powerSize,
             Power.powerSendToAnotherDimension,
-            "Send Entity to another Dimension",
             new Vector2(250,50),
-            GameState.Instance.MaxElemInPast,
             Color.SkyBlue
             );
     }
