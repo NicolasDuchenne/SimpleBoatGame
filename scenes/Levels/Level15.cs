@@ -7,9 +7,9 @@ public class Level15: SceneGameplay
         gridMapSize=40;
         gridMapRangeSendInPast = 2;
         maxElemInPast = 2;
-        maxTimer = 25;
-        maxMoves = 8;
-        maxSendToPast = 3;
+        maxTimer = 18;
+        maxMoves = 14;
+        maxSendToPast = 4;
         InitLevelScore();
         
     }
@@ -19,13 +19,15 @@ public class Level15: SceneGameplay
         
         jsonMatrix = @"
         [
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ]
+            [71, 0 , 0 , 0 , 31, 0 , 0 , 0 , 71],
+            [0 , 35, 0 , 0 , 0 , 0 , 0 , 35, 0 ],
+            [0 , 31, 0 , 0 , 0 , 0 , 0 , 31, 0 ],
+            [0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 ],
+            [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ],
+            [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ],
+            [31, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 31],
+            [35, 0 , 31, 0 , 0 , 0 , 31, 0 , 35],
+            [0 , 0 , 0 , 71, 31, 71, 0 , 0 , 0 ]
         ]";
         base.Show();       
     }

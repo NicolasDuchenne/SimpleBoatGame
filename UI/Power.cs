@@ -10,8 +10,6 @@ public class Power
     private Vector2 circlePosition;
     private bool isHovered = false;
     private Button buttonHelp;
-    private Button buttonHelpNumberOfPower;
-    private bool isHoveredNumberOfPower=false;
     private int powerUse=0;
     private int maxPowerUse;
     private string powerUseLeft;
@@ -46,13 +44,6 @@ public class Power
             true
         );
 
-        buttonHelpNumberOfPower = new Button(
-            new Rectangle(position + new Vector2(powerUseFontSize, -size-helpSize.Y), helpSize.X, helpSize.Y),
-            numberOfPowerUseText,
-            Color,
-            10,
-            true
-        );
         circleRadius=powerUseFontSize*0.7f;
     }
 
@@ -69,14 +60,15 @@ public class Power
         if (Raylib.CheckCollisionPointRec(GameState.Instance.Mouse.MousePos, Rect))
         {
             isHovered = true;
+            buttonHelp.UpdateText(helpText + $" for {turnInPast} turns");
         }
-        isHoveredNumberOfPower = false;
         if(Raylib.CheckCollisionPointCircle(GameState.Instance.Mouse.MousePos,circlePosition,circleRadius))
         {
-            isHoveredNumberOfPower = true;
+            isHovered = true;
+            buttonHelp.UpdateText(numberOfPowerUseText + $"{powerUseLeft} entity to another dimension");
         }
-        buttonHelp.UpdateText(helpText + $" for {turnInPast} turns");
-        buttonHelpNumberOfPower.UpdateText(numberOfPowerUseText + $"{powerUseLeft} entity to another dimension");
+        
+        
         
     }
     public void Draw()
@@ -93,10 +85,6 @@ public class Power
         if (isHovered)
         {
             buttonHelp.Draw();
-        }
-        if (isHoveredNumberOfPower)
-        {
-            buttonHelpNumberOfPower.Draw();
         }
         Raylib.DrawText($"{turnInPast}", (int)(position.X-turnInPastLength.X*0.5f), (int)(position.Y-turnInPastLength.Y*0.45f), turnInPastFontSize, Color.Black);
         

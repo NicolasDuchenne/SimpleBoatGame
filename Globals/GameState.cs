@@ -103,6 +103,7 @@ public class GameState
 
     public void SetVolume(float volume)
     {
+        volume = Math.Clamp(volume, 0, 1);
         masterVolume = volume;
         Raylib.SetMasterVolume(masterVolume);
     }
@@ -129,6 +130,8 @@ public class GameState
         {
             masterVolume = 0.8f;
         }
+        SetVolume(masterVolume);
+        Console.WriteLine($"master volume {masterVolume}");
         fullScreen = optionsFile.GetOptionBool("fullScreen");
         if (fullScreen)
         {

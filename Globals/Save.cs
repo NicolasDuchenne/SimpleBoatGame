@@ -59,7 +59,7 @@ public class Save
         {
             GameState.Instance.maxCurrentLevel = saveFile.GetOptionInt("maxCurrentLevel");
         }
-        PrintSave();
+        //PrintSave();
     }
     public void SaveGame()
     {

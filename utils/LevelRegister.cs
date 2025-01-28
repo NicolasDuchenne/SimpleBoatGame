@@ -20,6 +20,7 @@ public static class LevelRegister
     static Level15 Level15 = new Level15("15");
     static Level16 Level16 = new Level16("16");
 
+
     public static void Register()
     {
         GameState gameState = GameState.Instance;
