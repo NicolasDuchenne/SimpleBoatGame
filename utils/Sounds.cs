@@ -29,13 +29,13 @@ public class Sounds
 }
 public class Musics
 {
-   public static string ambianceSeaPath = "ressources/Sounds/ambianceMer.wav";
+   public static Music ambianceSeaMusic = Raylib.LoadMusicStream("ressources/Sounds/ambianceMer.wav"); 
    Music music;
 
-   public Musics(string musicPath)
+   public Musics(Music music)
    {
-        music = Raylib.LoadMusicStream(musicPath); 
-        Raylib.PlayMusicStream(music);
+        this.music = music;
+        Raylib.PlayMusicStream(this.music);
    }
 
    public void Update()

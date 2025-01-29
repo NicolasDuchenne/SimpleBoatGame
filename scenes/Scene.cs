@@ -4,7 +4,7 @@ public abstract class Scene
     public string name;
     public string next_scene;
     Water water = new Water();
-    Musics music = new Musics(Musics.ambianceSeaPath);
+    Musics music = new Musics(Musics.ambianceSeaMusic);
 
     public Scene(string scene_name)
     {
