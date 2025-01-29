@@ -35,7 +35,7 @@ public class SlidingBar
 
     private float getPercentage()
     {
-        return  1-(maxValue-SliderValue) / (maxValue - minValue);
+        return  (SliderValue - minValue) / (maxValue - minValue);
     }
     
     public void Update()
@@ -54,8 +54,8 @@ public class SlidingBar
         }
         if (isDragging & Raylib.IsMouseButtonDown(MouseButton.Left))
         {
-            knob.X = Math.Clamp(MousePos.X - (knobWidth / 2), rect.X-knobWidth/2, rect.X + rect.Size.X - knobWidth/2);
-            sliderValue = minValue + 1-(rect.X + rect.Size.X-knob.X-knobWidth/2)/rect.Size.X*(maxValue-minValue);
+            knob.X = Math.Clamp(MousePos.X - (knobWidth / 2), rect.X, rect.X + rect.Size.X - knobWidth);
+            sliderValue = minValue + (knob.X - rect.X) / (rect.Size.X - knobWidth) * (maxValue - minValue);
         }
         else
         {
