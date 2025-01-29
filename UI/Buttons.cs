@@ -54,20 +54,20 @@ public class Button
 
     public void Update()
     {
-            IsClicked = false;
-            if (Raylib.CheckCollisionPointRec(GameState.Instance.Mouse.MousePos, Rect))
+        IsClicked = false;
+        if (Raylib.CheckCollisionPointRec(GameState.Instance.Mouse.MousePos, Rect))
+        {
+            Color = hoveredColor;
+            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
-                Color = hoveredColor;
-                if (Raylib.IsMouseButtonPressed(MouseButton.Left))
-                {
-                    IsClicked = true;
-                    Color = clickedColor;
-                }
+                IsClicked = true;
+                Color = clickedColor;
             }
-            else
-            {
-                Color = OriginalColor;
-            }
+        }
+        else
+        {
+            Color = OriginalColor;
+        }
     }
     public virtual void Draw()
     {

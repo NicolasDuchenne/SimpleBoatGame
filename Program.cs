@@ -29,7 +29,7 @@ public static class RaylibGame
         gameState.SetVirtualGameResolution(gameScreenWidth, gameScreenHeight);
 
         LevelRegister.Register();
-        gameState.changeScene("15");
+        gameState.changeScene("menu");
         
 
         //Services.Get<ISceneManagerService>().Load<TestSceneService>();

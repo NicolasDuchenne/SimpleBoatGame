@@ -3,12 +3,14 @@ using System.Security.AccessControl;
 using Raylib_cs;
 public class SceneOptions : Scene
 {
-    int buttonWidth = 120;
+    int buttonWidth = 140;
     int buttonHeight = 20;
     int buttonSpace = 10;
     Button backButton ;
     Button okButton;
     Button deleteSaveButton;
+    CheckBox fullScreenCheckBox;
+    SlidingBar volumeBar;
     
     private ButtonsList buttonsList = new ButtonsList();
 
@@ -30,10 +32,22 @@ public class SceneOptions : Scene
 
     public SceneOptions(string scene_name): base(scene_name)
     {
-        backButton = new Button(new Rectangle(10, 65, buttonWidth, buttonHeight), "Retour", Color.White, 10, true);
-        okButton = new Button(new Rectangle(10 + (buttonWidth+ buttonSpace), 65, buttonWidth, buttonHeight), "Save options", Color.White, 10, true);
+        backButton = new Button(new Rectangle(10, 80, buttonWidth, buttonHeight), "Retour", Color.White, 10, true);
+        okButton = new Button(new Rectangle(10 + (buttonWidth+ buttonSpace), 80, buttonWidth, buttonHeight), "Apply and Save Options", Color.White, 10, true);
         deleteSaveButton = new Button(new Rectangle(10, GameState.Instance.GameScreenHeight-50, buttonWidth, buttonHeight), "Delete Save", Color.White, 10, true);
-            
+        fullScreenCheckBox = new CheckBox(
+            new Vector2(80, 57),
+            15,
+            GameState.Instance.fullScreen
+        );
+        volumeBar = new SlidingBar(
+            new Vector2(80, 35),
+            100,
+            10,
+            0f,
+            1f,
+            GameState.Instance.masterVolume
+        );
         buttonsList.AddButton(backButton);
         buttonsList.AddButton(okButton);
         buttonsList.AddButton(deleteSaveButton);
@@ -49,21 +63,15 @@ public class SceneOptions : Scene
         Raylib.DrawLine(0,25, screenWidth, 25, Color.Black);
         int percent = (int)(GameState.Instance.masterVolume * 100);
         Raylib.DrawText($"Volume: {percent}%", 10, 35, 10, Color.Black);
-        string bFull = "Non";
-        if (isFullScreen)
-        {
-            bFull = "Vrai";
-        }
-        Raylib.DrawText($"Plein ecran (press F to toggle): {bFull}", 10, 50, 10, Color.Black);
+        Raylib.DrawText($"Plein ecran: ", 10, 60, 10, Color.Black);
+        fullScreenCheckBox.Draw();
         buttonsList.Draw();
-        //Raylib.DrawText(controles, 10, 310, 10, Color.Black);
+        volumeBar.Draw();
         int i = 150;
         foreach (string line in controles)
         {
             Raylib.DrawTextEx(GameState.Instance.customFont, line, new Vector2(10, i), GameState.Instance.customFont.BaseSize, 1, Color.Black);
             i+= GameState.Instance.customFont.BaseSize+2;
-            // Raylib.DrawText(line, 10, i, 15, Color.Black);
-            // i+= 17;
         }
 
         
@@ -74,26 +82,11 @@ public class SceneOptions : Scene
     {
         base.Update();
         buttonsList.Update();
+        volumeBar.Update();
+        GameState.Instance.SetVolume(volumeBar.SliderValue);
 
-        if (Raylib.IsKeyPressed(KeyboardKey.Right))
-        {
-            if (GameState.Instance.masterVolume<1f)
-            {
-                GameState.Instance.SetVolume(GameState.Instance.masterVolume + 0.01f);
-            }
-        }
-        if (Raylib.IsKeyPressed(KeyboardKey.Left))
-        {
-            if (GameState.Instance.masterVolume>0f)
-            {
-                GameState.Instance.SetVolume(GameState.Instance.masterVolume - 0.01f);
-            }
-        }
-        if (Raylib.IsKeyPressed(KeyboardKey.F))
-        {
-            isFullScreen = !isFullScreen;
-            
-        }
+        fullScreenCheckBox.Update();
+        isFullScreen = fullScreenCheckBox.IsValid;
 
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
@@ -106,7 +99,6 @@ public class SceneOptions : Scene
         }
         else if (okButton.IsClicked)
         {
-            
             if (isFullScreen != GameState.Instance.fullScreen)
             {
                 GameState.Instance.fullScreen = isFullScreen;
