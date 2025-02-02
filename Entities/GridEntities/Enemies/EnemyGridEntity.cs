@@ -76,7 +76,7 @@ public class EnemyGridEntity: GridEntity
         }
         if (ShootingColumn < GameState.Instance.GridMap.ColumnNumber & ShootingRow < GameState.Instance.GridMap.RowNumber)
         {
-            Sounds.shootingSound.Play();
+            Sounds.shootingSound.Play(0.8f);
             ProjectileGridEntity projectile =Projectiles.Create(Projectiles.Missile, Column, Row, shootingDirection);
             projectile.Position = shootingPosition;
             projectile.Move(shootingDirection, false);

@@ -199,17 +199,21 @@ public class Tile
         }
         if ((isMousedOver) & (Raylib.IsMouseButtonPressed(MouseButton.Left)) )
         {
-            maxTurnInPast = GameState.Instance.MaxTurnInPast;
-            PastGridEntity = GridEntity;
-            GridEntity.InThePast = true;
-            GridEntity.Sprite.ActivateShader();
-            removeEntity(GridEntity.name);
-            GameState.Instance.elemInPast ++;
-            processPast = true;
-
-            Score.Instance.addSendToPast();
-            
+            SendEnemyToPast();
         }
+    }
+
+    private void SendEnemyToPast()
+    {
+        Sounds.banishSound.Play();
+        maxTurnInPast = GameState.Instance.MaxTurnInPast;
+        PastGridEntity = GridEntity;
+        GridEntity.InThePast = true;
+        GridEntity.Sprite.ActivateShader();
+        removeEntity(GridEntity.name);
+        GameState.Instance.elemInPast ++;
+        processPast = true;
+        Score.Instance.addSendToPast();
     }
 
     public void processPastEntities()
@@ -227,13 +231,7 @@ public class Tile
                     resetPastEntity = true;
                 if (resetPastEntity) 
                 {
-                    PastGridEntity.InThePast = false;
-                    PastGridEntity.Sprite.DeactivateShader();
-                    setEntity(PastGridEntity);
-                    PastGridEntity = null;
-                    turnInPast = 0;
-                    GameState.Instance.elemInPast = 0;
-                    processPast = false;
+                    SendEntityBackToPresent();
                 }
             }
             pastTimer+=Raylib.GetFrameTime();
@@ -245,6 +243,18 @@ public class Tile
             }
         }
         
+    }
+
+    private void SendEntityBackToPresent()
+    {
+        Sounds.banishSoundReversed.Play();
+        PastGridEntity.InThePast = false;
+        PastGridEntity.Sprite.DeactivateShader();
+        setEntity(PastGridEntity);
+        PastGridEntity = null;
+        turnInPast = 0;
+        GameState.Instance.elemInPast = 0;
+        processPast = false;
     }
 
 

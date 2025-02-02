@@ -7,7 +7,7 @@ public class Player
     public static Dictionary<string, object> Boat = new Dictionary<string, object>
     {
         { "texture", boatTexture},
-        { "shader", DistortionShader.shader}
+        { "shader", DistortionShader.shader},
     };
 
     public static void Create(int col , int row)
