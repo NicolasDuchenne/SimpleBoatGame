@@ -40,6 +40,9 @@ public class Score
 
     public Score()
     {
+        StarTimer = starFailed;
+        StarPast = starFailed;
+        StarMoves = starFailed;
     }
 
     public void ResetScore()
