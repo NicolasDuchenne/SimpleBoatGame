@@ -13,7 +13,7 @@ public class Level1:SceneGameplay
         InitLevelScore();
         tutorialButton = new Button(
             new Rectangle(50, 200, 250, 50),
-            $"Left Click on valid entity to send it to\nanother dimension when close enough",
+            $"Left Click on any valid entity to send it to\nanother dimension when close enough",
             Color.White,
             10,
             true);
