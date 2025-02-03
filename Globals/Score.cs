@@ -124,9 +124,9 @@ public class Score
     }
     private float ComputeMeanScore()
     {
-        float meanScoreTimer = Timer/MaxTimer;
-        float meanScoreMoves = Moves/MaxMoves;
-        float meanScorePast = SendToPast/MaxSendToPast;
+        float meanScoreTimer = Timer/Math.Max(1, MaxTimer);
+        float meanScoreMoves = Moves/Math.Max(1, MaxMoves);
+        float meanScorePast = SendToPast/Math.Max(1, MaxSendToPast);
         float meanScore  = (meanScoreTimer + meanScoreMoves + meanScorePast)/3;
         return meanScore;
     }

@@ -12,7 +12,7 @@ public class Level1:SceneGameplay
         maxSendToPast = 1;
         InitLevelScore();
         tutorialButton = new Button(
-            new Rectangle(50, 200, 250, 100),
+            new Rectangle(50, 150, 250, 100),
             $"When close enough, left Click on any valid\nentity to send it to another dimension\n\nWhen an entity comes back it will destroy\nany enemy present at it's location ",
             Color.White,
             10,

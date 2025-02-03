@@ -11,14 +11,14 @@ public class Level2:SceneGameplay
         maxSendToPast = 1;
         InitLevelScore();
         tutorialButton = new Button(
-            new Rectangle(50, 150, 270, 50),
-            $"Press Ctr Left or Alt Right to reduce the\nnumber of turn for send in another dimension",
+            new Rectangle(50, 50, 300, 100),
+            $"Press Ctr Left or Alt Right to reduce the\nnumber of turn for send in another dimension\n\nPress Shift Right or Shift Left to increase the\nnumber of turn for send in another dimension",
             Color.White,
             10,
             true);
         tutorialButton2 = new Button(
-            new Rectangle(50, 210, 270, 50),
-            $"Press Shift Right or Shift Left to increase the\nnumber of turn for send in another dimension",
+            new Rectangle(50, 200, 300, 50),
+            $"Press 1 to 5 to set number of turn\nfor send in another dimension",
             Color.White,
             10,
             true);

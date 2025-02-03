@@ -7,9 +7,9 @@ public class Level12: SceneGameplay
         gridMapSize=40;
         gridMapRangeSendInPast = 2;
         maxElemInPast = 2;
-        maxTimer = 16;
-        maxMoves = 10;
-        maxSendToPast = 3;
+        maxTimer = 10;
+        maxMoves = 6;
+        maxSendToPast = 2;
         InitLevelScore();
         
     }
@@ -21,7 +21,7 @@ public class Level12: SceneGameplay
         [
             [51, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ],
             [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 31, 0 , 0 , 0 , 0 ],
+            [0 , 0 , 0 , 31, 31, 0 , 0 , 0 , 0 ],
             [0 , 31, 23, 23, 23, 23, 23, 31, 0 ],
             [0 , 31, 23, 23, 23, 23, 23, 31, 0 ],
             [0 , 31, 23, 23, 1 , 23, 23, 31, 0 ],

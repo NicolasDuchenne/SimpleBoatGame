@@ -5,11 +5,11 @@ public class Level13: SceneGameplay
     public Level13(string scene_name): base(scene_name)
     {
         gridMapSize=40;
-        gridMapRangeSendInPast = 2;
-        maxElemInPast = 2;
-        maxTimer = 11;
-        maxMoves = 7;
-        maxSendToPast = 2;
+        gridMapRangeSendInPast = 3;
+        maxElemInPast = 3;
+        maxTimer = 28;
+        maxMoves = 12;
+        maxSendToPast = 17;
         InitLevelScore();
         
     }
@@ -19,13 +19,15 @@ public class Level13: SceneGameplay
         
         jsonMatrix = @"
         [
-            [32, 61, 0 , 0 , 0 , 0 , 0 ],
-            [63, 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 1 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 0 , 0 , 0 , 0 ],
-            [0 , 0 , 0 , 23, 0 , 0 , 63],
-            [0 , 0 , 0 , 0 , 0 , 61, 32]
+            [41, 31, 31, 31, 41, 31, 31, 31, 41],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [41, 31, 31, 31, 1 , 31, 31, 31, 41],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [31, 31, 31, 31, 31, 31, 31, 31, 31],
+            [41, 31, 31, 31, 41, 31, 31, 31, 41]
         ]";
         base.Show();       
     }

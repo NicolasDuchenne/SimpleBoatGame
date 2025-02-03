@@ -47,7 +47,7 @@ public class PlayerBoat: GridEntity
     }
     private void UpdateMovement()
     {
-                if ((Raylib.IsKeyDown(KeyboardKey.Right)) ||(Raylib.IsKeyDown(KeyboardKey.D)))
+        if ((Raylib.IsKeyDown(KeyboardKey.Right)) ||(Raylib.IsKeyDown(KeyboardKey.D)))
         {
             direction = new Vector2(1, 0);
         }

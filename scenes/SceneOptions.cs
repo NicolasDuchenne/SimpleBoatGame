@@ -21,10 +21,12 @@ public class SceneOptions : Scene
 "* Down Arrow or S: down",
 "* Left Arrow or Q: left",
 "* Right Arrow or D: right",
-"* Alt Right or Control Left: decrease number of turn for send in past",
-"* Shift Right or Shift Left: increase number of turn for send in past",
+"* 1-5: Set number of turn for send in another dimension",
+"* Alt Right or Control Left: decrease number of turn for send in another dimension",
+"* Shift Right or Shift Left: increase number of turn for send in another dimension",
 "* Left Click: send in past",
 "* R: restart level",
+"* Space: pause level",
 "* Escape: go to main menu"];
 
     
