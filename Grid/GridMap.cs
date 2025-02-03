@@ -253,7 +253,7 @@ public class Tile
         setEntity(PastGridEntity);
         PastGridEntity = null;
         turnInPast = 0;
-        GameState.Instance.elemInPast = 0;
+        GameState.Instance.elemInPast --;
         processPast = false;
     }
 
