@@ -152,6 +152,7 @@ public class SceneGameplay : Scene
         gridMap = levelCreator.Create(gridMapSize, gridMapRangeSendInPast);
         Score.Instance.InitScore(maxTimer, maxMoves, maxSendToPast);
         GameState.Instance.MaxElemInPast = maxElemInPast;
+        timer = 0;
         
     }
 }
