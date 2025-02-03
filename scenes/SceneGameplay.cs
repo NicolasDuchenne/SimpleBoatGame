@@ -93,14 +93,6 @@ public class SceneGameplay : Scene
 #if DEBUG
         GameState.Instance.debugMagic.AddOption("timer", timer);
 #endif
-        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
-        {
-            scenesManager.changeScene("menu");
-        }
-        if (Raylib.IsKeyPressed(KeyboardKey.R))
-        {
-            scenesManager.changeScene(name);
-        }
         Entity.UpdateAll();
         gridMap.Update();
         GameState.Instance.debugMagic.AddOption("Enemy Number", GameState.Instance.enemyNumber);
@@ -124,6 +116,14 @@ public class SceneGameplay : Scene
     public override void Update()
     {
         base.Update();
+        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+        {
+            scenesManager.changeScene("menu");
+        }
+        if (Raylib.IsKeyPressed(KeyboardKey.R))
+        {
+            scenesManager.changeScene(name);
+        }
         if(isPaused)
             UpdatePause();
         else
@@ -153,6 +153,7 @@ public class SceneGameplay : Scene
         Score.Instance.InitScore(maxTimer, maxMoves, maxSendToPast);
         GameState.Instance.MaxElemInPast = maxElemInPast;
         timer = 0;
+        isPaused=false;
         
     }
 }
