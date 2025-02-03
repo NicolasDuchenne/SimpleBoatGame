@@ -5,11 +5,13 @@ public abstract class Scene
     public string next_scene;
     Water water = new Water();
     Musics music = new Musics(Musics.ambianceSeaMusic);
+    public SceneManager scenesManager;
 
     public Scene(string scene_name)
     {
         name = scene_name;
         nombreDeScene++;
+        scenesManager = Services.Get<SceneManager>();
     }
     public virtual void Show()
     {

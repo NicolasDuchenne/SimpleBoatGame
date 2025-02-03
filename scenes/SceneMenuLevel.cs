@@ -30,18 +30,18 @@ public class SceneMenuLevel : Scene
         backButton.Update();
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
-            GameState.Instance.changeScene("menu");
+            scenesManager.changeScene("menu");
         }
         for (int i=0; i<levelButtonsList.buttons.Count(); i++)
         {
             if (levelButtonsList.buttons[i].IsClicked)
             {
-                GameState.Instance.changeScene((i+1).ToString());
+                scenesManager.changeScene((i+1).ToString());
             }
         } 
         if  (backButton.IsClicked)
         {
-            GameState.Instance.changeScene("menu");
+            scenesManager.changeScene("menu");
         }
         
     }

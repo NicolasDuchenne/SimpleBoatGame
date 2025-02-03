@@ -95,11 +95,11 @@ public class SceneGameplay : Scene
 #endif
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
-            GameState.Instance.changeScene("menu");
+            scenesManager.changeScene("menu");
         }
         if (Raylib.IsKeyPressed(KeyboardKey.R))
         {
-            GameState.Instance.changeScene(name);
+            scenesManager.changeScene(name);
         }
         Entity.UpdateAll();
         gridMap.Update();

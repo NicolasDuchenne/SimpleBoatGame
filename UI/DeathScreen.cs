@@ -28,7 +28,7 @@ public class DeathScreen
             if (restartButton.IsClicked)
             {
                 GameState.Instance.playerDead=false;
-                GameState.Instance.changeScene(CurrentLevel);
+                Services.Get<SceneManager>().changeScene(CurrentLevel);
             }
         }
         

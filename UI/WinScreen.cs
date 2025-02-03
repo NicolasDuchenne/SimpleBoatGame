@@ -47,11 +47,11 @@ public class WinScreen
 
             if (changeLevel.IsClicked)
             {
-                GameState.Instance.changeScene(nextLevel);
+                Services.Get<SceneManager>().changeScene(nextLevel);
             }
             else if (restartLevel.IsClicked)
             {
-                GameState.Instance.changeScene(currentLevel);
+                Services.Get<SceneManager>().changeScene(currentLevel);
             }
         }
         

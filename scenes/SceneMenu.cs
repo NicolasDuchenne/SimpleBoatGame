@@ -38,15 +38,15 @@ public class SceneMenu : Scene
         GameState.Instance.debugMagic.AddOption("current level", GameState.Instance.currentLevel);
         if (resumeButton.IsClicked)
         {
-            GameState.Instance.changeScene(GameState.Instance.maxCurrentLevel.ToString());
+            scenesManager.changeScene(GameState.Instance.maxCurrentLevel.ToString());
         }
         else if (choseButton.IsClicked)
         {
-            GameState.Instance.changeScene("menuLevel");
+            scenesManager.changeScene("menuLevel");
         }
         else if  (optionsButton.IsClicked)
         {
-            GameState.Instance.changeScene("options");
+            scenesManager.changeScene("options");
         }
 
         else if  (quitButton.IsClicked)

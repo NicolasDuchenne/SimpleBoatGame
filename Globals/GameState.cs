@@ -1,11 +1,7 @@
-using System.Diagnostics;
-using System.Numerics;
 using Raylib_cs;
 
 public class GameState
 {
-    private Scene? currentScene;
-
     private static GameState? instance;
     public static GameState Instance
     {
@@ -28,7 +24,6 @@ public class GameState
 
     public Mouse Mouse = new Mouse();
 
-    private Dictionary<string, Scene> scenes;
 
     public DebugMagic debugMagic = new DebugMagic();
 
@@ -114,7 +109,6 @@ public class GameState
         ecran = Raylib.GetCurrentMonitor();
         monitorWidth = Raylib.GetMonitorWidth(ecran);
         monitorHeight = Raylib.GetMonitorHeight(ecran);
-        scenes = new Dictionary<string, Scene>();
         LoadOptions();
     }
     private void LoadOptions()
@@ -157,67 +151,5 @@ public class GameState
             Raylib.ClearWindowState(ConfigFlags.UndecoratedWindow);
             Raylib.SetWindowState(ConfigFlags.ResizableWindow);
         } 
-    }
-    public void RegisterScene(Scene scene, string next_scene="")
-    {
-        scenes[scene.name] = scene;
-        if (next_scene!="")
-            scene.next_scene = next_scene;
-    }
-
-    public void RemoveScene(string name)
-    {
-        if (scenes.ContainsKey(name))
-        {
-            scenes[name].Close();
-            scenes.Remove(name);
-        }
-    }
-
-    public void changeScene(string name)
-    {
-        if (scenes.ContainsKey(name))
-        {
-            if (currentScene is not null)
-                currentScene.Hide();
-            currentScene = scenes[name];
-            currentScene.Show();
-        }
-        else
-        {
-            string error = $"Scene {name} non trouvé dans le dictionnaire";
-            Debug.WriteLine(error);
-            throw new Exception(error);
-        }
-        
-    }
-
-    
-
-    
-    public void Update()
-    {
-        Mouse.Update();
-        ChangeAspectRatio();
-        
-        currentScene?.Update(); // put the ? to signify that we know that it could be null
-        debugMagic.Update();
-        GameState.Instance.debugMagic.AddOption("max current level", GameState.Instance.maxCurrentLevel);
-    }
-    public void Draw()
-    {
-        currentScene.Draw();
-#if DEBUG
-        debugMagic.Draw();
-#endif
-    }
-
-    public void Close()
-    {
-        //foreach(KeyValuePair<string, Scene> item in scenes)
-        foreach(var item in scenes)
-        {
-            item.Value.Close();
-        }
     }
 }

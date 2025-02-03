@@ -92,12 +92,12 @@ public class SceneOptions : Scene
 
         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
         {
-            GameState.Instance.changeScene("menu");
+            scenesManager.changeScene("menu");
         }
 
         if  (backButton.IsClicked)
         {
-            GameState.Instance.changeScene("menu");
+            scenesManager.changeScene("menu");
         }
         else if (okButton.IsClicked)
         {

@@ -23,26 +23,26 @@ public static class LevelRegister
 
     public static void Register()
     {
-        GameState gameState = GameState.Instance;
-        gameState.RegisterScene(sceneMenu);
-        gameState.RegisterScene(sceneMenuLevel);
-        gameState.RegisterScene(sceneOptions);
-        gameState.RegisterScene(Level1, "2");
-        gameState.RegisterScene(Level2, "3");
-        gameState.RegisterScene(Level3, "4");
-        gameState.RegisterScene(Level4, "5");
-        gameState.RegisterScene(Level5, "6");
-        gameState.RegisterScene(Level6, "7");
-        gameState.RegisterScene(Level7, "8");
-        gameState.RegisterScene(Level8, "9");
-        gameState.RegisterScene(Level9, "10");
-        gameState.RegisterScene(Level10, "11");
-        gameState.RegisterScene(Level11, "12");
-        gameState.RegisterScene(Level12, "13");
-        gameState.RegisterScene(Level13, "14");
-        gameState.RegisterScene(Level14, "15");
-        gameState.RegisterScene(Level15, "16");
-        gameState.RegisterScene(Level16, "menu");
+        SceneManager scenesManager = Services.Get<SceneManager>();
+        scenesManager.RegisterScene(sceneMenu);
+        scenesManager.RegisterScene(sceneMenuLevel);
+        scenesManager.RegisterScene(sceneOptions);
+        scenesManager.RegisterScene(Level1, "2");
+        scenesManager.RegisterScene(Level2, "3");
+        scenesManager.RegisterScene(Level3, "4");
+        scenesManager.RegisterScene(Level4, "5");
+        scenesManager.RegisterScene(Level5, "6");
+        scenesManager.RegisterScene(Level6, "7");
+        scenesManager.RegisterScene(Level7, "8");
+        scenesManager.RegisterScene(Level8, "9");
+        scenesManager.RegisterScene(Level9, "10");
+        scenesManager.RegisterScene(Level10, "11");
+        scenesManager.RegisterScene(Level11, "12");
+        scenesManager.RegisterScene(Level12, "13");
+        scenesManager.RegisterScene(Level13, "14");
+        scenesManager.RegisterScene(Level14, "15");
+        scenesManager.RegisterScene(Level15, "16");
+        scenesManager.RegisterScene(Level16, "menu");
         Save.Instance.LoadSave(); // Must always be after scene creation for the score system to work
     }
 }
