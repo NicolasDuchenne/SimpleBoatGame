@@ -63,9 +63,6 @@ Certaines entités ont la capacité de **pousser** d'autres entités. Dans ce ca
 
 Pour rendre les mouvements plus fluides, la fonction **`move`** met à jour une **position cible** (*target position*).  
 Le déplacement ainsi que la gestion des collisions sont ensuite effectués dans la boucle **`update`**.
-La majorité de l'intelligence est comprise dans ces deux fonctions. 
-Le reste est compris dans la gestion de l'envoie dans une autre dimension
-
 
 ### Service Locator
 Le service locator est utilisé pour stocker et récuperer le scene manager a chaque fois qu'on en a besoin. 
